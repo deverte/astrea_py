@@ -1,0 +1,11 @@
+/.venv
+/build
+/dist
+/CMakeUserPresets.json
+
+*.so
+*.dll
+
+*.ipynb_checkpoints
+*.egg-info
+*__pycache__
