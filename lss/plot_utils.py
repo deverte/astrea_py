@@ -1,4 +1,4 @@
-from .transition import Transition
+from lss.transition import Transition
 
 
 def plot_title(transitions_types):

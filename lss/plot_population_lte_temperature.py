@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from .calculate_populations_lte import calculate_populations_lte
-from . import plot_utils
+from lss import plot_utils
+from lss.calculate_populations_lte import calculate_populations_lte
 
 
 def plot_population_lte_temperature(

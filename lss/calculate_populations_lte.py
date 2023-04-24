@@ -1,6 +1,6 @@
 import numpy as np
 
-from . import lss_py
+from lss.lss_py import lte_population
 
 
 def calculate_populations_lte(
@@ -13,7 +13,7 @@ def calculate_populations_lte(
         (len(temperatures), sum([len(el.keys) for el in elements]))
     )
     for i, _ in enumerate(temperatures):
-        populations_lte[i] = lss_py.lte_population(
+        populations_lte[i] = lte_population(
             elements,
             temperatures[i],
             electron_temperatures[i],

@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from .calculate_b_factors import calculate_b_factors
-from . import plot_utils
+from lss import plot_utils
+from lss.calculate_b_factors import calculate_b_factors
 
 
 def plot_b_factor_temperature(

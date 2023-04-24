@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from .calculate_populations_nlte import calculate_populations_nlte
-from . import plot_utils
+from lss import plot_utils
+from lss.calculate_populations_nlte import calculate_populations_nlte
 
 
 def plot_population_nlte_electron_number_density(

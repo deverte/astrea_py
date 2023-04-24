@@ -1,7 +1,7 @@
 import numpy as np
 
-from .calculate_populations_nlte import calculate_populations_nlte
-from .calculate_populations_lte import calculate_populations_lte
+from lss.calculate_populations_nlte import calculate_populations_nlte
+from lss.calculate_populations_lte import calculate_populations_lte
 
 
 def calculate_b_factors(

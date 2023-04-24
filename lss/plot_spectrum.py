@@ -1,7 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from . import lss_py
+from lss.lss_py import BlackBodyPlanck
+from lss.lss_py import SunGueymard
+from lss.lss_py import Kelt9Fossati
 
 
 def plot_spectrum(spectrum, wavelengths = None):
@@ -13,15 +15,15 @@ def plot_spectrum(spectrum, wavelengths = None):
 
     spectral_flux_densities = np.array([spectrum(l) for l in wavelengths])
 
-    if isinstance(spectrum, lss_py.BlackBodyPlanck):
+    if isinstance(spectrum, BlackBodyPlanck):
         title = (
             f"Black Body (Planck) "
             f"({spectrum.temperature} $K$, "
             f"{spectrum.total_area} $W \cdot m^{{-2}}$)"
         )
-    if isinstance(spectrum, lss_py.SunGueymard):
+    if isinstance(spectrum, SunGueymard):
         title = f"Sun (Gueymard)"
-    if isinstance(spectrum, lss_py.Kelt9Fossati):
+    if isinstance(spectrum, Kelt9Fossati):
         title = "Kelt 9 (Fossati)"
 
     plt.plot(wavelengths, spectral_flux_densities)

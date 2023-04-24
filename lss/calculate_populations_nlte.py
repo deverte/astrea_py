@@ -1,8 +1,7 @@
 import numpy as np
 
-from . import lss_py
-
-from .calculate_rates_matrix import calculate_rates_matrix
+from lss.lss_py import nlte_population
+from lss.calculate_rates_matrix import calculate_rates_matrix
 
 
 def calculate_populations_nlte(
@@ -32,7 +31,7 @@ def calculate_populations_nlte(
             optical_depth=optical_depth,
             transitions_types=transitions_types,
         )
-        population_nlte_2 = lss_py.nlte_population(
+        population_nlte_2 = nlte_population(
             population_nlte_2,
             delta_time,
             rates_matrix,
