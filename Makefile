@@ -1,5 +1,5 @@
-project = "lss_py"
-version = 0.1.0
+export project = lss_py
+export version = 0.1.4
 
 
 .PHONY: install_dev

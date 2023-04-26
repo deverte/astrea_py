@@ -11,6 +11,7 @@ def plot_population_lte_temperature(
     electron_number_density = 0.0,
     legend_1_loc = 'lower right',
     legend_2_loc = 'lower left',
+    highlight_keys = [],
 ):
     count = temperatures.shape[0]
 
@@ -27,8 +28,21 @@ def plot_population_lte_temperature(
 
     fig, ax = plt.subplots()
 
+    default_params = {
+        "linewidth": 1.5,
+        "color": plt.rcParams['axes.prop_cycle'].by_key()['color'][0],
+        "zorder": 1,
+    }
+    highlight_params = {
+        "linewidth": 3.0,
+        "color": plt.rcParams['axes.prop_cycle'].by_key()['color'][1],
+        "zorder": 2,
+    }
     for s, element in enumerate(elements):
         for i, key in enumerate(element.keys):
+            params = default_params
+            if key in highlight_keys:
+                params = highlight_params
             plt.plot(
                 temperatures,
                 populations_lte
@@ -37,6 +51,7 @@ def plot_population_lte_temperature(
                     f"{key}, "
                     f"{'{:.1f}'.format(element.levels[i].ionization_energy)} eV"
                 ),
+                **params,
             )
 
     title = "LTE"
@@ -56,13 +71,15 @@ def plot_population_lte_temperature(
     plt.yscale("log")
     plt.xlabel("Temperature, $K$")
     plt.ylabel("Electron population, $1$")
-    plt.legend(loc=legend_1_loc)
-    plt.text(
-        legend_2_loc_x,
-        legend_2_loc_y,
-        "\n".join(info),
-        transform = ax.transAxes,
-        bbox={'facecolor': 'white', 'alpha': 0.8, 'edgecolor': (0.8, 0.8, 0.8)}
-    )
+    if legend_1_loc:
+        plt.legend(loc=legend_1_loc)
+    if legend_2_loc:
+        plt.text(
+            legend_2_loc_x,
+            legend_2_loc_y,
+            "\n".join(info),
+            transform = ax.transAxes,
+            bbox={'facecolor': 'white', 'alpha': 0.8, 'edgecolor': (0.8, 0.8, 0.8)}
+        )
     plt.grid()
     plt.show()

@@ -13,7 +13,9 @@ def plot_spectrum(spectrum, wavelengths = None):
             spectrum.max_wavelength,
         )
 
-    spectral_flux_densities = np.array([spectrum(l) for l in wavelengths])
+    spectral_flux_densities = np.array([
+        spectrum.spectral_irradiance(l) for l in wavelengths
+    ])
 
     if isinstance(spectrum, BlackBodyPlanck):
         title = (
@@ -25,6 +27,7 @@ def plot_spectrum(spectrum, wavelengths = None):
         title = f"Sun (Gueymard)"
     if isinstance(spectrum, Kelt9Fossati):
         title = "Kelt 9 (Fossati)"
+    title += f" at ${spectrum.distance}$ $au$"
 
     plt.plot(wavelengths, spectral_flux_densities)
     plt.title(title)

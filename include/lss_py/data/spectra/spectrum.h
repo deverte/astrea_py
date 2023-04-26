@@ -19,13 +19,20 @@ class PySpectrum : public lss::Spectrum {
  public:
   using lss::Spectrum::Spectrum;
 
-  double operator()(double wavelength) override {
-    PYBIND11_OVERRIDE_PURE_NAME(
+  double distance() override {
+    PYBIND11_OVERRIDE_PURE(
       double,
       lss::Spectrum,
-      "__call__",
-      operator(),
-      wavelength
+      distance
+    );
+  }
+
+  void distance(double value) override {
+    PYBIND11_OVERRIDE_PURE(
+      void,
+      lss::Spectrum,
+      distance,
+      value
     );
   }
 
@@ -44,6 +51,15 @@ class PySpectrum : public lss::Spectrum {
       min_wavelength
     );
   }
+
+  double spectral_irradiance(double wavelength) override {
+    PYBIND11_OVERRIDE_PURE(
+      double,
+      lss::Spectrum,
+      spectral_irradiance,
+      wavelength
+    );
+  }
 };
 
 
@@ -53,7 +69,11 @@ inline void Spectrum(py::module_& m) {
 
   spectrum.def(py::init<>());
 
-  spectrum.def("__call__", &lss::Spectrum::operator());
+  spectrum.def_property(
+    "distance",
+    py::overload_cast<>(&lss::Spectrum::distance),
+    py::overload_cast<double>(&lss::Spectrum::distance)
+  );
 
   spectrum.def_property_readonly(
     "max_wavelength",
@@ -64,6 +84,8 @@ inline void Spectrum(py::module_& m) {
     "min_wavelength",
     &lss::Spectrum::min_wavelength
   );
+
+  spectrum.def("spectral_irradiance", &lss::Spectrum::spectral_irradiance);
 }
 
 
