@@ -8,7 +8,6 @@ from lss.lss_py import cti_arnaud_rates
 from lss.lss_py import ctr_arnaud_rates
 from lss.lss_py import dr_badnell_rates
 from lss.lss_py import pi_mashonkina_o1_rates
-from lss.lss_py import pi_tasitsiomi_rates
 from lss.lss_py import se_nist_o1_rates
 from lss.lss_py import rbb_mashonkina_doppler_o1_rates
 from lss.lss_py import rbb_mashonkina_voigt_o1_rates
@@ -85,14 +84,6 @@ def calculate_rates_matrix(
             elements,
             spectrum,
             optical_depth,
-        )
-    if Transition.PI_TASITSIOMI in transitions_types:
-        rates_matrix += pi_tasitsiomi_rates(
-            elements,
-            spectrum,
-            optical_depth,
-            temperature,
-            se_nist_o1_rates(elements),
         )
     if Transition.RBB_MASHONKINA_DOPPLER_O1 in transitions_types:
         rates_matrix += rbb_mashonkina_doppler_o1_rates(elements)

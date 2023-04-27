@@ -17,47 +17,47 @@ namespace py = pybind11;
 namespace lss_py {
 
 
-inline void Level(py::module_& m) {
-  py::class_<lss::Level> level(m, "Level");
+inline void ILevel(py::module_& m) {
+  py::class_<lss::ILevel> ilevel(m, "ILevel");
 
-  level.def_readonly(
+  ilevel.def_readonly(
     "term",
-    &lss::Level::term
+    &lss::ILevel::term
   );
 
-  // level.def_readonly(
+  // ilevel.def_readonly(
   //   "limit_term",
-  //   &lss::Level::limit_term
+  //   &lss::ILevel::limit_term
   // );
 
-  // level.def_readonly(
+  // ilevel.def_readonly(
   //   "ground_state_term",
-  //   &lss::Level::ground_state_term
+  //   &lss::ILevel::ground_state_term
   // );
 
-  // level.def_readonly(
+  // ilevel.def_readonly(
   //   "principal_quantum_number",
-  //   &lss::Level::principal_quantum_number
+  //   &lss::ILevel::principal_quantum_number
   // );
 
-  // level.def_readonly(
+  // ilevel.def_readonly(
   //   "statistical_weight",
-  //   &lss::Level::statistical_weight
+  //   &lss::ILevel::statistical_weight
   // );
 
-  level.def_readonly(
+  ilevel.def_readonly(
     "energy",
-    &lss::Level::energy
+    &lss::ILevel::energy
   );
 
-  level.def_readonly(
+  ilevel.def_readonly(
     "ionization_energy",
-    &lss::Level::ionization_energy
+    &lss::ILevel::ionization_energy
   );
 
-  // level.def_readonly(
+  // ilevel.def_readonly(
   //   "ionization_stage",
-  //   &lss::Level::ionization_stage
+  //   &lss::ILevel::ionization_stage
   // );
 }
 
@@ -66,35 +66,11 @@ class PyElement : public lss::Element {
  public:
   using lss::Element::Element;
 
-  const std::vector<lss::Level>& all_levels() override {
+  const lss::IElement& resource() override {
     PYBIND11_OVERRIDE_PURE(
-      const std::vector<lss::Level>&,
+      const lss::IElement&,
       lss::Element,
-      all_levels
-    );
-  }
-
-  const double atomic_number() override {
-    PYBIND11_OVERRIDE_PURE(
-      const double,
-      lss::Element,
-      atomic_number
-    );
-  }
-
-  const double ionization_stage() override {
-    PYBIND11_OVERRIDE_PURE(
-      const double,
-      lss::Element,
-      ionization_stage
-    );
-  }
-
-  const double mass() override {
-    PYBIND11_OVERRIDE_PURE(
-      const double,
-      lss::Element,
-      mass
+      resource
     );
   }
 };
@@ -112,6 +88,21 @@ inline void Element(py::module_& m) {
     nullptr
   );
 
+  element.def_property_readonly(
+    "all_levels",
+    &lss::Element::all_levels
+  );
+
+  element.def_property_readonly(
+    "atomic_number",
+    &lss::Element::atomic_number
+  );
+
+  element.def_property_readonly(
+    "ionization_stage",
+    &lss::Element::ionization_stage
+  );
+
   element.def_property(
     "keys",
     py::overload_cast<>(&lss::Element::keys),
@@ -122,6 +113,11 @@ inline void Element(py::module_& m) {
     "levels",
     &lss::Element::levels,
     nullptr
+  );
+
+  element.def_property_readonly(
+    "mass",
+    &lss::Element::mass
   );
 }
 

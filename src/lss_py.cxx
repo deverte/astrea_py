@@ -7,7 +7,7 @@ PYBIND11_MODULE(lss_py, m) {
   lss_py::lte_population(m);
   lss_py::nlte_population(m);
 
-  lss_py::Level(m);
+  lss_py::ILevel(m);
   lss_py::Element(m);
   lss_py::H1(m);
   lss_py::H2(m);
@@ -29,7 +29,6 @@ PYBIND11_MODULE(lss_py, m) {
   lss_py::ctr_arnaud_rates(m);
   lss_py::dr_badnell_rates(m);
   lss_py::pi_mashonkina_o1_rates(m);
-  lss_py::pi_tasitsiomi_rates(m);
   lss_py::rbb_mashonkina_doppler_o1_rates(m);
   lss_py::rbb_mashonkina_voigt_o1_rates(m);
   lss_py::rbb_tasitsiomi_rates(m);

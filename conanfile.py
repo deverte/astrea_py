@@ -17,9 +17,6 @@ class LssPy(ConanFile):
     exports_sources = "CMakeLists.txt", "src/*", "include/*"
 
     def requirements(self):
-        self.requires("boost/1.81.0", override=True)
-        self.requires("eigen/3.4.0", override=True)
-        self.requires("libinterpolate/2.6.2")
         self.requires(f"lss/{version}")
         self.requires("pybind11/2.10.1")
 
