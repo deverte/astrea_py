@@ -34,8 +34,6 @@ def calculate_b_factors(
     populations_lte = calculate_populations_lte(
         elements,
         temperatures,
-        electron_temperatures,
-        electron_number_densities,
     )
     for i, _ in enumerate(temperatures):
         b_factors[i] = populations_nlte[i] / populations_lte[i]

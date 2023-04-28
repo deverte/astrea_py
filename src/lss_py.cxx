@@ -4,7 +4,8 @@
 
 
 PYBIND11_MODULE(lss_py, m) {
-  lss_py::lte_population(m);
+  lss_py::lte_boltzmann_population(m);
+  lss_py::lte_boltzmann_saha_population(m);
   lss_py::nlte_population(m);
 
   lss_py::ILevel(m);
