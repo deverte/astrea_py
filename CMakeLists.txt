@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.4...3.18)
-project(lss_py LANGUAGES CXX)
+project(lss_py)
 
 find_package(Boost COMPONENTS math REQUIRED)
 find_package(Eigen3)

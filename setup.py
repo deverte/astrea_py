@@ -1,29 +1,35 @@
-import pathlib
-import setuptools
+import os
 import shutil
+import subprocess
+from pathlib import Path
+
+from setuptools import Extension, setup
+from setuptools.command.build_ext import build_ext
 
 
-__version__ = '0.1.0'
+class CMakeExtension(Extension):
+    def __init__(self, name: str, sourcedir: str = "") -> None:
+        super().__init__(name, sources=[])
+        self.sourcedir = os.fspath(Path(sourcedir).resolve())
 
 
-package_path = pathlib.Path('lss')
+class CMakeBuild(build_ext):
+    def build_extension(self, ext: CMakeExtension) -> None:
+        ext_fullpath = Path.cwd() / self.get_ext_fullpath(ext.name)
+        extdir = ext_fullpath.parent
+        if not extdir.exists():
+            extdir.mkdir(parents=True)
 
-shared_object = []
-shared_object.extend([
-    *pathlib.Path('build/Release').glob('lss_py*.so'),
-    *pathlib.Path('build/Release').glob('lss_py*.dll'),
-])
-shared_object = shared_object[0]
+        subprocess.run(["conan", "install", ".", "--build=missing"])
+        subprocess.run(["conan", "build", "."])
 
-shutil.copy(shared_object, package_path / shared_object.name)
+        shutil.move(
+            Path.cwd() / 'build/Release/' / self.get_ext_filename(ext.name),
+            ext_fullpath
+        )
 
 
-setuptools.setup(
-    name='lss',
-    version=__version__,
-    packages=['lss'],
-    package_data={
-        'lss': ['lss_py*.so', 'lss_py*.dll'],
-    },
-    include_package_data=True,
+setup(
+    ext_modules=[CMakeExtension("lss_py")],
+    cmdclass={"build_ext": CMakeBuild},
 )

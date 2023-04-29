@@ -1,6 +1,5 @@
 {
     "recommendations": [
-        "ms-vscode.cpptools",
-        "mesonbuild.mesonbuild"
+        "ms-vscode.cpptools"
     ]
 }
