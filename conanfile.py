@@ -13,7 +13,7 @@ version = config["metadata"]["version"]
 project = config["metadata"]["name"]
 
 
-class LssPy(ConanFile):
+class AstreaPy(ConanFile):
     name = project
     version = version
     settings = "os", "compiler", "build_type", "arch"
@@ -22,7 +22,7 @@ class LssPy(ConanFile):
 
     def requirements(self):
         self.requires("eigen/3.4.0", force=True)
-        self.requires(f"lss/{version}")
+        self.requires(f"astrea/{version}")
         self.requires("pybind11/2.10.1")
 
     def layout(self):

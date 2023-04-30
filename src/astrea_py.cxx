@@ -1,0 +1,40 @@
+#include <pybind11/pybind11.h>
+
+#include <astrea_py/astrea_py.h>
+
+
+PYBIND11_MODULE(astrea_py, m) {
+  astrea_py::lte_boltzmann_population(m);
+  astrea_py::lte_boltzmann_saha_population(m);
+  astrea_py::nlte_population(m);
+
+  astrea_py::ILevel(m);
+  astrea_py::Element(m);
+  astrea_py::H1(m);
+  astrea_py::H2(m);
+  astrea_py::He1(m);
+  astrea_py::He2(m);
+  astrea_py::O1Mashonkina(m);
+  astrea_py::O2Mashonkina(m);
+
+  astrea_py::Spectrum(m);
+  astrea_py::BlackBodyPlanck(m);
+  astrea_py::Kelt9Fossati(m);
+  astrea_py::SunGueymard(m);
+
+  astrea_py::cbb_mashonkina_o1_rates(m);
+  astrea_py::cbb_regemorter_rates(m);
+  astrea_py::ci_arnaud_younger_rates(m);
+  astrea_py::ci_hahn_rates(m);
+  astrea_py::cti_arnaud_rates(m);
+  astrea_py::ctr_arnaud_rates(m);
+  astrea_py::dr_badnell_rates(m);
+  astrea_py::pi_mashonkina_o1_rates(m);
+  astrea_py::rbb_mashonkina_doppler_o1_rates(m);
+  astrea_py::rbb_mashonkina_voigt_o1_rates(m);
+  astrea_py::rbb_tasitsiomi_rates(m);
+  astrea_py::rr_badnell_verner_rates(m);
+  astrea_py::rr_seaton_rates(m);
+  astrea_py::se_nist_o1_rates(m);
+  astrea_py::tbr_hahn_rates(m);
+}

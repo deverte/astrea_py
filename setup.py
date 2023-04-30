@@ -30,6 +30,6 @@ class CMakeBuild(build_ext):
 
 
 setup(
-    ext_modules=[CMakeExtension("lss_py")],
+    ext_modules=[CMakeExtension("astrea_py")],
     cmdclass={"build_ext": CMakeBuild},
 )

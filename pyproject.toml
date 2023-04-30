@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "lss_py"
+name = "astrea_py"
 version = "0.0.0"
 description = ""
 authors = ["Artem Shepelin <4.shepelin@gmail.com>"]
