@@ -1,6 +1,6 @@
 [settings]
 arch=x86_64
 build_type=Release
-compiler=Visual Studio
+compiler=msvc
 compiler.version=16
 os=Windows
