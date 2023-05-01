@@ -9,3 +9,4 @@ build:
 .PHONY: publish
 publish:
 	git tag -a v${version} -m "Release v${version}"
+	git push origin --tags
