@@ -6,6 +6,7 @@ authors = ["Artem Shepelin <4.shepelin@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+twine = "^4.0.2"
 
 
 [build-system]

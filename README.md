@@ -9,32 +9,8 @@ transfer ionization-recombination, and spontaneous emission.
 
 ## Installation
 
-### On Linux X86-64 Python 3.10
-
 ```sh
-pip install --index-url https://gitea.zarux.ru/api/packages/astro/pypi/simple astrea-py
-```
-
-### Other
-
-Install build dependencies, add Conan repo
-
-```sh
-pip install conan
-conan profile detect
-conan remote add astro https://gitea.zarux.ru/api/packages/astro/conan
-```
-
-Install Conan dependencies (optionally):
-
-```sh
-conan install --remote=astro --requires=astrea/<VERSION> -s:h compiler.cppstd=17 --build=missing
-```
-
-Install:
-
-```sh
-pip install git+https://gitea.zarux.ru/astro/astrea_py
+pip install astrea-py
 ```
 
 ## License
