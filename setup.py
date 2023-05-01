@@ -31,6 +31,12 @@ class CMakeBuild(build_ext):
 
         subprocess.run([
             "conan",
+            "config",
+            "install",
+            "./remotes.json",
+        ])
+        subprocess.run([
+            "conan",
             "install",
             ".",
             "--build=missing",
