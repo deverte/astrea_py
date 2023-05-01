@@ -1,4 +1,5 @@
 import os
+import platform
 import shutil
 import subprocess
 from pathlib import Path
@@ -20,8 +21,27 @@ class CMakeBuild(build_ext):
         if not extdir.exists():
             extdir.mkdir(parents=True)
 
-        subprocess.run(["conan", "install", ".", "--build=missing"])
-        subprocess.run(["conan", "build", "."])
+        profile = None
+        if platform.system() == "Linux":
+            profile = Path.cwd() / "profiles/linux_x86_64"
+        elif platform.system() == "Darwin":
+            profile = Path.cwd() / "profiles/mac_x86_64"
+        elif platform.system() == "Windows":
+            profile = Path.cwd() / "profiles/windows_x86_64"
+
+        subprocess.run([
+            "conan",
+            "install",
+            ".",
+            "--build=missing",
+            f"--profile={str(profile.resolve())}",
+        ])
+        subprocess.run([
+            "conan",
+            "build",
+            ".",
+            f"--profile={str(profile.resolve())}",
+        ])
 
         shutil.move(
             Path.cwd() / 'build/Release/' / self.get_ext_filename(ext.name),
