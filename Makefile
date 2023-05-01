@@ -1,8 +1,11 @@
+version = 0.2.0 # setup.cfg
+
+
 .PHONY: build
 build:
-	poetry run python setup.py sdist bdist_wheel
+	poetry run python setup.py bdist_wheel
 
 
 .PHONY: publish
 publish:
-	python -m twine upload --repository astro ./dist/*
+	git tag -a v${version} -m "Release v${version}"
