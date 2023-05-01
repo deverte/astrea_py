@@ -39,6 +39,7 @@ class ConanCMakeBuild(build_ext):
             "conan",
             "install",
             ".",
+            "--build",
             # "--build=missing",
             f"--profile:host={str(profile.resolve())}",
             f"--profile:build={str(profile.resolve())}",
