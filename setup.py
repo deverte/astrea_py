@@ -34,13 +34,13 @@ class CMakeBuild(build_ext):
             "install",
             ".",
             "--build=missing",
-            f"--profile={str(profile.resolve())}",
+            f"--profile:build={str(profile.resolve())}",
         ])
         subprocess.run([
             "conan",
             "build",
             ".",
-            f"--profile={str(profile.resolve())}",
+            f"--profile:build={str(profile.resolve())}",
         ])
 
         shutil.move(
