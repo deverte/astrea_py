@@ -34,12 +34,14 @@ class CMakeBuild(build_ext):
             "install",
             ".",
             "--build=missing",
+            f"--profile:host={str(profile.resolve())}",
             f"--profile:build={str(profile.resolve())}",
         ])
         subprocess.run([
             "conan",
             "build",
             ".",
+            f"--profile:host={str(profile.resolve())}",
             f"--profile:build={str(profile.resolve())}",
         ])
 
