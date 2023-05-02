@@ -16,4 +16,4 @@ include_directories(${ni_INCLUDE_DIRS})
 
 include_directories(include)
 
-pybind11_add_module(astrea_py src/astrea_py.cxx)
+pybind11_add_module(astrea src/astrea_py.cxx)

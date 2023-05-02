@@ -1,12 +1,11 @@
 [tool.poetry]
-name = "astrea_py"
+name = "astrea"
 version = "0.0.0"
 description = ""
 authors = ["Artem Shepelin <4.shepelin@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-twine = "^4.0.2"
 
 
 [build-system]

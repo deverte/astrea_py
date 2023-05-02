@@ -59,6 +59,6 @@ class ConanCMakeBuild(build_ext):
 
 
 setup(
-    ext_modules=[ConanCMakeExtension("astrea_py")],
+    ext_modules=[ConanCMakeExtension("astrea")],
     cmdclass={"build_ext": ConanCMakeBuild},
 )

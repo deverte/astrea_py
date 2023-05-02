@@ -10,11 +10,10 @@ config = configparser.ConfigParser()
 config.read('setup.cfg')
 
 version = config["metadata"]["version"]
-project = config["metadata"]["name"]
 
 
 class AstreaPy(ConanFile):
-    name = project
+    name = "astrea_py"
     version = version
     settings = "os", "compiler", "build_type", "arch"
     exports_sources = "CMakeLists.txt", "src/*", "include/*"

@@ -3,7 +3,7 @@
 #include <astrea_py/astrea_py.h>
 
 
-PYBIND11_MODULE(astrea_py, m) {
+PYBIND11_MODULE(astrea, m) {
   astrea_py::lte_boltzmann_population(m);
   astrea_py::lte_boltzmann_saha_population(m);
   astrea_py::nlte_population(m);
