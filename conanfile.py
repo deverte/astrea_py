@@ -40,6 +40,3 @@ class AstreaPy(ConanFile):
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
-
-    def configure(self):
-        self.options["boost"].header_only = True
