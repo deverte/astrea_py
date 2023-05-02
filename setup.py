@@ -36,13 +36,18 @@ class ConanCMakeBuild(build_ext):
             "install",
             "./remotes.json",
         ])
+        # subprocess.run([
+        #     "conan",
+        #     "install",
+        #     ".",
+        #     "--build=missing",
+        #     f"--profile:host={str(profile.resolve())}",
+        #     f"--profile:build={str(profile.resolve())}",
+        # ])
         subprocess.run([
             "conan",
-            "install",
-            ".",
-            "--build=missing",
-            f"--profile:host={str(profile.resolve())}",
-            f"--profile:build={str(profile.resolve())}",
+            "profile",
+            "detect",
         ])
         subprocess.run([
             "conan",
