@@ -38,23 +38,18 @@ class ConanCMakeBuild(build_ext):
         ])
         subprocess.run([
             "conan",
-            "profile",
-            "detect",
-        ])
-        subprocess.run([
-            "conan",
             "install",
             ".",
             "--build=missing",
-            # f"--profile:host={str(profile.resolve())}",
-            # f"--profile:build={str(profile.resolve())}",
+            f"--profile:host={str(profile.resolve())}",
+            f"--profile:build={str(profile.resolve())}",
         ])
         subprocess.run([
             "conan",
             "build",
             ".",
-            # f"--profile:host={str(profile.resolve())}",
-            # f"--profile:build={str(profile.resolve())}",
+            f"--profile:host={str(profile.resolve())}",
+            f"--profile:build={str(profile.resolve())}",
         ])
 
         shutil.move(
