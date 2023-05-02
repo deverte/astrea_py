@@ -4,7 +4,8 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from setuptools import Extension, setup
+from setuptools import Extension
+from setuptools import setup
 from setuptools.command.build_ext import build_ext
 
 
@@ -39,8 +40,7 @@ class ConanCMakeBuild(build_ext):
             "conan",
             "install",
             ".",
-            "--build",
-            # "--build=missing",
+            "--build=missing",
             f"--profile:host={str(profile.resolve())}",
             f"--profile:build={str(profile.resolve())}",
         ])
