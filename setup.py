@@ -53,7 +53,10 @@ class ConanCMakeBuild(build_ext):
         ])
 
         shutil.move(
-            Path.cwd() / 'build/Release/' / self.get_ext_filename(ext.name),
+            [
+                *(Path.cwd() / 'build/Release/').glob("*.so"),
+                *(Path.cwd() / 'build/Release/').glob("*.pyd"),
+            ][0],
             ext_fullpath
         )
 
