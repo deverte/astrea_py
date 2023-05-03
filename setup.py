@@ -52,13 +52,12 @@ class ConanCMakeBuild(build_ext):
             f"--profile:build={str(profile.resolve())}",
         ])
 
-        shutil.move(
-            [
-                *(Path.cwd() / 'build/Release/').glob("*.so"),
-                *(Path.cwd() / 'build/Release/').glob("*.pyd"),
-            ][0],
-            ext_fullpath
-        )
+        build_paths = [
+            *(Path.cwd() / 'build/Release/').glob("*.so"),
+            *(Path.cwd() / 'build/Release/').glob("*.pyd"),
+        ]
+        for build_path in build_paths:
+            shutil.move(build_path, ext_fullpath)
 
 
 setup(
