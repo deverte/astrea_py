@@ -8,6 +8,10 @@ authors = ["Artem Shepelin <4.shepelin@gmail.com>"]
 python = "^3.10"
 
 
+[tool.cibuildwheel]
+skip = "cp36-*"
+
+
 [build-system]
 requires = [
     "setuptools>=42",
