@@ -12,8 +12,7 @@ transfer ionization-recombination, and spontaneous emission.
 ## Installation
 
 ```sh
-git clone https://gitea.zarux.ru/astro/astrea_py
-pip install ./astrea_py
+pip install git+https://gitea.zarux.ru/astro/astrea_py
 ```
 
 ## Documentation
