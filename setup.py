@@ -1,5 +1,4 @@
 import os
-import platform
 import shutil
 import subprocess
 from pathlib import Path
@@ -22,14 +21,11 @@ class ConanCMakeBuild(build_ext):
         if not extdir.exists():
             extdir.mkdir(parents=True)
 
-        profile = None
-        if platform.system() == "Linux":
-            profile = Path.cwd() / "profiles/linux_x86_64"
-        elif platform.system() == "Darwin":
-            profile = Path.cwd() / "profiles/mac_x86_64"
-        elif platform.system() == "Windows":
-            profile = Path.cwd() / "profiles/windows_x86_64"
-
+        subprocess.run([
+            "conan",
+            "profile",
+            "detect",
+        ])
         subprocess.run([
             "conan",
             "config",
@@ -41,15 +37,11 @@ class ConanCMakeBuild(build_ext):
             "install",
             ".",
             "--build=missing",
-            f"--profile:host={str(profile.resolve())}",
-            f"--profile:build={str(profile.resolve())}",
         ])
         subprocess.run([
             "conan",
             "build",
             ".",
-            f"--profile:host={str(profile.resolve())}",
-            f"--profile:build={str(profile.resolve())}",
         ])
 
         build_paths = [
@@ -57,7 +49,7 @@ class ConanCMakeBuild(build_ext):
             *(Path.cwd() / 'build/Release/').glob("*.pyd"),
         ]
         for build_path in build_paths:
-            shutil.move(build_path, ext_fullpath)
+            shutil.move(str(build_path.resolve()), ext_fullpath)
 
 
 setup(

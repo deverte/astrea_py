@@ -8,16 +8,12 @@ authors = ["Artem Shepelin <4.shepelin@gmail.com>"]
 python = "^3.10"
 
 
-[tool.cibuildwheel]
-skip = "cp36-*"
-
-
 [build-system]
 requires = [
-    "setuptools>=42",
-    "wheel>=0.38.4",
-    "ninja>=1.11.1",
-    "cmake>=3.12",
-    "conan>=2.0.4",
+    "setuptools>=33",
+    "wheel>=0.30",
+    "ninja>=1.7",
+    "cmake>=3",
+    "conan>=2",
 ]
 build-backend = "setuptools.build_meta"
