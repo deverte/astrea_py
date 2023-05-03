@@ -20,7 +20,8 @@ class AstreaPy(ConanFile):
     generators = "CMakeDeps"
 
     def requirements(self):
-        self.requires("boost/1.81.0", force=True)
+        self.requires("boost-math/1.82.0", force=True)
+        self.requires("boost-units/1.82.0", force=True)
         self.requires("eigen/3.4.0", force=True)
         self.requires(f"astrea/{version}")
         self.requires("fm/0.1.2", force=True)

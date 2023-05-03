@@ -1,4 +1,4 @@
-version = "0.2.1" # setup.cfg
+version = "0.2.2" # setup.cfg
 
 
 .PHONY: build
