@@ -1,4 +1,4 @@
-version = "0.2.2" # setup.cfg
+version = "0.2.3" # pyproject.toml, setup.cfg
 
 
 .PHONY: build

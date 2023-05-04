@@ -114,6 +114,7 @@ The following transitions rates functions are available:
 - `astrea.rbb_mashonkina_voigt_o1_rates`
 - `astrea.rbb_tasitsiomi_rates`
 - `astrea.rr_badnell_verner_rates`
+- `astrea.rr_dr_mashonkina_o1_rates`
 - `astrea.rr_seaton_rates`
 - `astrea.se_nist_o1_rates`
 - `astrea.tbr_hahn_rates`
