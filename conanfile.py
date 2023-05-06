@@ -24,7 +24,7 @@ class AstreaPy(ConanFile):
         self.requires("boost-units/1.82.0", force=True)
         self.requires("eigen/3.4.0", force=True)
         self.requires(f"astrea/{version}")
-        self.requires("fm/0.1.2", force=True)
+        self.requires("fm/0.1.3", force=True)
         self.requires("ni/0.1.1", force=True)
         self.requires("pybind11/2.10.1")
 

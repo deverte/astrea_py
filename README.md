@@ -32,44 +32,76 @@ equilibrium).
 
 #### LTE
 
-LTE can be calculated using only Boltzmann distribution, or Boltzmann
-distribution and Saha ionization equation. Resulting population has the
-`numpy.ndarray` type.
+LTE can be calculated using only Boltzmann distribution (with manually set
+elements population), or Boltzmann distribution and Saha ionization equation.
+Resulting population has the `numpy.ndarray` type.
 
 Further it will be assumed that [Elements](#elements) and [Spectrum](#spectrum)
 are initialized and the library is included (`import astrea`).
 
 ```python
 temperature = 1.0e4 # kelvin
-boltzmann = astrea.lte_boltzmann_population(elements, temperature)
+elements_population = np.array([
+    # Size must be equal to elements number
+])
+electrons_population = astrea.lte_boltzmann_population(
+    elements,
+    elements_population,
+    temperature,
+)
 
 temperature = 1.0e4 # kelvin
 electron_temperature = 1.0e4 # kelvin
 electron_number_density = 1.0e5 # centimeter^{-3}
-boltzmann_saha = astrea.lte_boltzmann_saha_population(
-  elements,
-  temperature
-  electron_temperature,
-  electron_number_density
+electrons_population = astrea.lte_boltzmann_saha_population(
+    elements,
+    temperature
+    electron_temperature,
+    electron_number_density,
 )
 ```
 
 #### NLTE
 
-NLTE calculation of current electron population requires rates matrix that can
-be composed using [Transitions](#transitions), time step, and previus electron
-population.
+NLTE calculation of current electron population
+**with automatic calculation of elements population** requires rates matrix that
+can be composed using [Transitions](#transitions), time step, and previus
+electron population.
 
 ```python
 import numpy as np
 
-population_1 = np.array([...]) # Size must be equal to sum of all elements' keys
+electrons_population_1 = np.array([
+    # Size must be equal to sum of all elements' keys
+])
 delta_time = 1.0e-2 # second
 rates_matrix = # See Transitions section
-population_2 = astrea.nlte_population(
-  population_1,
-  delta_time,
-  rates_matrix
+electrons_population_2 = astrea.nlte_population_full(
+    population_1,
+    delta_time,
+    rates_matrix,
+)
+```
+
+NLTE also can be calculated **with manually set of elements population**.
+
+```python
+import numpy as np
+
+elements_population = np.array([
+    # Size must be equal to elements number
+])
+electrons_population_1 = np.array([
+    # Size must be equal to sum of all elements' keys
+])
+delta_time = 1.0e-2 # second
+rates_matrix = # See Transitions section
+electrons_population_2 = astrea.nlte_population_per_elements(
+    elements,
+    elements_population
+    electrons_population_1,
+    delta_time,
+    rates_matrix,
 )
 ```
 
@@ -79,21 +111,21 @@ Here will be used the following abbreviations: **CBB** - collisional
 bound-bound, **CI** - collisional ionization, **CTI** - charge transfer
 ionization, **CTR** - charge transfer recombination, **DR** - dielectronic
 recombination, **PI** - photoionization, **RBB** - radiative bound-bound,
-**RR** - radiative recombination, **SE** - spontaneous emission, **TBR** -
-three-body recombination.
+**RBF** - radiative bound-bound, **RR** - radiative recombination,
+**SE** - spontaneous emission, **TBR** - three-body recombination.
 
 Final rates matrix is a sum of per-process rate matrix:
 
 ```python
 ci = astrea.ci_hahn_rates(
-  elements,
-  electron_temperature,
-  electron_number_density
+    elements,
+    electron_temperature,
+    electron_number_density,
 )
 tbr = astrea.tbr_hahn_rates(
-  elements,
-  electron_temperature,
-  electron_number_density
+    elements,
+    electron_temperature,
+    electron_number_density,
 )
 # ...
 
@@ -114,7 +146,7 @@ The following transitions rates functions are available:
 - `astrea.rbb_mashonkina_voigt_o1_rates`
 - `astrea.rbb_tasitsiomi_rates`
 - `astrea.rr_badnell_verner_rates`
-- `astrea.rr_dr_mashonkina_o1_rates`
+- `astrea.rr_mashonkina_o1_rates`
 - `astrea.rr_seaton_rates`
 - `astrea.se_nist_o1_rates`
 - `astrea.tbr_hahn_rates`
@@ -129,8 +161,8 @@ o1_mashonkina.keys = ["12P3P4", "12P1D4"] # Select only two levels
 o2_mashonkina = astrea.O2Mashonkina()
 o2_mashonkina.keys = o2_mashonkina.all_keys() # Select all levels
 elements = [
-  o1_mashonkina,
-  o2_mashonkina,
+    o1_mashonkina,
+    o2_mashonkina,
 ]
 ```
 
