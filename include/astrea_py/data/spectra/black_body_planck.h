@@ -25,13 +25,13 @@ inline void BlackBodyPlanck(py::module_& m) {
 
   black_body_planck.def_property(
     "temperature",
-    py::overload_cast<>(&astrea::BlackBodyPlanck::temperature),
+    py::overload_cast<>(&astrea::BlackBodyPlanck::temperature, py::const_),
     py::overload_cast<double>(&astrea::BlackBodyPlanck::temperature)
   );
 
   black_body_planck.def_property(
     "total_area",
-    py::overload_cast<>(&astrea::BlackBodyPlanck::total_area),
+    py::overload_cast<>(&astrea::BlackBodyPlanck::total_area, py::const_),
     py::overload_cast<double>(&astrea::BlackBodyPlanck::total_area)
   );
 }

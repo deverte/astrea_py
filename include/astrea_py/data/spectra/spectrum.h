@@ -19,7 +19,7 @@ class PySpectrum : public astrea::Spectrum {
  public:
   using astrea::Spectrum::Spectrum;
 
-  double distance() override {
+  double distance() const override {
     PYBIND11_OVERRIDE_PURE(
       double,
       astrea::Spectrum,
@@ -36,7 +36,7 @@ class PySpectrum : public astrea::Spectrum {
     );
   }
 
-  double max_wavelength() override {
+  double max_wavelength() const override {
     PYBIND11_OVERRIDE_PURE(
       double,
       astrea::Spectrum,
@@ -44,7 +44,7 @@ class PySpectrum : public astrea::Spectrum {
     );
   }
 
-  double min_wavelength() override {
+  double min_wavelength() const override {
     PYBIND11_OVERRIDE_PURE(
       double,
       astrea::Spectrum,
@@ -52,7 +52,7 @@ class PySpectrum : public astrea::Spectrum {
     );
   }
 
-  double spectral_irradiance(double wavelength) override {
+  double spectral_irradiance(double wavelength) const override {
     PYBIND11_OVERRIDE_PURE(
       double,
       astrea::Spectrum,
@@ -71,7 +71,7 @@ inline void Spectrum(py::module_& m) {
 
   spectrum.def_property(
     "distance",
-    py::overload_cast<>(&astrea::Spectrum::distance),
+    py::overload_cast<>(&astrea::Spectrum::distance, py::const_),
     py::overload_cast<double>(&astrea::Spectrum::distance)
   );
 

@@ -13,8 +13,11 @@ namespace py = pybind11;
 namespace astrea_py {
 
 
-inline void rr_seaton_rates(py::module_& m) {
-  m.def("rr_seaton_rates", &astrea::rr_seaton_rates);
+inline void tbr_mashonkina_o1_seaton_rates(py::module_& m) {
+  m.def(
+    "tbr_mashonkina_o1_seaton_rates",
+    &astrea::tbr_mashonkina_o1_seaton_rates
+  );
 }
 
 

@@ -13,8 +13,11 @@ namespace py = pybind11;
 namespace astrea_py {
 
 
-inline void dr_badnell_rates(py::module_& m) {
-  m.def("dr_badnell_rates", &astrea::dr_badnell_rates);
+inline void ci_mashonkina_o1_seaton_rates(py::module_& m) {
+  m.def(
+    "ci_mashonkina_o1_seaton_rates",
+    &astrea::ci_mashonkina_o1_seaton_rates
+  );
 }
 
 

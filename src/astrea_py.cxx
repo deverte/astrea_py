@@ -25,18 +25,12 @@ PYBIND11_MODULE(astrea, m) {
 
   astrea_py::cbb_mashonkina_o1_rates(m);
   astrea_py::cbb_regemorter_rates(m);
-  astrea_py::ci_arnaud_younger_rates(m);
-  astrea_py::ci_hahn_rates(m);
-  astrea_py::cti_arnaud_rates(m);
-  astrea_py::ctr_arnaud_rates(m);
-  astrea_py::dr_badnell_rates(m);
+  astrea_py::ci_mashonkina_o1_seaton_rates(m);
   astrea_py::pi_mashonkina_o1_rates(m);
   astrea_py::rbb_mashonkina_doppler_o1_rates(m);
   astrea_py::rbb_mashonkina_voigt_o1_rates(m);
   astrea_py::rbb_tasitsiomi_rates(m);
-  astrea_py::rr_badnell_verner_rates(m);
   astrea_py::rr_mashonkina_o1_rates(m);
-  astrea_py::rr_seaton_rates(m);
   astrea_py::se_nist_o1_rates(m);
-  astrea_py::tbr_hahn_rates(m);
+  astrea_py::tbr_mashonkina_o1_seaton_rates(m);
 }
