@@ -13,10 +13,10 @@ namespace py = pybind11;
 namespace astrea_py {
 
 
-inline void tbr_mashonkina_o1_rates(py::module_& m) {
+inline void rr_mashonkina_o1_rate_coefficients(py::module_& m) {
   m.def(
-    "tbr_mashonkina_o1_rates",
-    &astrea::tbr_mashonkina_o1_rates
+    "rr_mashonkina_o1_rate_coefficients",
+    &astrea::rr_mashonkina_o1_rate_coefficients
   );
 }
 

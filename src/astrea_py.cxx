@@ -31,8 +31,8 @@ PYBIND11_MODULE(astrea, m) {
   astrea_py::rbb_mashonkina_doppler_o1_rates(m);
   astrea_py::rbb_mashonkina_voigt_o1_rates(m);
   astrea_py::rbb_tasitsiomi_rates(m);
-  astrea_py::rr_mashonkina_o1_rates(m);
+  astrea_py::rr_mashonkina_o1_rate_coefficients(m);
   astrea_py::se_nist_o1_rates(m);
-  astrea_py::tbr_mashonkina_o1_seaton_rates(m);
-  astrea_py::tbr_mashonkina_o1_rates(m);
+  astrea_py::tbr_mashonkina_o1_seaton_rate_coefficients(m);
+  astrea_py::tbr_mashonkina_o1_rate_coefficients(m);
 }
