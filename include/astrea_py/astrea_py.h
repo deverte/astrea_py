@@ -16,7 +16,6 @@
 #include "./data/spectra/sun_gueymard.h"
 #include "./transitions/cbb_mashonkina_o1_rates.h"
 #include "./transitions/cbb_regemorter_rates.h"
-#include "./transitions/ci_mashonkina_o1_seaton_rates.h"
 #include "./transitions/ci_mashonkina_o1_rates.h"
 #include "./transitions/pi_mashonkina_o1_rates.h"
 #include "./transitions/rbb_mashonkina_doppler_o1_rates.h"
@@ -24,5 +23,4 @@
 #include "./transitions/rbb_tasitsiomi_rates.h"
 #include "./transitions/rr_mashonkina_o1_rate_coefficients.h"
 #include "./transitions/se_nist_o1_rates.h"
-#include "./transitions/tbr_mashonkina_o1_seaton_rate_coefficients.h"
 #include "./transitions/tbr_mashonkina_o1_rate_coefficients.h"
