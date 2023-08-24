@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "astrea"
-version = "0.3.3" # Makefile, setup.cfg
+version = "0.4.0" # Makefile, setup.cfg
 description = ""
 authors = ["Artem Shepelin <4.shepelin@gmail.com>"]
 

@@ -13,8 +13,8 @@ namespace py = pybind11;
 namespace astrea_py {
 
 
-inline void rbb_tasitsiomi_rates(py::module_& m) {
-  m.def("rbb_tasitsiomi_rates", &astrea::rbb_tasitsiomi_rates);
+inline void rd_nist_o1_rates(py::module_& m) {
+  m.def("rd_nist_o1_rates", &astrea::rd_nist_o1_rates);
 }
 
 
