@@ -25,6 +25,10 @@ PYBIND11_MODULE(astrea, m) {
 
   astrea_py::cd_regemorter_rates(m);
   astrea_py::ce_regemorter_rates(m);
+  astrea_py::ci_mashonkina_o1_rate_coefficients(m);
+  astrea_py::cr_mashonkina_o1_rate_coefficients(m);
   astrea_py::rd_nist_o1_rates(m);
   astrea_py::re_lorentz_rates(m);
+  astrea_py::ri_mashonkina_o1_rates(m);
+  astrea_py::rr_mashonkina_o1_rate_coefficients(m);
 }
