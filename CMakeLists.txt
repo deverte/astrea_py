@@ -3,13 +3,10 @@ project(astrea_py)
 
 find_package(astrea)
 find_package(Eigen3)
-find_package(ni)
 find_package(pybind11)
 
-set(BOOST_MATH_STANDALONE 1)
 include_directories(${astrea_INCLUDE_DIRS})
 include_directories(${Eigen3_INCLUDE_DIRS})
-include_directories(${ni_INCLUDE_DIRS})
 
 include_directories(include)
 

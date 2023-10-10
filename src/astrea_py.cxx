@@ -4,31 +4,49 @@
 
 
 PYBIND11_MODULE(astrea, m) {
-  astrea_py::lte_boltzmann_population(m);
-  astrea_py::lte_boltzmann_saha_population(m);
-  astrea_py::nlte_population_full(m);
-  astrea_py::nlte_population_per_elements(m);
+  m.doc() =
+    "Statistical equilibrium (LTE and NLTE) calculation header-only library.";
 
-  astrea_py::ILevel(m);
-  astrea_py::Element(m);
-  astrea_py::H1(m);
-  astrea_py::H2(m);
-  astrea_py::He1(m);
-  astrea_py::He2(m);
-  astrea_py::O1Mashonkina(m);
-  astrea_py::O2Mashonkina(m);
+  // Element
+  auto element = m.def_submodule("element");
 
-  astrea_py::Spectrum(m);
-  astrea_py::BlackBodyPlanck(m);
-  astrea_py::Kelt9Fossati(m);
-  astrea_py::SunGueymard(m);
+  auto o_i_mashonkina = element.def_submodule("o_i_mashonkina");
+  astrea_py::element::o_i_mashonkina(o_i_mashonkina);
 
-  astrea_py::cd_regemorter_rates(m);
-  astrea_py::ce_regemorter_rates(m);
-  astrea_py::ci_mashonkina_o1_rate_coefficients(m);
-  astrea_py::cr_mashonkina_o1_rate_coefficients(m);
-  astrea_py::rd_nist_o1_rates(m);
-  astrea_py::re_lorentz_rates(m);
-  astrea_py::ri_mashonkina_o1_rates(m);
-  astrea_py::rr_mashonkina_o1_rate_coefficients(m);
+  auto o_ii_mashonkina = element.def_submodule("o_ii_mashonkina");
+  astrea_py::element::o_ii_mashonkina(o_ii_mashonkina);
+
+
+  // Population
+  auto population = m.def_submodule("population");
+
+  auto balance_equation = population.def_submodule("balance_equation");
+  astrea_py::population::balance_equation(balance_equation);
+
+  auto boltzmann_distribution =
+    population.def_submodule("boltzmann_distribution");
+  astrea_py::population::boltzmann_distribution(boltzmann_distribution);
+
+
+  // Spectrum
+  auto spectrum = m.def_submodule("spectrum");
+
+  auto kelt_9_fossati = spectrum.def_submodule("kelt_9_fossati");
+  astrea_py::spectrum::kelt_9_fossati(kelt_9_fossati);
+
+
+  // Transition
+  auto transition = m.def_submodule("transition");
+
+  auto cd_regemorter = transition.def_submodule("cd_regemorter");
+  astrea_py::transition::cd_regemorter(cd_regemorter);
+
+  auto ce_regemorter = transition.def_submodule("ce_regemorter");
+  astrea_py::transition::ce_regemorter(ce_regemorter);
+
+  auto re_lorentz = transition.def_submodule("re_lorentz");
+  astrea_py::transition::re_lorentz(re_lorentz);
+
+  auto ri = transition.def_submodule("ri");
+  astrea_py::transition::ri(ri);
 }
