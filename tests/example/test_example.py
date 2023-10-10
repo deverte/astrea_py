@@ -87,7 +87,7 @@ def test_example():
                     Delta_t=self.Delta_t,
                 )
                 nlte = [ # full population is taken from MHD
-                    N_a_x[i] * nlte[i] / nlte[i].max() for i in range(len(nlte))
+                    N_a_x[i] * nlte[i] / nlte[i].sum() for i in range(len(nlte))
                 ]
                 self.n.append(nlte)
 
