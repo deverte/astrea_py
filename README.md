@@ -12,7 +12,24 @@ transfer ionization-recombination, and spontaneous emission.
 ## Installation
 
 ```sh
-pip install git+https://gitea.zarux.ru/astro/astrea_py
+# Using pip
+pip3 install git+https://gitea.zarux.ru/astro/astrea_py
+
+# Using poetry
+poetry add git+https://gitea.zarux.ru/astro/astrea_py
+```
+
+On linux also can be installed already compiled binaries:
+
+```sh
+# Using pip
+pip3 install --index-url https://gitea.zarux.ru/api/packages/astro/pypi/simple astrea
+
+# Using poetry
+# Add source
+poetry source add astro https://gitea.zarux.ru/api/packages/astro/pypi/simple
+# Install
+poetry add astrea
 ```
 
 ## License
