@@ -11,19 +11,19 @@ def test_example():
 
     class Element:
         def __init__(self, module, keys):
-            int_keys = [k.value for k in keys]
-            sorted_keys = module.E()[int_keys].argsort()
-            slice_keys = [int_keys[i] for i in sorted_keys]
+            int_keys = np.array([k.value for k in keys])
+            sort_indices = module.E()[int_keys].argsort()
+            sorted_keys = [int_keys[i] for i in sort_indices]
 
             self.keymap = {
-                keys[i]: sorted_keys[i] for i in range(len(sorted_keys))
+                keys[sort_indices[i]]: i for i in range(len(sort_indices))
             }
 
-            self.E = module.E()[slice_keys]
-            self.g = module.g()[slice_keys]
-            self.A = module.A().T[slice_keys].T[slice_keys]
+            self.E = module.E()[sorted_keys]
+            self.g = module.g()[sorted_keys]
+            self.A = module.A().T[sorted_keys].T[sorted_keys]
             if "sigma_k" in module.__dict__:
-                self.sigma = [module.sigma_k()[k] for k in slice_keys]
+                self.sigma = [module.sigma_k()[k] for k in sorted_keys]
             else:
                 self.sigma = []
 
