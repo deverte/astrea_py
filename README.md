@@ -156,7 +156,12 @@ env = Env(elements, spectrum, T, N_e, N_a, Delta_t=Delta_t)
 
 env.equilibrium()
 
-env.n # result
+
+# Result
+assert len(env.n) == size
+
+key = o_i.keymap[o_i_t.LS_1s2_2s2_2p3_4So_3s_5So]
+assert env.n[x_point := 0][element := 0][key] != 0
 ```
 
 
