@@ -27,9 +27,9 @@ pip3 install --index-url https://gitea.zarux.ru/api/packages/astro/pypi/simple a
 
 # Using poetry
 # Add source
-poetry source add astro https://gitea.zarux.ru/api/packages/astro/pypi/simple
+poetry source add --priority=explicit astro https://gitea.zarux.ru/api/packages/astro/pypi/simple
 # Install
-poetry add astrea
+poetry add --source=astro astrea
 ```
 
 ## Example
