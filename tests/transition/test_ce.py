@@ -4,27 +4,17 @@ import pytest
 
 
 def test_R():
-    ce = aa.transition.ce_regemorter
+    ce = aa.transition.ce
 
-    T = np.array([1.0e4, 2.0e4]) # x=[0, 1]
+    T = np.array([1.2e4, 2.0e4]) # x=[0, 1]
     N_e = np.array([1.0e8, 1.0e9]) # x=[0, 1]
-    g = [
-        np.array([5.0, 9.0]), # element=0 terms=[0, 1]
-        np.array([5.0, 9.0]), # element=1 terms=[0, 1]
-        np.array([4.0]), # element=2 terms=[0]
-    ]
-    E = [
-        np.array([0.0, 9.15]), # element=0 terms=[0, 1]
-        np.array([0.0, 9.15]), # element=1 terms=[0, 1]
-        np.array([0.0]), # element=1 terms=[0]
-    ]
-    f_vs_T = [
-        [ # element=0 (must use f from f_vs_T)
+    C_vs_T = [
+        [ # element=0 (must use C from C_vs_T)
             [
                 np.zeros((2, 0)), # transition=00
                 np.array([ # transition=01
-                    [500.0, 1000.0, 2000.0, 4000.0, 6000.0, 8000.0, 10000.0, 15000.0, 20000.0],
-                    [1.630E-02, 3.740E-02, 9.640E-02, 2.960E-01, 5.980E-01, 9.920E-01, 1.470E+00, 3.060E+00, 5.210E+00],
+                    [1000.0, 3000.0, 5000.0, 8000.0, 12000.0, 20000.0, 50000.0, 100000.0],
+                    [0.103E-54, 0.933E-24, 0.130E-17, 0.342E-14, 0.253E-12, 0.737E-11, 0.132E-09, 0.275E-09],
                 ]),
             ],
             [
@@ -32,7 +22,7 @@ def test_R():
                 np.zeros((2, 0)), # transition=11
             ],
         ],
-        [ # element=1 (must use f = 1)
+        [ # element=1 (must use C = 0)
             [
                 np.zeros((2, 0)), # transition=00
                 np.zeros((2, 0)), # transition=01
@@ -49,27 +39,27 @@ def test_R():
         ],
     ]
 
-    R_ij = ce.R(T=T, N_e=N_e, g=g, E=E, f_vs_T=f_vs_T)
+    R_ij = ce.R(T=T, N_e=N_e, C_vs_T=C_vs_T)
 
     expected = [
         [ # x=0
             np.array([ # element=0 transitions=[[00, 01], [10, 11]]
-                [0.0, 6.207509725765834e-05],
+                [0.0, 2.53e-05],
                 [0.0, 0.0],
             ]),
             np.array([ # element=1 transitions=[[00, 01], [10, 11]]
-                [0.0, 4.222795731813492e-05],
+                [0.0, 0.0],
                 [0.0, 0.0],
             ]),
             np.array([[0.0]]), # element=2 transitions=[[00]]
         ],
         [ # x=1
             np.array([ # element=0 transitions=[[00, 01], [10, 11]]
-                [0.0, 3.145004847814592e-01],
+                [0.0, 0.00737],
                 [0.0, 0.0],
             ]),
             np.array([ # element=1 transitions=[[00, 01], [10, 11]]
-                [0.0, 6.0364776349608296e-02],
+                [0.0, 0.0],
                 [0.0, 0.0],
             ]),
             np.array([[0.0]]), # element=2 transitions=[[00]]

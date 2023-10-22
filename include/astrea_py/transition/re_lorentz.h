@@ -16,8 +16,8 @@ namespace astrea_py::transition {
 
 inline void re_lorentz(py::module_& m) {
   m.doc() =
-    "Radiative excitation (photoexcitation) transitions rates using Lorentz "
-    "line shape."
+    "Radiative excitation (photoexcitation) transitions rates using Lorentz line\n"
+    "shape.\n"
   ;
 
   m.def(
@@ -31,14 +31,18 @@ inline void re_lorentz(py::module_& m) {
     ":param E_z_ij: Energies differenece of element z between terms i and j in eV.\n"
     ":param A_z_ji: Spontaneous emission rate of element z for j->i transition in\n"
     "s-1.\n"
-    ":param F_lambda: Spectrum. Row 0: wavelengths in nm. Row 1: spectral flux\n"
-    "density in W m-2 nm-1.\n"
-    ":return: Transition rate in s-1.\n",
+    ":param F_lambda_vs_lambda: Spectrum.\n"
+    "Axis 0: Bivariate data (row). Row 0: Wavelength in nm. Row 1: Spectral\n"
+    "irradiance in W m-2 nm-1.\n"
+    "Axis 1: Bivariate pair index (column).\n"
+    ":return: Transition rate in s-1.\n"
+    "Axis 0: Initial term.\n"
+    "Axis 1: Final term.\n",
     py::arg("g_z_i"),
     py::arg("g_z_j"),
     py::arg("E_z_ij"),
     py::arg("A_z_ji"),
-    py::arg("F_lambda")
+    py::arg("F_lambda_vs_lambda")
   );
 
   m.def(
@@ -47,18 +51,27 @@ inline void re_lorentz(py::module_& m) {
     "Radiative excitation (photoexcitation) transition rates using Lorentz line\n"
     "shape at coordinate x for element z.\n"
     "\n"
-    ":param g_z: Statistical weights of element z in 1. Must be sorted in ascending\n"
-    "order over energies!\n"
-    ":param E_z: Energies of element z in eV. Must be sorted in ascending order!\n"
-    ":param A_z: Spontaneous emission rates of element z in s-1. Must be sorted in\n"
-    "ascending order over energies for both axes.\n"
-    ":param F_lambda: Spectrum. Row 0: wavelengths in nm. Row 1: spectral flux\n"
-    "density in W m-2 nm-1.\n"
-    ":return: Transition rate in s-1.\n",
+    ":param g_z: Statistical weights of element z in 1.\n"
+    "Axis 0: Term.\n"
+    "Must be sorted in ascending order over energies!\n"
+    ":param E_z: Energies of element z in eV.\n"
+    "Axis 0: Term.\n"
+    "Must be sorted in ascending order!\n"
+    ":param A_z: Spontaneous emission rates of element z in s-1.\n"
+    "Axis 0: Initial term.\n"
+    "Axis 1: Final term.\n"
+    "Must be sorted in ascending order over energies for both axes.\n"
+    ":param F_lambda_vs_lambda: Spectrum.\n"
+    "Axis 0: Bivariate data (row).\n"
+    "Row 0: Wavelength in nm. Row 1: Spectral irradiance in W m-2 nm-1.\n"
+    "Axis 1: Bivariate pair index (column).\n"
+    ":return: Transition rate in s-1.\n"
+    "Axis 0: Initial term.\n"
+    "Axis 1: Final term.\n",
     py::arg("g_z"),
     py::arg("E_z"),
     py::arg("A_z"),
-    py::arg("F_lambda")
+    py::arg("F_lambda_vs_lambda")
   );
 
   m.def(
@@ -67,18 +80,70 @@ inline void re_lorentz(py::module_& m) {
     "Radiative excitation (photoexcitation) transition rates using Lorentz line\n"
     "shape at coordinate x.\n"
     "\n"
-    ":param g: Statistical weights in 1. Must be sorted in ascending order over\n"
-    "energies per element!\n"
-    ":param E: Energies in eV. Must be sorted in ascending order per element!\n"
-    ":param A: Spontaneous emission rates in s-1. Must be sorted in ascending\n"
-    "order over energies for both axes for each element.\n"
-    ":param F_lambda: Spectrum. Row 0: wavelengths in nm. Row 1: spectral flux\n"
-    "density in W m-2 nm-1.\n"
-    ":return: Transition rate in s-1.\n",
+    ":param g: Statistical weights in 1.\n"
+    "Axis 0: Element index.\n"
+    "Axis 1: Term.\n"
+    "Must be sorted in ascending order over energies per element!\n"
+    ":param E: Energies in eV.\n"
+    "Axis 0: Element index.\n"
+    "Axis 1: Term.\n"
+    "Must be sorted in ascending order per element!\n"
+    ":param A: Spontaneous emission rates in s-1.\n"
+    "Axis 0: Element index.\n"
+    "Axis 1: Initial term.\n"
+    "Axis 2: Final term.\n"
+    "Must be sorted in ascending order over energies for both axes for each\n"
+    "element.\n"
+    ":param F_lambda_vs_lambda: Spectrum.\n"
+    "Axis 0: Bivariate data (row). Row 0: Wavelength in nm. Row 1: Spectral\n"
+    "irradiance in W m-2 nm-1.\n"
+    "Axis 1: Bivariate pair index (column).\n"
+    ":return: Transition rate in s-1.\n"
+    "Axis 0: Element index.\n"
+    "Axis 1: Initial term.\n"
+    "Axis 2: Final term.\n",
     py::arg("g"),
     py::arg("E"),
     py::arg("A"),
-    py::arg("F_lambda")
+    py::arg("F_lambda_vs_lambda")
+  );
+
+  m.def(
+    "R",
+    &astrea::transition::re_lorentz::R,
+    "Radiative excitation (photoexcitation) transition rates using Lorentz line\n"
+    "shape at coordinate x.\n"
+    "\n"
+    ":param x: Any vector with shape corresponding to spatial points.\n"
+    "Axis 0: Coordinate index.\n"
+    ":param g: Statistical weights in 1.\n"
+    "Axis 0: Element index.\n"
+    "Axis 1: Term.\n"
+    "Must be sorted in ascending order over energies per element!\n"
+    ":param E: Energies in eV.\n"
+    "Axis 0: Element index.\n"
+    "Axis 1: Term.\n"
+    "Must be sorted in ascending order per element!\n"
+    ":param A: Spontaneous emission rates in s-1.\n"
+    "Axis 0: Element index.\n"
+    "Axis 1: Initial term.\n"
+    "Axis 2: Final term.\n"
+    "Must be sorted in ascending order over energies for both axes for each\n"
+    "element.\n"
+    ":param F_lambda_vs_lambda: Spectrum.\n"
+    "Axis 0: Bivariate data (row). Row 0: Wavelength in nm. Row 1: Spectral\n"
+    "irradiance in W m-2 nm-1.\n"
+    "Axis 1: Bivariate pair index (column).\n"
+    ":return: Transition rate in s-1.\n"
+    "Axis 0: Coordinate index.\n"
+    "Axis 1: Element index.\n"
+    "Axis 2: Initial term.\n"
+    "Axis 3: Final term.\n",
+    py::arg("x"),
+    py::arg("g"),
+    py::arg("E"),
+    py::arg("A"),
+    py::arg("F_lambda_vs_lambda")
   );
 }
 

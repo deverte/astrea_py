@@ -2,10 +2,15 @@
 
 
 #include <pybind11/pybind11.h>
-#include <pybind11/eigen.h>
-#include <pybind11/stl.h>
 
 #include <astrea/astrea.h>
+
+#include "astrea_py/element/o_ii_mashonkina/energies.h"
+#include "astrea_py/element/o_ii_mashonkina/info.h"
+#include "astrea_py/element/o_ii_mashonkina/principal_quantum_numbers.h"
+#include "astrea_py/element/o_ii_mashonkina/spontaneous_emission_rates.h"
+#include "astrea_py/element/o_ii_mashonkina/statistical_weights.h"
+#include "astrea_py/element/o_ii_mashonkina/terms.h"
 
 
 namespace py = pybind11;
@@ -14,43 +19,20 @@ namespace py = pybind11;
 namespace astrea_py::element {
 
 
-inline void o_ii_mashonkina(py::module_& m) {
-  m.doc() = "1-ionized oxygen data by Mashonkina (private communication).";
+inline void o_ii_mashonkina_(py::module_& m) {
+  m.doc() =
+    "O II data by Barklem2007, Przybilla2000, Sitnova2012, Sitnova+2013,\n"
+    "Sitnova2017, NIST (https://www.nist.gov/pml/atomic-spectra-database), TOPBASE\n"
+    "(https://cdsweb.u-strasbg.fr/topbase/xsections.html), and Mashonkina\n"
+    "(private communication).\n"
+  ;
 
-  m.def("i", &astrea::element::o_ii_mashonkina::i, "State of ionization in 1.");
-
-  m.def("Z", &astrea::element::o_ii_mashonkina::Z, "Atomic number in 1.");
-
-  m.def(
-    "M",
-    &astrea::element::o_ii_mashonkina::M,
-    "Mass number in 1 (mass in Da)."
-  );
-
-  m.def("I", &astrea::element::o_ii_mashonkina::I, "Ionization energy in eV.");
-
-  py::enum_<astrea::element::o_ii_mashonkina::TERM> TERM(m, "TERM");
-  TERM.value("LS_1s2_2s2_2p3_4S", astrea::element::o_ii_mashonkina::TERM::LS_1s2_2s2_2p3_4S);
-
-  m.def("E", &astrea::element::o_ii_mashonkina::E, "Terms' energies in eV.");
-
-  m.def(
-    "n",
-    &astrea::element::o_ii_mashonkina::n,
-    "Terms' principal quantum numbers in 1."
-  );
-
-  m.def(
-    "g",
-    &astrea::element::o_ii_mashonkina::g,
-    "Terms' statistical weights in 1."
-  );
-
-  m.def(
-    "A",
-    &astrea::element::o_ii_mashonkina::A,
-    "Terms' spontaneous emission rates in s-1."
-  );
+  astrea_py::element::o_ii_mashonkina::energies(m);
+  astrea_py::element::o_ii_mashonkina::info(m);
+  astrea_py::element::o_ii_mashonkina::principal_quantum_numbers(m);
+  astrea_py::element::o_ii_mashonkina::spontaneous_emission_rates(m);
+  astrea_py::element::o_ii_mashonkina::statistical_weights(m);
+  astrea_py::element::o_ii_mashonkina::terms(m);
 }
 
 

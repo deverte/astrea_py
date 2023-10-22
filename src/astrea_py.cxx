@@ -5,16 +5,26 @@
 
 PYBIND11_MODULE(astrea, m) {
   m.doc() =
-    "Statistical equilibrium (LTE and NLTE) calculation header-only library.";
+    "Statistical equilibrium (LTE and NLTE) calculation header-only library."
+  ;
+
 
   // Element
   auto element = m.def_submodule("element");
 
   auto o_i_mashonkina = element.def_submodule("o_i_mashonkina");
-  astrea_py::element::o_i_mashonkina(o_i_mashonkina);
+  astrea_py::element::o_i_mashonkina_(o_i_mashonkina);
 
   auto o_ii_mashonkina = element.def_submodule("o_ii_mashonkina");
-  astrea_py::element::o_ii_mashonkina(o_ii_mashonkina);
+  astrea_py::element::o_ii_mashonkina_(o_ii_mashonkina);
+
+
+  // Math
+  auto math = m.def_submodule("math");
+
+  astrea_py::math::interp1d_linear(math);
+  astrea_py::math::interp1d_nearest(math);
+  astrea_py::math::trapezoid(math);
 
 
   // Population
@@ -38,11 +48,17 @@ PYBIND11_MODULE(astrea, m) {
   // Transition
   auto transition = m.def_submodule("transition");
 
-  auto cd_regemorter = transition.def_submodule("cd_regemorter");
-  astrea_py::transition::cd_regemorter(cd_regemorter);
+  auto cd = transition.def_submodule("cd");
+  astrea_py::transition::cd(cd);
 
   auto ce_regemorter = transition.def_submodule("ce_regemorter");
   astrea_py::transition::ce_regemorter(ce_regemorter);
+
+  auto ce = transition.def_submodule("ce");
+  astrea_py::transition::ce(ce);
+
+  auto rd = transition.def_submodule("rd");
+  astrea_py::transition::rd(rd);
 
   auto re_lorentz = transition.def_submodule("re_lorentz");
   astrea_py::transition::re_lorentz(re_lorentz);

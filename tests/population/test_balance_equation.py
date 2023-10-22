@@ -179,3 +179,64 @@ def test_n_x_t_plus_Delta_t():
     assert n_x_t_plus_Delta_t[0] == pytest.approx(n_x_t_plus_Delta_t_[0])
     assert n_x_t_plus_Delta_t[1] == pytest.approx(n_x_t_plus_Delta_t_[1])
     assert n_x_t_plus_Delta_t[2] == pytest.approx(n_x_t_plus_Delta_t_[2])
+
+
+def test_n_t_plus_Delta_t():
+    nlte = aa.population.balance_equation
+
+    T = np.array([1.0e3, 1.0e4])
+    n_t = [[np.array([1.0, 2.0]), np.array([1.0, 2.0, 3.0]), np.array([1.0])]] * 2
+    R_ij = [[
+        np.array([
+            [0.0, 1.0],
+            [0.0, 0.0],
+        ]),
+        np.array([
+            [0.0, 2.0, 3.0],
+            [0.0, 0.0, 4.0],
+            [0.0, 0.0, 0.0],
+        ]),
+        np.array([[0.0]]),
+    ]] * 2
+    R_ji = [[
+        np.array([
+            [0.0, 0.0],
+            [5.0, 0.0],
+        ]),
+        np.array([
+            [0.0, 0.0, 0.0],
+            [6.0, 0.0, 0.0],
+            [7.0, 8.0, 0.0],
+        ]),
+        np.array([[0.0]]),
+    ]] * 2
+    R_ik = [[
+        np.array([9.0, 10.0]),
+        np.array([11.0, 12.0, 13.0]),
+        np.array([14.0]),
+    ]] * 2
+    R_ki = [[
+        np.array([15.0, 16.0]),
+        np.array([17.0, 18.0, 19.0]),
+        np.array([20.0]),
+    ]] * 2
+    Delta_t = 1.0e1
+
+    n_t_plus_Delta_t_ = [[
+        np.array([3.4746906854554194, 2.006624388422274]),
+        np.array([1.6640835987325575, 1.1451081089978288, 0.8992155919667877]),
+        np.array([0.8102776264251446]),
+    ]] * 2
+
+    n_t_plus_Delta_t = nlte.n_t_plus_Delta_t(
+        x=T,
+        n_t=n_t,
+        R_ij=R_ij,
+        R_ji=R_ji,
+        R_ik=R_ik,
+        R_ki=R_ki,
+        Delta_t=Delta_t,
+    )
+    assert n_t_plus_Delta_t[0][0] == pytest.approx(n_t_plus_Delta_t_[0][0])
+    assert n_t_plus_Delta_t[0][1] == pytest.approx(n_t_plus_Delta_t_[0][1])
+    assert n_t_plus_Delta_t[0][2] == pytest.approx(n_t_plus_Delta_t_[0][2])
