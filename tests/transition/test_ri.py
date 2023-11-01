@@ -5,11 +5,11 @@ import pytest
 
 def test_R():
     ri = aa.transition.ri
-    o_i = aa.element.o_i_mashonkina
+    o_i = aa.element.o_i
 
     T = np.array([1.0e3, 1.0e4])
     keys = [v.value for v in [
-        o_i.TERM.LS_1s2_2s2_2p3_4So_3s_5So,
+        o_i.STRUCTURE.LS_He_2s2_2p3_4So_3s_5So,
     ]]
     sigma_vs_nu = [[o_i.sigma_vs_nu()[key] for key in keys], [np.array([[0.0], [0.0]])]]
     F_lambda_vs_lambda = aa.spectrum.kelt_9_fossati.F_lambda_vs_lambda()

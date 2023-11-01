@@ -53,45 +53,45 @@ class KELT_9_b:
 class O_I:
     def __init__(self):
         keys = [
-            aa.element.o_i_mashonkina.TERM.LS_1s2_2s2_2p4_3P,
-            aa.element.o_i_mashonkina.TERM.LS_1s2_2s2_2p3_4So_3s_5So,
+            aa.element.o_i.STRUCTURE.LS_He_2s2_2p4_3P,
+            aa.element.o_i.STRUCTURE.LS_He_2s2_2p3_4So_3s_5So,
         ]
 
         int_keys = np.array([k.value for k in keys])
-        sort_indices = aa.element.o_i_mashonkina.E()[int_keys].argsort()
+        sort_indices = aa.element.o_i.E()[int_keys].argsort()
         sorted_keys = [int_keys[i] for i in sort_indices]
 
         self.keymap = {
             keys[sort_indices[i]]: i for i in range(len(sort_indices))
         }
 
-        self.E = aa.element.o_i_mashonkina.E()[sorted_keys]
-        self.g = aa.element.o_i_mashonkina.g()[sorted_keys]
-        self.A = aa.element.o_i_mashonkina.A().T[sorted_keys].T[sorted_keys]
+        self.E = aa.element.o_i.E()[sorted_keys]
+        self.g = aa.element.o_i.g()[sorted_keys]
+        self.f = aa.element.o_i.f().T[sorted_keys].T[sorted_keys]
         self.C_vs_T = [
-            [aa.element.o_i_mashonkina.C_vs_T()[i][j] for j in sorted_keys]
+            [aa.element.o_i.C_vs_T()[i][j] for j in sorted_keys]
             for i in sorted_keys
         ]
         self.sigma_vs_nu = [
-            aa.element.o_i_mashonkina.sigma_vs_nu()[i] for i in sorted_keys
+            aa.element.o_i.sigma_vs_nu()[i] for i in sorted_keys
         ]
 
 
 class O_II:
     def __init__(self):
-        keys = list(aa.element.o_ii_mashonkina.TERM.__members__.values())
+        keys = list(aa.element.o_ii.STRUCTURE.__members__.values())
 
         int_keys = np.array([k.value for k in keys])
-        sort_indices = aa.element.o_ii_mashonkina.E()[int_keys].argsort()
+        sort_indices = aa.element.o_ii.E()[int_keys].argsort()
         sorted_keys = [int_keys[i] for i in sort_indices]
 
         self.keymap = {
             keys[sort_indices[i]]: i for i in range(len(sort_indices))
         }
 
-        self.E = aa.element.o_ii_mashonkina.E()[sorted_keys]
-        self.g = aa.element.o_ii_mashonkina.g()[sorted_keys]
-        self.A = aa.element.o_ii_mashonkina.A().T[sorted_keys].T[sorted_keys]
+        self.E = aa.element.o_ii.E()[sorted_keys]
+        self.g = aa.element.o_ii.g()[sorted_keys]
+        self.f = np.zeros((1, 1))
         self.C_vs_T = [
             [
                 np.zeros((2, 0)),
@@ -112,7 +112,7 @@ class Env:
         ]
         self.E = [e.E for e in elements]
         self.g = [e.g for e in elements]
-        self.A = [e.A for e in elements]
+        self.f = [e.f for e in elements]
         self.C_vs_T = [e.C_vs_T for e in elements]
         self.sigma_vs_nu = [e.sigma_vs_nu for e in elements]
 
@@ -136,14 +136,14 @@ class Env:
         self.n = []
 
     def equilibrium(self):
+        rd = self.rd(x=self.T, f=self.f, g=self.g, E=self.E)
         re = self.re(
             x=self.T,
             g=self.g,
             E=self.E,
-            A=self.A,
+            A=rd[x:=0],
             F_lambda_vs_lambda=self.F_lambda_vs_lambda,
         )
-        rd = self.rd(x=self.T, A=self.A)
         ri = self.ri(
             x=self.T,
             sigma_vs_nu=self.sigma_vs_nu,

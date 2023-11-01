@@ -24,7 +24,7 @@ def test_R():
         ],
     ]
     g = [
-        np.array([5.0, 9.0]), # element=0 terms=[0, 1]
+        np.array([9.0, 5.0]), # element=0 terms=[0, 1]
         np.array([4.0]), # element=1 terms=[0]
     ]
     E = [
@@ -38,14 +38,14 @@ def test_R():
         [ # x=0
             np.array([ # element=0 transitions=[[00, 01], [10, 11]]
                 [0.0, 0.0],
-                [9.631515045111796e-01, 0.0],
+                [3.1206108746162213, 0.0],
             ]),
             np.array([[0.0]]), # element=1 transitions=[[00]]
         ],
         [ # x=1
             np.array([ # element=0 transitions=[[00, 01], [10, 11]]
                 [0.0, 0.0],
-                [3.033343605919035e-01, 0.0],
+                [0.9828033283177673, 0.0],
             ]),
             np.array([[0.0]]), # element=1 transitions=[[00]]
         ],

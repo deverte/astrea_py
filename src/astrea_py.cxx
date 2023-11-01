@@ -12,11 +12,38 @@ PYBIND11_MODULE(astrea, m) {
   // Element
   auto element = m.def_submodule("element");
 
-  auto o_i_mashonkina = element.def_submodule("o_i_mashonkina");
-  astrea_py::element::o_i_mashonkina_(o_i_mashonkina);
+  auto c_i = element.def_submodule("c_i");
+  astrea_py::element::c_i_(c_i);
 
-  auto o_ii_mashonkina = element.def_submodule("o_ii_mashonkina");
-  astrea_py::element::o_ii_mashonkina_(o_ii_mashonkina);
+  auto c_ii = element.def_submodule("c_ii");
+  astrea_py::element::c_ii_(c_ii);
+
+  auto c_iii = element.def_submodule("c_iii");
+  astrea_py::element::c_iii_(c_iii);
+
+  auto fe_i = element.def_submodule("fe_i");
+  astrea_py::element::fe_i_(fe_i);
+
+  auto fe_ii = element.def_submodule("fe_ii");
+  astrea_py::element::fe_ii_(fe_ii);
+
+  auto fe_iii = element.def_submodule("fe_iii");
+  astrea_py::element::fe_iii_(fe_iii);
+
+  auto mg_i = element.def_submodule("mg_i");
+  astrea_py::element::mg_i_(mg_i);
+
+  auto mg_ii = element.def_submodule("mg_ii");
+  astrea_py::element::mg_ii_(mg_ii);
+
+  auto mg_iii = element.def_submodule("mg_iii");
+  astrea_py::element::mg_iii_(mg_iii);
+
+  auto o_i = element.def_submodule("o_i");
+  astrea_py::element::o_i_(o_i);
+
+  auto o_ii = element.def_submodule("o_ii");
+  astrea_py::element::o_ii_(o_ii);
 
 
   // Math

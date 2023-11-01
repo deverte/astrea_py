@@ -1,4 +1,4 @@
-version = "0.5.1" # pyproject.toml, setup.cfg
+version = "0.5.2" # pyproject.toml, setup.cfg
 
 
 .PHONY: build
@@ -20,9 +20,16 @@ clear:
 	rm -f CMakeUserPresets.json
 
 
+.PHONY: install
+install:
+	poetry run pip install dist/astrea-*.whl
+
+
+.PHONY: uninstall
+uninstall:
+	poetry run pip uninstall astrea -y
+
+
 .PHONY: test
 test:
-	poetry run pip uninstall astrea -y
-	poetry run pip install dist/astrea-*.whl
 	poetry run python -m pytest
-	poetry run pip uninstall astrea -y

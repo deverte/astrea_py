@@ -9,8 +9,8 @@ def test_R():
     T = np.array([1.0e4, 2.0e4]) # x=[0, 1]
     N_e = np.array([1.0e8, 1.0e9]) # x=[0, 1]
     g = [
-        np.array([5.0, 9.0]), # element=0 terms=[0, 1]
-        np.array([5.0, 9.0]), # element=1 terms=[0, 1]
+        np.array([9.0, 5.0]), # element=0 terms=[0, 1]
+        np.array([9.0, 5.0]), # element=1 terms=[0, 1]
         np.array([4.0]), # element=2 terms=[0]
     ]
     E = [
@@ -54,22 +54,22 @@ def test_R():
     expected = [
         [ # x=0
             np.array([ # element=0 transitions=[[00, 01], [10, 11]]
-                [0.0, 6.207509725765834e-05],
+                [0.0, 3.448616514314352e-05],
                 [0.0, 0.0],
             ]),
             np.array([ # element=1 transitions=[[00, 01], [10, 11]]
-                [0.0, 4.222795731813492e-05],
+                [0.0, 2.3459976287852736e-05],
                 [0.0, 0.0],
             ]),
             np.array([[0.0]]), # element=2 transitions=[[00]]
         ],
         [ # x=1
             np.array([ # element=0 transitions=[[00, 01], [10, 11]]
-                [0.0, 3.145004847814592e-01],
+                [0.0, 0.17472249154525513],
                 [0.0, 0.0],
             ]),
             np.array([ # element=1 transitions=[[00, 01], [10, 11]]
-                [0.0, 6.0364776349608296e-02],
+                [0.0, 0.0335359868608935],
                 [0.0, 0.0],
             ]),
             np.array([[0.0]]), # element=2 transitions=[[00]]
