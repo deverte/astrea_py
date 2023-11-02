@@ -118,12 +118,12 @@ def test_example():
             cd = self.cd(T=self.T, R=ce, g=self.g, E=self.E)
 
             R_ij = [
-                [re[i][j] + ce[i][j] for j in range(len(re[i]))]
-                for i in range(len(re))
+                [re[x][z] + ce[x][z] for z in range(len(re[x]))]
+                for x in range(len(re))
             ]
             R_ji = [
-                [rd[j][i] + cd[j][i] for i in range(len(rd[j]))]
-                for j in range(len(rd))
+                [rd[x][z] + cd[x][z] for z in range(len(rd[x]))]
+                for x in range(len(rd))
             ]
             R_ik = ri
             R_ki = rr

@@ -9,6 +9,13 @@ PYBIND11_MODULE(astrea, m) {
   ;
 
 
+  // Cooling
+  auto cooling = m.def_submodule("cooling");
+
+  astrea_py::cooling::cooling_rate_approximation(cooling);
+  astrea_py::cooling::cooling_rate(cooling);
+
+
   // Element
   auto element = m.def_submodule("element");
 

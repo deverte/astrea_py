@@ -2,6 +2,18 @@ import astrea as aa
 import numpy as np
 
 
+def test_Lambda_vs_T():
+    fe_i = aa.element.fe_i
+
+    Lambda_vs_T = fe_i.Lambda_vs_T()
+
+    assert Lambda_vs_T.shape == (2, 189)
+    assert Lambda_vs_T[0][0] == 1.00e+04
+    assert Lambda_vs_T[0][-1] == 1.00e+08
+    assert Lambda_vs_T[1][0] == 2.18e-20
+    assert Lambda_vs_T[1][-1] == 9.92e-19
+
+
 def test_f_vs_T():
     fe_i = aa.element.fe_i
 

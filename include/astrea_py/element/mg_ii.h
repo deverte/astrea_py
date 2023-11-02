@@ -5,6 +5,7 @@
 
 #include <astrea/astrea.h>
 
+#include "astrea_py/element/mg_ii/cooling_efficiency.h"
 #include "astrea_py/element/mg_ii/effective_collision_strengths.h"
 #include "astrea_py/element/mg_ii/energies.h"
 #include "astrea_py/element/mg_ii/info.h"
@@ -24,9 +25,11 @@ inline void mg_ii_(py::module_& m) {
   m.doc() =
     "Mg II data by Alexeeva+2018, Sigutts+1995, NIST\n"
     "(https://www.nist.gov/pml/atomic-spectra-database), TOPBASE\n"
-    "(https://cdsweb.u-strasbg.fr/topbase/xsections.html).\n"
+    "(https://cdsweb.u-strasbg.fr/topbase/xsections.html), Gnat+2011\n"
+    "(http://wise-obs.tau.ac.il/~orlyg/ion_by_ion/).\n"
   ;
 
+  astrea_py::element::mg_ii::cooling_efficiency(m);
   astrea_py::element::mg_ii::effective_collision_strengths(m);
   astrea_py::element::mg_ii::energies(m);
   astrea_py::element::mg_ii::info(m);

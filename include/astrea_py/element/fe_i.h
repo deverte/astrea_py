@@ -5,6 +5,7 @@
 
 #include <astrea/astrea.h>
 
+#include "astrea_py/element/fe_i/cooling_efficiency.h"
 #include "astrea_py/element/fe_i/effective_collision_strengths.h"
 #include "astrea_py/element/fe_i/energies.h"
 #include "astrea_py/element/fe_i/info.h"
@@ -24,9 +25,11 @@ namespace astrea_py::element {
 inline void fe_i_(py::module_& m) {
   m.doc() =
     "Fe I data by Mashonkina+2011, Bautista+1998, NIST\n"
-    "(https://www.nist.gov/pml/atomic-spectra-database), IRON Project.\n"
+    "(https://www.nist.gov/pml/atomic-spectra-database), IRON Project, Gnat+2011\n"
+    "(http://wise-obs.tau.ac.il/~orlyg/ion_by_ion/).\n"
   ;
 
+  astrea_py::element::fe_i::cooling_efficiency(m);
   astrea_py::element::fe_i::effective_collision_strengths(m);
   astrea_py::element::fe_i::energies(m);
   astrea_py::element::fe_i::info(m);

@@ -5,6 +5,7 @@
 
 #include <astrea/astrea.h>
 
+#include "astrea_py/element/fe_iii/cooling_efficiency.h"
 #include "astrea_py/element/fe_iii/energies.h"
 #include "astrea_py/element/fe_iii/info.h"
 #include "astrea_py/element/fe_iii/principal_quantum_numbers.h"
@@ -20,9 +21,11 @@ namespace astrea_py::element {
 
 inline void fe_iii_(py::module_& m) {
   m.doc() =
-    "Fe III data by NIST (https://www.nist.gov/pml/atomic-spectra-database).\n"
+    "Fe III data by NIST (https://www.nist.gov/pml/atomic-spectra-database)\n"
+    "Gnat+2011 (http://wise-obs.tau.ac.il/~orlyg/ion_by_ion/).\n"
   ;
 
+  astrea_py::element::fe_iii::cooling_efficiency(m);
   astrea_py::element::fe_iii::energies(m);
   astrea_py::element::fe_iii::info(m);
   astrea_py::element::fe_iii::principal_quantum_numbers(m);
