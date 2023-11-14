@@ -21,8 +21,7 @@ class AstreaPy(ConanFile):
 
     def requirements(self):
         self.requires("eigen/3.4.0", force=True)
-        # self.requires(f"astrea/{version}")
-        self.requires(f"astrea/0.5.3")
+        self.requires(f"astrea/{version}")
         self.requires("pybind11/2.10.1")
 
     def layout(self):

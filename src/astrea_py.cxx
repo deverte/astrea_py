@@ -14,6 +14,7 @@ PYBIND11_MODULE(astrea, m) {
 
   astrea_py::cooling::cooling_rate_approximation(cooling);
   astrea_py::cooling::cooling_rate(cooling);
+  astrea_py::cooling::heating_rate(cooling);
 
 
   // Element

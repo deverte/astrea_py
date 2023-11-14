@@ -3,8 +3,8 @@ import numpy as np
 import pytest
 
 
-def test_L():
-    L = aa.cooling.L
+def test_H():
+    H = aa.cooling.H
 
     x = np.arange(2)
     n_z = [
@@ -17,8 +17,8 @@ def test_L():
     ]
     E_z = np.array([0.0, 1.957696455240094])
 
-    cooling = L(x=x, n_z=n_z, R_z=R_z, E_z=E_z)
+    heating = H(x=x, n_z=n_z, R_z=R_z, E_z=E_z)
 
-    assert cooling.shape[0] == 2
-    assert cooling[0] == 1.2546302068201222e-09
-    assert cooling[1] == 7.841438792625764e-09
+    assert heating.shape[0] == 2
+    assert heating[0] == 1.881945310230183e-09
+    assert heating[1] == 7.841438792625764e-09
