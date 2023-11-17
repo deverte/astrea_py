@@ -20,166 +20,106 @@ inline void balance_equation(py::module_& m) {
   ;
 
   m.def(
-    "Q_x",
-    &astrea::population::balance_equation::Q_x,
+    "Q_KK",
+    &astrea::population::balance_equation::Q_KK,
     "Builds single transitions rates matrix Q from S.\n"
     "\n"
-    ":param S_x: Transitions rates matrix at coordinate x in s-1.\n"
-    "Axis 0: Initial term.\n"
-    "Axis 1: Final term.\n"
-    ":return: Single transitions rates matrix at coordinate x in s-1.\n"
-    "Axis 0: Initial term.\n"
-    "Axis 1: Final term.\n",
-    py::arg("S_x")
+    ":param S_KK: Transitions rates matrix in s-1.\n"
+    ":return: Single transitions rates matrix in s-1.\n",
+    py::arg("S_KK")
   );
 
   m.def(
-    "P_x",
-    &astrea::population::balance_equation::P_x,
-    ":param Q_x: Transition rates matrix in s-1.\n"
-    "Axis 0: Initial term.\n"
-    "Axis 1: Final term.\n"
+    "P_KK",
+    &astrea::population::balance_equation::P_KK,
+    "Calculates single transition operator using transition rates matrix.\n"
+    "\n"
+    ":param Q_KK: Transition rates matrix in s-1.\n"
     ":param Delta_t: Time difference in s.\n"
-    ":return: Transition operator at coordinate x in s-1.\n"
-    "Axis 0: Initial term.\n"
-    "Axis 1: Final term.\n",
-    py::arg("Q_x"),
+    ":return: Transition operator in s-1.\n",
+    py::arg("Q_KK"),
     py::arg("Delta_t")
   );
 
   m.def(
-    "p_x_t_plus_Delta_t",
-    &astrea::population::balance_equation::p_x_t_plus_Delta_t,
+    "p_t_plus_Delta_t_K",
+    &astrea::population::balance_equation::p_t_plus_Delta_t_K,
     "Calculates current electrons populations single vector using previous\n"
     "electrons populations single vector and single transition operator P.\n"
     "\n"
-    ":param p_x_t: Previous electrons population at coordinate x in 1.\n"
-    "Axis 0: Term.\n"
-    ":param P_x: Transition operator in s-1.\n"
-    "Axis 0: Initial term.\n"
-    "Axis 1: Final term.\n"
-    ":return: Single electrons population vector at coordinate x in 1.\n"
-    "Axis 0: Term.\n",
-    py::arg("p_x_t"),
-    py::arg("P_x")
+    ":param p_K: Previous electrons population in 1.\n"
+    ":param P_KK: Transition operator in s-1.\n"
+    ":return: Single electrons population vector in 1.\n",
+    py::arg("p_K"),
+    py::arg("P_KK")
   );
 
   m.def(
-    "p_x_t",
-    &astrea::population::balance_equation::p_x_t,
+    "p_K",
+    &astrea::population::balance_equation::p_K,
     "Builds single electrons population vector p_t from set of n_t vectors.\n"
     "\n"
-    ":param n_x_t: Previous electrons population at coordinate x.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Term.\n"
-    ":return: Single electrons population vector at coordinate x in 1.\n"
-    "Axis 0: Term.\n",
-    py::arg("n_x_t")
+    ":param n_ZK: Previous electrons population in 1.\n"
+    ":return: Single electrons population vector in 1.\n",
+    py::arg("n_ZK")
   );
 
   m.def(
-    "S_x",
-    &astrea::population::balance_equation::S_x,
+    "S_KK",
+    &astrea::population::balance_equation::S_KK,
     "Builds single transitions rates matrix S from set of R matrices.\n"
     "\n"
-    ":param R_x_ij: Excitation transitions rates at coordinate x in s-1.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Initial term.\n"
-    "Axis 2: Final term.\n"
-    ":param R_x_ji: De-excitation transitions rates at coordinate x in s-1.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Initial term.\n"
-    "Axis 2: Final term.\n"
-    ":param R_x_ik: Ionization transitions rates at coordinate x in s-1.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Initial term.\n"
-    ":param R_x_ki: Recombination transitions rates at coordinate x in s-1.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Final term.\n"
-    ":return: Single transitions rates matrix at coordinate x in s-1.\n"
-    "Axis 0: Initial term.\n"
-    "Axis 1: Final term.\n",
-    py::arg("R_x_ij"),
-    py::arg("R_x_ji"),
-    py::arg("R_x_ik"),
-    py::arg("R_x_ki")
+    ":param R_ij_ZKK: Excitation transitions rates in s-1.\n"
+    ":param R_ji_ZKK: De-excitation transitions rates in s-1.\n"
+    ":param R_ik_ZK: Ionization transitions rates in s-1.\n"
+    ":param R_ki_ZK: Recombination transitions rates in s-1.\n"
+    ":return: Single transitions rates matrix in s-1.\n",
+    py::arg("R_ij_ZKK"),
+    py::arg("R_ji_ZKK"),
+    py::arg("R_ik_ZK"),
+    py::arg("R_ki_ZK")
   );
 
   m.def(
-    "n_x_t_plus_Delta_t",
-    &astrea::population::balance_equation::n_x_t_plus_Delta_t,
+    "n_t_plus_Delta_t_ZK",
+    &astrea::population::balance_equation::n_t_plus_Delta_t_ZK,
     "Calculates NLTE electrons population using balance equation.\n"
     "\n"
-    ":param n_x_t: Previous electrons population at coordinate x.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Term.\n"
-    ":param R_x_ij: Excitation transitions rates at coordinate x in s-1.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Initial term.\n"
-    "Axis 2: Final term.\n"
-    ":param R_x_ji: De-excitation transitions rates at coordinate x in s-1.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Initial term.\n"
-    "Axis 2: Final term.\n"
-    ":param R_x_ik: Ionization transitions rates at coordinate x in s-1.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Initial term.\n"
-    ":param R_x_ki: Recombination transitions rates at coordinate x in s-1.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Final term.\n"
+    ":param n_ZK: Previous electrons population in 1.\n"
+    ":param R_ij_ZKK: Excitation transitions rates in s-1.\n"
+    ":param R_ji_ZKK: De-excitation transitions rates in s-1.\n"
+    ":param R_ik_ZK: Ionization transitions rates in s-1.\n"
+    ":param R_ki_ZK: Recombination transitions rates in s-1.\n"
     ":param Delta_t: Time difference in s.\n"
-    ":return: Electrons population at coordinate x in 1.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Term.\n",
-    py::arg("n_x_t"),
-    py::arg("R_x_ij"),
-    py::arg("R_x_ji"),
-    py::arg("R_x_ik"),
-    py::arg("R_x_ki"),
+    ":return: Electrons population in 1.\n",
+    py::arg("n_ZK"),
+    py::arg("R_ij_ZKK"),
+    py::arg("R_ji_ZKK"),
+    py::arg("R_ik_ZK"),
+    py::arg("R_ki_ZK"),
     py::arg("Delta_t")
   );
 
   m.def(
-    "n_t_plus_Delta_t",
-    &astrea::population::balance_equation::n_t_plus_Delta_t,
+    "n_t_plus_Delta_t_XZK",
+    &astrea::population::balance_equation::n_t_plus_Delta_t_XZK,
     "Calculates NLTE electrons population using balance equation across all\n"
     "spatial points.\n"
     "\n"
-    ":param x: Any vector with shape corresponding to spatial points.\n"
-    "Axis 0: Coordinate index.\n"
-    ":param n_t: Previous electrons population.\n"
-    "Axis 0: Coordinate index.\n"
-    "Axis 1: Element index.\n"
-    "Axis 2: Term.\n"
-    ":param R_ij: Excitation transitions rates.\n"
-    "Axis 0: Coordinate index.\n"
-    "Axis 1: Element index.\n"
-    "Axis 2: Initial term.\n"
-    "Axis 3: Final term.\n"
-    ":param R_ji: De-excitation transitions rates.\n"
-    "Axis 0: Coordinate index.\n"
-    "Axis 1: Element index.\n"
-    "Axis 2: Initial term.\n"
-    "Axis 3: Final term.\n"
-    ":param R_ik: Ionization transitions rates.\n"
-    "Axis 0: Coordinate index.\n"
-    "Axis 1: Element index.\n"
-    "Axis 2: Initial term.\n"
-    ":param R_ki: Recombination transitions rates.\n"
-    "Axis 0: Coordinate index.\n"
-    "Axis 1: Element index.\n"
-    "Axis 2: Final term.\n"
+    ":param x_X: Any vector with shape corresponding to spatial points.\n"
+    ":param n_t_XZK: Previous electrons population.\n"
+    ":param R_ij_XZKK: Excitation transitions rates.\n"
+    ":param R_ji_XZKK: De-excitation transitions rates.\n"
+    ":param R_ik_XZK: Ionization transitions rates.\n"
+    ":param R_ki_XZK: Recombination transitions rates.\n"
     ":param Delta_t: Time difference in s.\n"
-    ":return: Electrons population in 1.\n"
-    "Axis 0: Coordinate index.\n"
-    "Axis 1: Element index.\n"
-    "Axis 2: Term.\n",
-    py::arg("x"),
-    py::arg("n_t"),
-    py::arg("R_ij"),
-    py::arg("R_ji"),
-    py::arg("R_ik"),
-    py::arg("R_ki"),
+    ":return: Electrons population in 1.\n",
+    py::arg("x_X"),
+    py::arg("n_t_XZK"),
+    py::arg("R_ij_XZKK"),
+    py::arg("R_ji_XZKK"),
+    py::arg("R_ik_XZK"),
+    py::arg("R_ki_XZK"),
     py::arg("Delta_t")
   );
 }

@@ -4,7 +4,7 @@ import pytest
 
 
 def test_tau():
-    tau = aa.optics.tau
+    tau = aa.optics.optical_depth.tau
 
     x_X = np.array([0.1, 0.2])
     n_X = np.array([0.4, 0.6])

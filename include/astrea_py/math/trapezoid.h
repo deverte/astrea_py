@@ -19,23 +19,23 @@ inline void trapezoid(py::module_& m) {
     &astrea::math::trapezoid_dx,
     "Trapezoidal integration.\n"
     "\n"
-    ":param y: Input array.\n"
+    ":param y_X: Input array.\n"
     ":param dx: Spacing between sample points.\n"
     ":return: Definite integral.\n",
-    py::arg("y"),
+    py::arg("y_X"),
     py::arg("dx")
   );
 
   m.def(
-    "trapezoid_x",
-    &astrea::math::trapezoid_x,
+    "trapezoid",
+    &astrea::math::trapezoid,
     "Trapezoidal integration.\n"
     "\n"
-    ":param y: Input array.\n"
-    ":param x: Sample points corresponding to y values.\n"
+    ":param y_X: Input array.\n"
+    ":param x_X: Sample points corresponding to y values.\n"
     ":return: Definite integral.\n",
-    py::arg("y"),
-    py::arg("x")
+    py::arg("y_X"),
+    py::arg("x_X")
   );
 }
 

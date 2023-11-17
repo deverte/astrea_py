@@ -20,7 +20,7 @@ inline void optical_depth(py::module_& m) {
 
   m.def(
     "tau",
-    &astrea::optics::tau,
+    &astrea::optics::optical_depth::tau,
     "Optical depth.\n"
     "\n"
     ":param x_X: Coordinates in au.\n"

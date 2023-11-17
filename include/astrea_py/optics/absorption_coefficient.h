@@ -20,7 +20,7 @@ inline void absorption_coefficient(py::module_& m) {
 
   m.def(
     "alpha_nu",
-    &astrea::optics::alpha_nu,
+    &astrea::optics::absorption_coefficient::alpha_nu,
     "Absorption coefficient.\n"
     "\n"
     ":param n: Element number density in cm-3.\n"
@@ -38,7 +38,7 @@ inline void absorption_coefficient(py::module_& m) {
 
   m.def(
     "alpha_nu_X",
-    &astrea::optics::alpha_nu_X,
+    &astrea::optics::absorption_coefficient::alpha_nu_X,
     "Absorption coefficients.\n"
     "\n"
     ":param n_X: Element number densities in cm-3.\n"

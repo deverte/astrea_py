@@ -3,11 +3,11 @@ import numpy as np
 import pytest
 
 
-def test_R():
+def test_R_XZKK():
     cd = aa.transition.cd
 
-    T = np.array([1.0e4, 1.0e5]) # x=[0, 1]
-    R_ij = [
+    T_X = np.array([1.0e4, 1.0e5]) # x=[0, 1]
+    R_XZKK = [
         [ # x=0
             np.array([ # element=0 transitions=[[00, 01], [10, 11]]
                 [0.0, 4.24199422380423e-05],
@@ -23,16 +23,16 @@ def test_R():
             np.zeros((1, 1)), # element=1 transitions=[[00]]
         ],
     ]
-    g = [
+    g_ZK = [
         np.array([9.0, 5.0]), # element=0 terms=[0, 1]
         np.array([4.0]), # element=1 terms=[0]
     ]
-    E = [
+    E_ZK = [
         np.array([0.0, 9.15]), # element=0 terms=[0, 1]
         np.array([0.0]), # element=1 terms=[0]
     ]
 
-    R_ji = cd.R(T=T, R=R_ij, g=g, E=E)
+    R_ji = cd.R_XZKK(T_X=T_X, R_XZKK=R_XZKK, g_ZK=g_ZK, E_ZK=E_ZK)
 
     expected = [
         [ # x=0

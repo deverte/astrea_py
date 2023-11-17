@@ -3,21 +3,21 @@ import numpy as np
 import pytest
 
 
-def test_L():
-    L = aa.cooling.L
+def test_L_X():
+    L_X = aa.cooling.cooling_rate.L_X
 
-    x = np.arange(2)
-    n_z = [
-        np.array([0.4, 0.6]), # x=0
-        np.array([0.5, 0.5]), # x=1
+    x_X = np.arange(2)
+    n_XK = [
+        np.array([0.4, 0.6]),
+        np.array([0.5, 0.5]),
     ]
-    R_z = [
-        np.array([[0.0, 1.0e3], [1.0e3, 0.0]]), # x=0
-        np.array([[0.0, 5.0e3], [5.0e3, 0.0]]), # x=1
+    R_XKK = [
+        np.array([[0.0, 1.0e3], [1.0e3, 0.0]]),
+        np.array([[0.0, 5.0e3], [5.0e3, 0.0]]),
     ]
-    E_z = np.array([0.0, 1.957696455240094])
+    E_K = np.array([0.0, 1.957696455240094])
 
-    cooling = L(x=x, n_z=n_z, R_z=R_z, E_z=E_z)
+    cooling = L_X(x_X=x_X, n_XK=n_XK, R_XKK=R_XKK, E_K=E_K)
 
     assert cooling.shape[0] == 2
     assert cooling[0] == 1.2546302068201222e-09

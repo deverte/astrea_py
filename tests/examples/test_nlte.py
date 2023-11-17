@@ -1,4 +1,4 @@
-def test_example():
+def test_nlte():
     import astrea as aa
     import numpy as np
 
@@ -29,14 +29,14 @@ def test_example():
                 keys[sort_indices[i]]: i for i in range(len(sort_indices))
             }
 
-            self.E = aa.element.o_i.E()[sorted_keys]
-            self.g = aa.element.o_i.g()[sorted_keys]
-            self.f = aa.element.o_i.f().T[sorted_keys].T[sorted_keys]
-            self.C_vs_T = [
+            self.E_K = aa.element.o_i.E()[sorted_keys]
+            self.g_K = aa.element.o_i.g()[sorted_keys]
+            self.f_KK = aa.element.o_i.f().T[sorted_keys].T[sorted_keys]
+            self.C_vs_T_KK = [
                 [aa.element.o_i.C_vs_T()[i][j] for j in sorted_keys]
                 for i in sorted_keys
             ]
-            self.sigma_vs_nu = [
+            self.sigma_vs_nu_K = [
                 aa.element.o_i.sigma_vs_nu()[i] for i in sorted_keys
             ]
 
@@ -53,69 +53,69 @@ def test_example():
                 keys[sort_indices[i]]: i for i in range(len(sort_indices))
             }
 
-            self.E = aa.element.o_ii.E()[sorted_keys]
-            self.g = aa.element.o_ii.g()[sorted_keys]
-            self.f = np.zeros((1, 1))
-            self.C_vs_T = [
+            self.E_K = aa.element.o_ii.E()[sorted_keys]
+            self.g_K = aa.element.o_ii.g()[sorted_keys]
+            self.f_KK = np.zeros((1, 1))
+            self.C_vs_T_KK = [
                 [
                     np.zeros((2, 0)),
                 ],
             ]
-            self.sigma_vs_nu = [
+            self.sigma_vs_nu_K = [
                 np.zeros((2, 0)),
             ]
 
 
     class Env:
-        def __init__(self, T, N_e, N_a, Delta_t=6e2):
+        def __init__(self, T_X, N_e_X, N_a_X, Delta_t=6e2):
             self.F_lambda_vs_lambda = KELT_9_b().F_lambda_vs_lambda
 
             elements = [
                 O_I(),
                 O_II(),
             ]
-            self.E = [e.E for e in elements]
-            self.g = [e.g for e in elements]
-            self.f = [e.f for e in elements]
-            self.C_vs_T = [e.C_vs_T for e in elements]
-            self.sigma_vs_nu = [e.sigma_vs_nu for e in elements]
+            self.E_ZK = [e.E_K for e in elements]
+            self.g_ZK = [e.g_K for e in elements]
+            self.f_ZKK = [e.f_KK for e in elements]
+            self.C_vs_T_ZKK = [e.C_vs_T_KK for e in elements]
+            self.sigma_vs_nu_ZK = [e.sigma_vs_nu_K for e in elements]
 
-            self.T = T
-            self.N_e = N_e
-            self.N_a = N_a
+            self.T_X = T_X
+            self.N_e_X = N_e_X
+            self.N_a_X = N_a_X
             self.Delta_t = Delta_t
 
-            self.cd = aa.transition.cd.R
-            self.ce = aa.transition.ce.R
-            self.rd = aa.transition.rd.R
-            self.re = aa.transition.re_lorentz.R
-            self.ri = aa.transition.ri.R
+            self.cd = aa.transition.cd.R_XZKK
+            self.ce = aa.transition.ce.R_XZKK
+            self.rd = aa.transition.rd.R_XZKK
+            self.re = aa.transition.re_lorentz.R_XZKK
+            self.ri = aa.transition.ri.R_XZK
             self.rr = lambda ri: [
                 [np.zeros_like(ri_x_z) for ri_x_z in ri_x] for ri_x in ri
             ]
 
-            self.nlte = aa.population.balance_equation.n_t_plus_Delta_t
-            self.lte = aa.population.boltzmann_distribution.n
+            self.nlte = aa.population.balance_equation.n_t_plus_Delta_t_XZK
+            self.lte = aa.population.boltzmann_distribution.n_XZK
 
             self.n = []
 
         def equilibrium(self):
-            rd = self.rd(x=self.T, f=self.f, g=self.g, E=self.E)
+            rd = self.rd(x_X=self.T_X, f_ZKK=self.f_ZKK, g_ZK=self.g_ZK, E_ZK=self.E_ZK)
             re = self.re(
-                x=self.T,
-                g=self.g,
-                E=self.E,
-                A=rd[x:=0],
+                x_X=self.T_X,
+                g_ZK=self.g_ZK,
+                E_ZK=self.E_ZK,
+                A_ZKK=rd[x:=0],
                 F_lambda_vs_lambda=self.F_lambda_vs_lambda,
             )
             ri = self.ri(
-                x=self.T,
-                sigma_vs_nu=self.sigma_vs_nu,
+                x_X=self.T_X,
+                sigma_vs_nu_ZK=self.sigma_vs_nu_ZK,
                 F_lambda_vs_lambda=self.F_lambda_vs_lambda,
             )
             rr = self.rr(ri)
-            ce = self.ce(T=self.T, N_e=self.N_e, C_vs_T=self.C_vs_T)
-            cd = self.cd(T=self.T, R=ce, g=self.g, E=self.E)
+            ce = self.ce(T_X=self.T_X, N_e_X=self.N_e_X, C_vs_T_ZKK=self.C_vs_T_ZKK)
+            cd = self.cd(T_X=self.T_X, R_XZKK=ce, g_ZK=self.g_ZK, E_ZK=self.E_ZK)
 
             R_ij = [
                 [re[x][z] + ce[x][z] for z in range(len(re[x]))]
@@ -128,23 +128,23 @@ def test_example():
             R_ik = ri
             R_ki = rr
 
-            lte = self.lte(T=self.T, g=self.g, E=self.E)
+            lte = self.lte(T_X=self.T_X, g_ZK=self.g_ZK, E_ZK=self.E_ZK)
             nlte = self.nlte(
-                x=self.T,
-                n_t=lte,
-                R_ij=R_ij,
-                R_ji=R_ji,
-                R_ik=R_ik,
-                R_ki=R_ki,
+                x_X=self.T_X,
+                n_t_XZK=lte,
+                R_ij_XZKK=R_ij,
+                R_ji_XZKK=R_ji,
+                R_ik_XZK=R_ik,
+                R_ki_XZK=R_ki,
                 Delta_t=self.Delta_t,
             )
 
             self.n = [ # full population is taken from MHD
                 [
-                    self.N_a[x][z] * nlte[x][z] / nlte[x][z].sum()
-                    for z in range(len(self.E))
+                    self.N_a_X[x][z] * nlte[x][z] / nlte[x][z].sum()
+                    for z in range(len(self.E_ZK))
                 ]
-                for x in range(len(self.T))
+                for x in range(len(self.T_X))
             ]
 
 
@@ -154,7 +154,7 @@ def test_example():
     N_a = np.ones((2, size)).T / 2
     Delta_t = 6e10
 
-    env = Env(T=T, N_e=N_e, N_a=N_a, Delta_t=Delta_t)
+    env = Env(T_X=T, N_e_X=N_e, N_a_X=N_a, Delta_t=Delta_t)
 
     env.equilibrium()
 

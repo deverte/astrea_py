@@ -3,27 +3,27 @@ import numpy as np
 import pytest
 
 
-def test_R():
+def test_R_XZKK():
     rd = aa.transition.rd
 
-    x = np.array([0, 1])
-    f = [
+    x_X = np.array([0, 1])
+    f_ZKK = [
         np.array([ # element=0 transitions=[[00, 01], [10, 11]]
             [0.0, 0.9599E-6],
             [0.0, 0.0],
         ]),
         np.array([[0.0]]), # element=1 transitions=[[00]]
     ]
-    g = [
+    g_ZK = [
         np.array([9.0, 5.0]), # element=0 terms=[0, 1]
         np.array([4.0]), # element=1 terms=[0]
     ]
-    E = [
+    E_ZK = [
         np.array([0.0, 9.15]), # element=0 terms=[0, 1]
         np.array([0.0]), # element=1 terms=[0]
     ]
 
-    R_ji = rd.R(x=x, f=f, g=g, E=E)
+    R_ji = rd.R_XZKK(x_X=x_X, f_ZKK=f_ZKK, g_ZK=g_ZK, E_ZK=E_ZK)
 
     expected = [
         [ # x=0

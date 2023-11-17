@@ -22,108 +22,78 @@ inline void cd(py::module_& m) {
 
   m.def(
     "R_x_z_ji",
-    &astrea::transition::cd::R_x_z_ji,
-    "Collisional de-excitation transitions rates from LTE (using Boltzmann\n"
-    "distribution) at coordinate x for element z for j->i transition.\n"
-    "\n"
-    ":param T_x: Temperature at coordinate x in K.\n"
-    ":param R_x_z_ij: Collisional excitation rate of element z for i->j transition\n"
-    "at coordinate x in s-1.\n"
-    ":param g_z_i: Statistical weight of element z of term i in 1.\n"
-    ":param g_z_j: Statistical weight of element z of term j in 1.\n"
-    ":param E_z_ij: Energy differenece of element z between terms i and j in eV.\n"
-    ":return: Transitions rate in s-1.\n",
-    py::arg("T_x"),
-    py::arg("R_x_z_ij"),
-    py::arg("g_z_i"),
-    py::arg("g_z_j"),
-    py::arg("E_z_ij")
-  );
-
-  m.def(
-    "R_x_z",
-    &astrea::transition::cd::R_x_z,
-    "Collisional de-excitation transitions rates from LTE (using Boltzmann\n"
-    "distribution) at coordinate x for element z.\n"
-    "\n"
-    ":param T_x: Temperature at coordinate x in K.\n"
-    ":param R_x_z: Collisional excitation rate of element z at coordinate x in s-1.\n"
-    "Axis 0: Initial term.\n"
-    "Axis 1: Final term.\n"
-    ":param g_z: Statistical weights of element z in 1.\n"
-    "Axis 0: Term.\n"
-    "Must be sorted in ascending order over energies!\n"
-    ":param E_z: Energies of element z in eV.\n"
-    "Axis 0: Term.\n"
-    "Must be sorted in ascending order!\n"
-    ":return: Transitions rates in s-1.\n"
-    "Axis 0: Initial term.\n"
-    "Axis 1: Final term.\n",
-    py::arg("T_x"),
-    py::arg("R_x_z"),
-    py::arg("g_z"),
-    py::arg("E_z")
-  );
-
-  m.def(
-    "R_x",
-    &astrea::transition::cd::R_x,
-    "Collisional de-excitation transitions rates from LTE (using Boltzmann\n"
-    "distribution) at coordinate x.\n"
-    "\n"
-    ":param T_x: Temperature at coordinate x in K.\n"
-    ":param R_x: Collisional excitation rates at coordinate x in s-1.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Initial term.\n"
-    "Axis 2: Final term.\n"
-    ":param g: Statistical weights in 1.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Term.\n"
-    "Must be sorted in ascending order over energies per element!\n"
-    ":param E: Energies in eV.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Term.\n"
-    "Must be sorted in ascending order per element!\n"
-    ":return: Transitions rates in s-1.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Initial term.\n"
-    "Axis 2: Final term.\n",
-    py::arg("T_x"),
-    py::arg("R_x"),
-    py::arg("g"),
-    py::arg("E")
-  );
-
-  m.def(
-    "R",
-    &astrea::transition::cd::R,
+    &astrea::transition::cd::R_ji,
     "Collisional de-excitation transitions rates from LTE (using Boltzmann\n"
     "distribution).\n"
     "\n"
-    ":param T: Temperatures in K.\n"
-    "Axis 0: Coordinate index.\n"
-    ":param R: Collisional excitation rates in s-1.\n"
-    "Axis 0: Coordinate index.\n"
-    "Axis 1: Element index.\n"
-    "Axis 2: Initial term.\n"
-    "Axis 3: Final term.\n"
-    ":param g: Statistical weights in 1.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Term.\n"
-    "Must be sorted in ascending order over energies per element!\n"
-    ":param E: Energies in eV.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Term.\n"
-    "Must be sorted in ascending order per element!\n"
-    ":return: Transitions rates in s-1.\n"
-    "Axis 0: Coordinate index.\n"
-    "Axis 1: Element index.\n"
-    "Axis 2: Initial term.\n"
-    "Axis 3: Final term.\n",
+    ":param T: Temperature in K.\n"
+    ":param R_ij: Collisional excitation rate in s-1.\n"
+    ":param g_i: Statistical weight of term i in 1.\n"
+    ":param g_j: Statistical weight of term j in 1.\n"
+    ":param E_ij: Energy differenece between terms i and j in eV.\n"
+    ":return: Transition rate in s-1.\n",
     py::arg("T"),
-    py::arg("R"),
-    py::arg("g"),
-    py::arg("E")
+    py::arg("R_ij"),
+    py::arg("g_i"),
+    py::arg("g_j"),
+    py::arg("E_ij")
+  );
+
+  m.def(
+    "R_KK",
+    &astrea::transition::cd::R_KK,
+    "Collisional de-excitation transitions rates from LTE (using Boltzmann\n"
+    "distribution).\n"
+    "\n"
+    ":param T: Temperature in K.\n"
+    ":param R_KK: Collisional excitation rate in s-1.\n"
+    ":param g_K: Statistical weights in 1.\n"
+    "Must be sorted in ascending order over energies!\n"
+    ":param E_K: Energies in eV.\n"
+    "Must be sorted in ascending order!\n"
+    ":return: Transitions rates in s-1.\n",
+    py::arg("T"),
+    py::arg("R_KK"),
+    py::arg("g_K"),
+    py::arg("E_K")
+  );
+
+  m.def(
+    "R_ZKK",
+    &astrea::transition::cd::R_ZKK,
+    "Collisional de-excitation transitions rates from LTE (using Boltzmann\n"
+    "distribution).\n"
+    "\n"
+    ":param T: Temperature in K.\n"
+    ":param R_ZKK: Collisional excitation rates in s-1.\n"
+    ":param g_ZK: Statistical weights in 1.\n"
+    "Must be sorted in ascending order over energies per element!\n"
+    ":param E_ZK: Energies in eV.\n"
+    "Must be sorted in ascending order per element!\n"
+    ":return: Transitions rates in s-1.\n",
+    py::arg("T"),
+    py::arg("R_ZKK"),
+    py::arg("g_ZK"),
+    py::arg("E_ZK")
+  );
+
+  m.def(
+    "R_XZKK",
+    &astrea::transition::cd::R_XZKK,
+    "Collisional de-excitation transitions rates from LTE (using Boltzmann\n"
+    "distribution).\n"
+    "\n"
+    ":param T_X: Temperatures in K.\n"
+    ":param R_XZKK: Collisional excitation rates in s-1.\n"
+    ":param g_ZK: Statistical weights in 1.\n"
+    "Must be sorted in ascending order over energies per element!\n"
+    ":param E_ZK: Energies in eV.\n"
+    "Must be sorted in ascending order per element!\n"
+    ":return: Transitions rates in s-1.\n",
+    py::arg("T_X"),
+    py::arg("R_XZKK"),
+    py::arg("g_ZK"),
+    py::arg("E_ZK")
   );
 }
 

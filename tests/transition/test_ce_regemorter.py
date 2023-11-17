@@ -3,22 +3,22 @@ import numpy as np
 import pytest
 
 
-def test_R():
+def test_R_XZKK():
     ce = aa.transition.ce_regemorter
 
-    T = np.array([1.0e4, 2.0e4]) # x=[0, 1]
-    N_e = np.array([1.0e8, 1.0e9]) # x=[0, 1]
-    g = [
+    T_X = np.array([1.0e4, 2.0e4]) # x=[0, 1]
+    N_e_X = np.array([1.0e8, 1.0e9]) # x=[0, 1]
+    g_ZK = [
         np.array([9.0, 5.0]), # element=0 terms=[0, 1]
         np.array([9.0, 5.0]), # element=1 terms=[0, 1]
         np.array([4.0]), # element=2 terms=[0]
     ]
-    E = [
+    E_ZK = [
         np.array([0.0, 9.15]), # element=0 terms=[0, 1]
         np.array([0.0, 9.15]), # element=1 terms=[0, 1]
         np.array([0.0]), # element=1 terms=[0]
     ]
-    f_vs_T = [
+    f_vs_T_ZKK = [
         [ # element=0 (must use f from f_vs_T)
             [
                 np.zeros((2, 0)), # transition=00
@@ -49,7 +49,7 @@ def test_R():
         ],
     ]
 
-    R_ij = ce.R(T=T, N_e=N_e, g=g, E=E, f_vs_T=f_vs_T)
+    R_ij = ce.R_XZKK(T_X=T_X, N_e_X=N_e_X, g_ZK=g_ZK, E_ZK=E_ZK, f_vs_T_ZKK=f_vs_T_ZKK)
 
     expected = [
         [ # x=0

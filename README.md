@@ -34,5 +34,5 @@ See [examples](./tests/examples).
 
 ## License
 
-License: [GPL-3](./LICENSE)  
-Author: Artem Shepelin (4.shepelin@gmail.com)
+- License: [GPL-3](./LICENSE)
+- Author: [Artem Shepelin](mailto:4.shepelin@gmail.com)

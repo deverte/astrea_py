@@ -4,7 +4,7 @@ import pytest
 
 
 def test_alpha_nu_X():
-    alpha_nu_X = aa.optics.alpha_nu_X
+    alpha_nu_X = aa.optics.absorption_coefficient.alpha_nu_X
 
     n_X = np.array([0.4, 0.6])
     g_K = np.array([9.0, 5.0])

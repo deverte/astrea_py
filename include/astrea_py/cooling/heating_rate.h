@@ -19,51 +19,39 @@ inline void heating_rate(py::module_& m) {
   ;
 
   m.def(
-    "H_x",
-    &astrea::cooling::H_x,
+    "H",
+    &astrea::cooling::heating_rate::H,
     "Heating rate.\n"
     "\n"
-    ":param n_x_z: Electrons population at point x for element z in 1.\n"
-    "Axis 0: Term index.\n"
+    ":param n_K: Electrons population in 1.\n"
     "Must be sorted over energies!\n"
-    ":param R_x_z: Transitions rates at point x for element z in s-1.\n"
-    "Axis 0: Initial term.\n"
-    "Axis 1: Final term.\n"
+    ":param R_KK: Transitions rates in s-1.\n"
     "Must be sorted over energies!\n"
-    ":param E_z: Energies of element z in eV.\n"
-    "Axis 0: Term index.\n"
+    ":param E_K: Energies of element z in eV.\n"
     "Must be sorted!\n"
     ":return: Heating rate in erg s-1 cm-3.\n",
-    py::arg("n_x_z"),
-    py::arg("R_x_z"),
-    py::arg("E_z")
+    py::arg("n_K"),
+    py::arg("R_KK"),
+    py::arg("E_K")
   );
 
   m.def(
-    "H",
-    &astrea::cooling::H,
+    "H_X",
+    &astrea::cooling::heating_rate::H_X,
     "Heating rate.\n"
     "\n"
-    ":param x: Any array with coordinates shape.\n"
-    "Axis 0: Coordinate index.\n"
-    ":param n_z: Electrons population for element z in 1.\n"
-    "Axis 0: Coordinate index.\n"
-    "Axis 1: Term index.\n"
+    ":param x_X: Any array with coordinates shape.\n"
+    ":param n_XK: Electrons population in 1.\n"
     "Must be sorted over energies!\n"
-    ":param R_x_z: Transitions rates for element z in s-1.\n"
-    "Axis 0: Coordinate index.\n"
-    "Axis 1: Initial term.\n"
-    "Axis 2: Final term.\n"
+    ":param R_XKK: Transitions rates in s-1.\n"
     "Must be sorted over energies!\n"
-    ":param E_z: Energies of element z in eV.\n"
-    "Axis 0: Term index.\n"
+    ":param E_K: Energies of element z in eV.\n"
     "Must be sorted!\n"
-    ":return: Heating rates in erg s-1 cm-3.\n"
-    "Axis 0: Coordinate index.\n",
-    py::arg("x"),
-    py::arg("n_z"),
-    py::arg("R_z"),
-    py::arg("E_z")
+    ":return: Heating rates in erg s-1 cm-3.\n",
+    py::arg("x_X"),
+    py::arg("n_XK"),
+    py::arg("R_XKK"),
+    py::arg("E_K")
   );
 }
 

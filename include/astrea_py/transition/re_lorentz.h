@@ -21,128 +21,97 @@ inline void re_lorentz(py::module_& m) {
   ;
 
   m.def(
-    "R_x_z_ij",
-    &astrea::transition::re_lorentz::R_x_z_ij,
+    "R_ij",
+    &astrea::transition::re_lorentz::R_ij,
     "Radiative excitation (photoexcitation) transition rate using Lorentz line\n"
-    "shape at coordinate x for element z for i->j transition.\n"
+    "shape.\n"
     "\n"
-    ":param g_z_i: Statistical weight of element z of term i in 1.\n"
-    ":param g_z_j: Statistical weight of element z of term j in 1.\n"
-    ":param E_z_ij: Energies differenece of element z between terms i and j in eV.\n"
-    ":param A_z_ji: Spontaneous emission rate of element z for j->i transition in\n"
-    "s-1.\n"
+    ":param g_i: Statistical weight term i in 1.\n"
+    ":param g_j: Statistical weight of term j in 1.\n"
+    ":param E_ij: Energies differenece between terms i and j in eV.\n"
+    ":param A_ji: Spontaneous emission rate for j->i transition in s-1.\n"
     ":param F_lambda_vs_lambda: Spectrum.\n"
     "Axis 0: Bivariate data (row). Row 0: Wavelength in nm. Row 1: Spectral\n"
     "irradiance in W m-2 nm-1.\n"
     "Axis 1: Bivariate pair index (column).\n"
-    ":return: Transition rate in s-1.\n"
-    "Axis 0: Initial term.\n"
-    "Axis 1: Final term.\n",
-    py::arg("g_z_i"),
-    py::arg("g_z_j"),
-    py::arg("E_z_ij"),
-    py::arg("A_z_ji"),
+    ":return: Transition rate in s-1.\n",
+    py::arg("g_i"),
+    py::arg("g_j"),
+    py::arg("E_ij"),
+    py::arg("A_ji"),
     py::arg("F_lambda_vs_lambda")
   );
 
   m.def(
-    "R_x_z",
-    &astrea::transition::re_lorentz::R_x_z,
+    "R_KK",
+    &astrea::transition::re_lorentz::R_KK,
     "Radiative excitation (photoexcitation) transition rates using Lorentz line\n"
-    "shape at coordinate x for element z.\n"
+    "shape.\n"
     "\n"
-    ":param g_z: Statistical weights of element z in 1.\n"
-    "Axis 0: Term.\n"
+    ":param g_K: Statistical weights in 1.\n"
     "Must be sorted in ascending order over energies!\n"
-    ":param E_z: Energies of element z in eV.\n"
-    "Axis 0: Term.\n"
+    ":param E_K: Energies in eV.\n"
     "Must be sorted in ascending order!\n"
-    ":param A_z: Spontaneous emission rates of element z in s-1.\n"
-    "Axis 0: Initial term.\n"
-    "Axis 1: Final term.\n"
+    ":param A_KK: Spontaneous emission rates in s-1.\n"
     "Must be sorted in ascending order over energies for both axes.\n"
     ":param F_lambda_vs_lambda: Spectrum.\n"
     "Axis 0: Bivariate data (row).\n"
     "Row 0: Wavelength in nm. Row 1: Spectral irradiance in W m-2 nm-1.\n"
     "Axis 1: Bivariate pair index (column).\n"
-    ":return: Transition rate in s-1.\n"
-    "Axis 0: Initial term.\n"
-    "Axis 1: Final term.\n",
-    py::arg("g_z"),
-    py::arg("E_z"),
-    py::arg("A_z"),
+    ":return: Transition rate in s-1.\n",
+    py::arg("g_K"),
+    py::arg("E_K"),
+    py::arg("A_KK"),
     py::arg("F_lambda_vs_lambda")
   );
 
   m.def(
-    "R_x",
-    &astrea::transition::re_lorentz::R_x,
+    "R_ZKK",
+    &astrea::transition::re_lorentz::R_ZKK,
     "Radiative excitation (photoexcitation) transition rates using Lorentz line\n"
-    "shape at coordinate x.\n"
+    "shape.\n"
     "\n"
-    ":param g: Statistical weights in 1.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Term.\n"
+    ":param g_ZK: Statistical weights in 1.\n"
     "Must be sorted in ascending order over energies per element!\n"
-    ":param E: Energies in eV.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Term.\n"
+    ":param E_ZK: Energies in eV.\n"
     "Must be sorted in ascending order per element!\n"
-    ":param A: Spontaneous emission rates in s-1.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Initial term.\n"
-    "Axis 2: Final term.\n"
+    ":param A_ZKK: Spontaneous emission rates in s-1.\n"
     "Must be sorted in ascending order over energies for both axes for each\n"
     "element.\n"
     ":param F_lambda_vs_lambda: Spectrum.\n"
     "Axis 0: Bivariate data (row). Row 0: Wavelength in nm. Row 1: Spectral\n"
     "irradiance in W m-2 nm-1.\n"
     "Axis 1: Bivariate pair index (column).\n"
-    ":return: Transition rate in s-1.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Initial term.\n"
-    "Axis 2: Final term.\n",
-    py::arg("g"),
-    py::arg("E"),
-    py::arg("A"),
+    ":return: Transition rate in s-1.\n",
+    py::arg("g_ZK"),
+    py::arg("E_ZK"),
+    py::arg("A_ZKK"),
     py::arg("F_lambda_vs_lambda")
   );
 
   m.def(
-    "R",
-    &astrea::transition::re_lorentz::R,
+    "R_XZKK",
+    &astrea::transition::re_lorentz::R_XZKK,
     "Radiative excitation (photoexcitation) transition rates using Lorentz line\n"
-    "shape at coordinate x.\n"
+    "shape.\n"
     "\n"
-    ":param x: Any vector with shape corresponding to spatial points.\n"
-    "Axis 0: Coordinate index.\n"
-    ":param g: Statistical weights in 1.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Term.\n"
+    ":param x_X: Any vector with shape corresponding to spatial points.\n"
+    ":param g_ZK: Statistical weights in 1.\n"
     "Must be sorted in ascending order over energies per element!\n"
-    ":param E: Energies in eV.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Term.\n"
+    ":param E_ZK: Energies in eV.\n"
     "Must be sorted in ascending order per element!\n"
-    ":param A: Spontaneous emission rates in s-1.\n"
-    "Axis 0: Element index.\n"
-    "Axis 1: Initial term.\n"
-    "Axis 2: Final term.\n"
+    ":param A_ZKK: Spontaneous emission rates in s-1.\n"
     "Must be sorted in ascending order over energies for both axes for each\n"
     "element.\n"
     ":param F_lambda_vs_lambda: Spectrum.\n"
     "Axis 0: Bivariate data (row). Row 0: Wavelength in nm. Row 1: Spectral\n"
     "irradiance in W m-2 nm-1.\n"
     "Axis 1: Bivariate pair index (column).\n"
-    ":return: Transition rate in s-1.\n"
-    "Axis 0: Coordinate index.\n"
-    "Axis 1: Element index.\n"
-    "Axis 2: Initial term.\n"
-    "Axis 3: Final term.\n",
-    py::arg("x"),
-    py::arg("g"),
-    py::arg("E"),
-    py::arg("A"),
+    ":return: Transition rate in s-1.\n",
+    py::arg("x_X"),
+    py::arg("g_ZK"),
+    py::arg("E_ZK"),
+    py::arg("A_ZKK"),
     py::arg("F_lambda_vs_lambda")
   );
 }

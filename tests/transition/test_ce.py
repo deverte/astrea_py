@@ -3,12 +3,12 @@ import numpy as np
 import pytest
 
 
-def test_R():
+def test_R_XZKK():
     ce = aa.transition.ce
 
-    T = np.array([1.2e4, 2.0e4]) # x=[0, 1]
-    N_e = np.array([1.0e8, 1.0e9]) # x=[0, 1]
-    C_vs_T = [
+    T_X = np.array([1.2e4, 2.0e4]) # x=[0, 1]
+    N_e_X = np.array([1.0e8, 1.0e9]) # x=[0, 1]
+    C_vs_T_ZKK = [
         [ # element=0 (must use C from C_vs_T)
             [
                 np.zeros((2, 0)), # transition=00
@@ -39,7 +39,7 @@ def test_R():
         ],
     ]
 
-    R_ij = ce.R(T=T, N_e=N_e, C_vs_T=C_vs_T)
+    R_ij = ce.R_XZKK(T_X=T_X, N_e_X=N_e_X, C_vs_T_ZKK=C_vs_T_ZKK)
 
     expected = [
         [ # x=0

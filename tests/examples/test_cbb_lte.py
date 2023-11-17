@@ -8,11 +8,11 @@ def test_cbb_lte():
     cd = aa.transition.cd
     ce = aa.transition.ce
 
-    T = np.geomspace(1.0e3, 1.0e5, 10)
-    N_e = np.geomspace(1.0e6, 1.0e9, 10)
-    g = [np.array([9.0, 5.0])]
-    E = [np.array([0.0, 9.15])]
-    C_vs_T = [
+    T_X = np.geomspace(1.0e3, 1.0e5, 10)
+    N_e_X = np.geomspace(1.0e6, 1.0e9, 10)
+    g_ZK = [np.array([9.0, 5.0])]
+    E_ZK = [np.array([0.0, 9.15])]
+    C_vs_T_ZKK = [
         [ # element=0 (must use C from C_vs_T)
             [
                 np.zeros((2, 0)), # transition=00
@@ -28,25 +28,25 @@ def test_cbb_lte():
         ]
     ]
 
-    R_ij = ce.R(T=T, N_e=N_e, C_vs_T=C_vs_T)
-    R_ji = cd.R(T=T, R=R_ij, g=g, E=E)
+    R_ij = ce.R_XZKK(T_X=T_X, N_e_X=N_e_X, C_vs_T_ZKK=C_vs_T_ZKK)
+    R_ji = cd.R_XZKK(T_X=T_X, R_XZKK=R_ij, g_ZK=g_ZK, E_ZK=E_ZK)
 
     n_lte_0 = np.array([
-        lte.n(T=T, g=g, E=E)[x][ion:=0][term:=0] for x in range(T.shape[0])
+        lte.n_XZK(T_X=T_X, g_ZK=g_ZK, E_ZK=E_ZK)[x][ion:=0][term:=0] for x in range(T_X.shape[0])
     ])
     n_nlte_0 = np.array([
         R_ji[x][ion:=0][j:=1][i:=0]
         / (R_ij[x][ion:=0][i:=0][j:=1] + R_ji[x][ion:=0][j:=1][i:=0])
-        for x in range(T.shape[0])
+        for x in range(T_X.shape[0])
     ])
 
     n_lte_1 = np.array([
-        lte.n(T=T, g=g, E=E)[x][ion:=0][term:=1] for x in range(T.shape[0])
+        lte.n_XZK(T_X=T_X, g_ZK=g_ZK, E_ZK=E_ZK)[x][ion:=0][term:=1] for x in range(T_X.shape[0])
     ])
     n_nlte_1 = np.array([
         R_ij[x][ion:=0][i:=0][j:=1]
         / (R_ij[x][ion:=0][i:=0][j:=1] + R_ji[x][ion:=0][j:=1][i:=0])
-        for x in range(T.shape[0])
+        for x in range(T_X.shape[0])
     ])
 
     assert n_lte_0 + n_lte_1 == pytest.approx(1.0, abs=1e-12)

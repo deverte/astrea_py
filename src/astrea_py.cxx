@@ -12,9 +12,15 @@ PYBIND11_MODULE(astrea, m) {
   // Cooling
   auto cooling = m.def_submodule("cooling");
 
-  astrea_py::cooling::cooling_rate_approximation(cooling);
-  astrea_py::cooling::cooling_rate(cooling);
-  astrea_py::cooling::heating_rate(cooling);
+  auto cooling_rate_approximation =
+    cooling.def_submodule("cooling_rate_approximation");
+  astrea_py::cooling::cooling_rate_approximation(cooling_rate_approximation);
+
+  auto cooling_rate = cooling.def_submodule("cooling_rate");
+  astrea_py::cooling::cooling_rate(cooling_rate);
+
+  auto heating_rate = cooling.def_submodule("heating_rate");
+  astrea_py::cooling::heating_rate(heating_rate);
 
 
   // Element
@@ -57,8 +63,11 @@ PYBIND11_MODULE(astrea, m) {
   // Optics
   auto optics = m.def_submodule("optics");
 
-  astrea_py::optics::absorption_coefficient(optics);
-  astrea_py::optics::optical_depth(optics);
+  auto absorption_coefficient = optics.def_submodule("absorption_coefficient");
+  astrea_py::optics::absorption_coefficient(absorption_coefficient);
+
+  auto optical_depth = optics.def_submodule("optical_depth");
+  astrea_py::optics::optical_depth(optical_depth);
 
 
   // Math
