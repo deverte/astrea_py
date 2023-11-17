@@ -54,6 +54,13 @@ PYBIND11_MODULE(astrea, m) {
   astrea_py::element::o_ii_(o_ii);
 
 
+  // Optics
+  auto optics = m.def_submodule("optics");
+
+  astrea_py::optics::absorption_coefficient(optics);
+  astrea_py::optics::optical_depth(optics);
+
+
   // Math
   auto math = m.def_submodule("math");
 
