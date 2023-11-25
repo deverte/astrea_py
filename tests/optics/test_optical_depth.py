@@ -3,16 +3,12 @@ import numpy as np
 import pytest
 
 
-def test_tau():
-    tau = aa.optics.optical_depth.tau
+def test_tau_X():
+    tau_X = aa.optics.optical_depth.tau_X
 
     x_X = np.array([0.1, 0.2])
-    n_X = np.array([0.4, 0.6])
-    g_K = np.array([9.0, 5.0])
-    E_K = np.array([0.0, 9.15])
-    A_KK = np.array([[0.0, 1.0e3], [1.0e3, 0.0]])
-    nu = 1.957696455240094
+    alpha_nu_X = np.array([1.2567614843378096e-25, 1.8851422265067139e-25])
 
-    tau = tau(x_X=x_X, n_X=n_X, g_K=g_K, E_K=E_K, A_KK=A_KK, nu=nu)
+    tau_X = tau_X(x_X=x_X, alpha_nu_X=alpha_nu_X)
 
-    assert tau == 1.570951855422262e-26
+    assert tau_X == pytest.approx([0.00000000e+00, 1.57095186e-26])

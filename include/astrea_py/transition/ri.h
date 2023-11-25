@@ -33,9 +33,11 @@ inline void ri(py::module_& m) {
     "Axis 0: Bivariate data (row). Row 0: Wavelength in nm. Row 1: Spectral\n"
     "irradiance in W m-2 nm-1.\n"
     "Axis 1: Bivariate pair index (column).\n"
+    ":param tau: Optical depth in 1.\n"
     ":return: Transition rate in s-1.\n",
     py::arg("sigma_vs_nu"),
-    py::arg("F_lambda_vs_lambda")
+    py::arg("F_lambda_vs_lambda"),
+    py::arg("tau")
   );
 
   m.def(
@@ -52,9 +54,11 @@ inline void ri(py::module_& m) {
     "Axis 0: Bivariate data (row). Row 0: Wavelength in nm. Row 1: Spectral\n"
     "irradiance in W m-2 nm-1.\n"
     "Axis 1: Bivariate pair index (column).\n"
+    ":param tau: Optical depth in 1.\n"
     ":return: Transition rate in s-1.\n",
     py::arg("sigma_vs_nu_K"),
-    py::arg("F_lambda_vs_lambda")
+    py::arg("F_lambda_vs_lambda"),
+    py::arg("tau")
   );
 
   m.def(
@@ -71,9 +75,11 @@ inline void ri(py::module_& m) {
     "Axis 0: Bivariate data (row). Row 0: Wavelength in nm. Row 1: Spectral\n"
     "irradiance in W m-2 nm-1.\n"
     "Axis 1: Bivariate pair index (column).\n"
+    ":param tau: Optical depth in 1.\n"
     ":return: Transition rate in s-1.\n",
     py::arg("sigma_vs_nu_ZK"),
-    py::arg("F_lambda_vs_lambda")
+    py::arg("F_lambda_vs_lambda"),
+    py::arg("tau")
   );
 
   m.def(
@@ -91,10 +97,12 @@ inline void ri(py::module_& m) {
     "Axis 0: Bivariate data (row). Row 0: Wavelength in nm. Row 1: Spectral\n"
     "irradiance in W m-2 nm-1.\n"
     "Axis 1: Bivariate pair index (column).\n"
+    ":param tau_X: Optical depth in 1.\n"
     ":return: Transition rate in s-1.\n",
     py::arg("x_X"),
     py::arg("sigma_vs_nu_ZK"),
-    py::arg("F_lambda_vs_lambda")
+    py::arg("F_lambda_vs_lambda"),
+    py::arg("tau_X")
   );
 }
 

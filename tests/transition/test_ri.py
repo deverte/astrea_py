@@ -14,8 +14,14 @@ def test_R_XZK():
     sigma_vs_nu_ZK = [[o_i.sigma_vs_nu()[key] for key in keys], [np.array([[0.0], [0.0]])]]
     F_lambda_vs_lambda = aa.spectrum.kelt_9_fossati.F_lambda_vs_lambda()
     F_lambda_vs_lambda[1] = F_lambda_vs_lambda[1] / 0.03**2
+    tau_X = np.array([0.0, 0.0])
 
-    R = ri.R_XZK(x_X=T_X, sigma_vs_nu_ZK=sigma_vs_nu_ZK, F_lambda_vs_lambda=F_lambda_vs_lambda)
+    R = ri.R_XZK(
+        x_X=T_X,
+        sigma_vs_nu_ZK=sigma_vs_nu_ZK,
+        F_lambda_vs_lambda=F_lambda_vs_lambda,
+        tau_X=tau_X,
+    )
     assert (
         R[0][0] ==
             pytest.approx(np.array([362.1178317114999]), np.array([0.0]))

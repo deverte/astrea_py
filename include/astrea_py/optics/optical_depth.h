@@ -23,19 +23,23 @@ inline void optical_depth(py::module_& m) {
     &astrea::optics::optical_depth::tau,
     "Optical depth.\n"
     "\n"
-    ":param x_X: Coordinates in au.\n"
-    ":param n_X: Element number densities in cm-3.\n"
-    ":param g_K: Statistical weights in 1.\n"
-    ":param E_K: Energies in eV.\n"
-    ":param A_KK: Spontaneous emission rates in s-1.\n"
-    ":param nu: Frequency in s-1.\n"
+    ":param x_X: Coordinates (positive, over single axis in ascending order) in au.\n"
+    ":param alpha_nu_X: Absorption coefficients in au-1.\n"
     ":return: Optical depth in 1.\n",
     py::arg("x_X"),
-    py::arg("n_X"),
-    py::arg("g_K"),
-    py::arg("E_K"),
-    py::arg("A_KK"),
-    py::arg("nu")
+    py::arg("alpha_nu_X")
+  );
+
+  m.def(
+    "tau_X",
+    &astrea::optics::optical_depth::tau_X,
+    "Optical depth.\n"
+    "\n"
+    ":param x_X: Coordinates (positive, over single axis in ascending order) in au.\n"
+    ":param alpha_nu_X: Absorption coefficients in au-1.\n"
+    ":return: Optical depth in 1.\n",
+    py::arg("x_X"),
+    py::arg("alpha_nu_X")
   );
 }
 

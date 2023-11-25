@@ -34,12 +34,14 @@ inline void re_lorentz(py::module_& m) {
     "Axis 0: Bivariate data (row). Row 0: Wavelength in nm. Row 1: Spectral\n"
     "irradiance in W m-2 nm-1.\n"
     "Axis 1: Bivariate pair index (column).\n"
+    ":param tau: Optical depth in 1.\n"
     ":return: Transition rate in s-1.\n",
     py::arg("g_i"),
     py::arg("g_j"),
     py::arg("E_ij"),
     py::arg("A_ji"),
-    py::arg("F_lambda_vs_lambda")
+    py::arg("F_lambda_vs_lambda"),
+    py::arg("tau")
   );
 
   m.def(
@@ -58,11 +60,13 @@ inline void re_lorentz(py::module_& m) {
     "Axis 0: Bivariate data (row).\n"
     "Row 0: Wavelength in nm. Row 1: Spectral irradiance in W m-2 nm-1.\n"
     "Axis 1: Bivariate pair index (column).\n"
+    ":param tau: Optical depth in 1.\n"
     ":return: Transition rate in s-1.\n",
     py::arg("g_K"),
     py::arg("E_K"),
     py::arg("A_KK"),
-    py::arg("F_lambda_vs_lambda")
+    py::arg("F_lambda_vs_lambda"),
+    py::arg("tau")
   );
 
   m.def(
@@ -82,11 +86,13 @@ inline void re_lorentz(py::module_& m) {
     "Axis 0: Bivariate data (row). Row 0: Wavelength in nm. Row 1: Spectral\n"
     "irradiance in W m-2 nm-1.\n"
     "Axis 1: Bivariate pair index (column).\n"
+    ":param tau: Optical depth in 1.\n"
     ":return: Transition rate in s-1.\n",
     py::arg("g_ZK"),
     py::arg("E_ZK"),
     py::arg("A_ZKK"),
-    py::arg("F_lambda_vs_lambda")
+    py::arg("F_lambda_vs_lambda"),
+    py::arg("tau")
   );
 
   m.def(
@@ -107,12 +113,14 @@ inline void re_lorentz(py::module_& m) {
     "Axis 0: Bivariate data (row). Row 0: Wavelength in nm. Row 1: Spectral\n"
     "irradiance in W m-2 nm-1.\n"
     "Axis 1: Bivariate pair index (column).\n"
+    ":param tau_X: Optical depth in 1.\n"
     ":return: Transition rate in s-1.\n",
     py::arg("x_X"),
     py::arg("g_ZK"),
     py::arg("E_ZK"),
     py::arg("A_ZKK"),
-    py::arg("F_lambda_vs_lambda")
+    py::arg("F_lambda_vs_lambda"),
+    py::arg("tau_X")
   );
 }
 

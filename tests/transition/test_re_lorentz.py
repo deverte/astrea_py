@@ -12,8 +12,16 @@ def test_R_XZKK():
     A_ZKK = [np.array([[0.0, 0.0], [2780.00, 0.0]]), np.array([0.0])]
     F_lambda_vs_lambda = aa.spectrum.kelt_9_fossati.F_lambda_vs_lambda()
     F_lambda_vs_lambda[1] = F_lambda_vs_lambda[1] / 0.03**2
+    tau_X = np.array([0.0, 0.0])
 
-    R = re.R_XZKK(x_X=T_X, g_ZK=g_ZK, E_ZK=E_ZK, A_ZKK=A_ZKK, F_lambda_vs_lambda=F_lambda_vs_lambda)
+    R = re.R_XZKK(
+        x_X=T_X,
+        g_ZK=g_ZK,
+        E_ZK=E_ZK,
+        A_ZKK=A_ZKK,
+        F_lambda_vs_lambda=F_lambda_vs_lambda,
+        tau_X=tau_X,
+    )
     assert (
         R[0][0] ==
             pytest.approx(np.array([[0.0, 0.0027102329380521524], [0.0, 0.0]]))
