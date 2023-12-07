@@ -20,5 +20,5 @@ def test_H_X():
     heating = H_X(x_X=x_X, n_XK=n_XK, R_XKK=R_XKK, E_K=E_K)
 
     assert heating.shape[0] == 2
-    assert heating[0] == 1.881945310230183e-09
+    assert heating[0] == 1.2546302068201222e-09
     assert heating[1] == 7.841438792625764e-09

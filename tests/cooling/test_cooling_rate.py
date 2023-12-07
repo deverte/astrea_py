@@ -20,5 +20,5 @@ def test_L_X():
     cooling = L_X(x_X=x_X, n_XK=n_XK, R_XKK=R_XKK, E_K=E_K)
 
     assert cooling.shape[0] == 2
-    assert cooling[0] == 1.2546302068201222e-09
+    assert cooling[0] == 1.881945310230183e-09
     assert cooling[1] == 7.841438792625764e-09
