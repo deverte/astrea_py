@@ -15,8 +15,8 @@ namespace astrea_py::element::fe_iii {
 
 inline void energies(py::module_& m) {
   m.def(
-    "E",
-    &astrea::element::fe_iii::E,
+    "E_K",
+    &astrea::element::fe_iii::E_K,
     "Fe III energies from NIST (https://www.nist.gov/pml/atomic-spectra-database).\n"
     "\n"
     "- Axis 0: Term.\n"

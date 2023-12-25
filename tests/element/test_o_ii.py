@@ -48,34 +48,34 @@ def test_STRUCTURE():
 def test_E():
     o_ii = aa.element.o_ii
 
-    assert o_ii.E().shape == (1,)
+    assert o_ii.E_K().shape == (1,)
 
     keys = [v.value for v in [
         o_ii.STRUCTURE.LS_He_2s2_2p3_4S,
     ]]
-    E = o_ii.E()[keys]
+    E = o_ii.E_K()[keys]
     assert E == np.array([0.0])
 
 
 def test_n():
     o_ii = aa.element.o_ii
 
-    assert o_ii.n().shape == (1,)
+    assert o_ii.n_K().shape == (1,)
 
     keys = [v.value for v in [
         o_ii.STRUCTURE.LS_He_2s2_2p3_4S,
     ]]
-    n = o_ii.n()[keys]
+    n = o_ii.n_K()[keys]
     assert n == np.array([2.0])
 
 
 def test_g():
     o_ii = aa.element.o_ii
 
-    assert o_ii.g().shape == (1,)
+    assert o_ii.g_K().shape == (1,)
 
     keys = [v.value for v in [
         o_ii.STRUCTURE.LS_He_2s2_2p3_4S,
     ]]
-    g = o_ii.g()[keys]
+    g = o_ii.g_K()[keys]
     assert g == np.array([4.0])

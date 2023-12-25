@@ -15,8 +15,8 @@ namespace astrea_py::element::o_ii {
 
 inline void principal_quantum_numbers(py::module_& m) {
   m.def(
-    "n",
-    &astrea::element::o_ii::n,
+    "n_K",
+    &astrea::element::o_ii::n_K,
     "O II principal quantum numbers from NIST\n"
     "(https://www.nist.gov/pml/atomic-spectra-database)\n"
     "\n"

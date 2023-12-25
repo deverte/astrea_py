@@ -15,8 +15,8 @@ namespace astrea_py::element::mg_i {
 
 inline void oscillator_strengths(py::module_& m) {
   m.def(
-    "f",
-    &astrea::element::mg_i::f,
+    "f_KK",
+    &astrea::element::mg_i::f_KK,
     "Mg I oscillator strengths by Alexeeva+2018, Lemke+1987, Osorio2015,\n"
     "Green1957, TOPBASE (https://cdsweb.u-strasbg.fr/topbase/xsections.html).\n"
     "\n"

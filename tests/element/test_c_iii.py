@@ -17,12 +17,12 @@ def test_Lambda_vs_T():
 def test_E():
     c_iii = aa.element.c_iii
 
-    assert c_iii.E().shape == (1,)
+    assert c_iii.E_K().shape == (1,)
 
     keys = [v.value for v in [
         c_iii.STRUCTURE.LS_He_2s2_1S,
     ]]
-    E = c_iii.E()[keys]
+    E = c_iii.E_K()[keys]
     assert E == np.array([0.0])
 
 
@@ -53,12 +53,12 @@ def test_I():
 def test_g():
     c_iii = aa.element.c_iii
 
-    assert c_iii.g().shape == (1,)
+    assert c_iii.g_K().shape == (1,)
 
     keys = [v.value for v in [
         c_iii.STRUCTURE.LS_He_2s2_1S,
     ]]
-    g = c_iii.g()[keys]
+    g = c_iii.g_K()[keys]
     assert g == np.array([1.0])
 
 

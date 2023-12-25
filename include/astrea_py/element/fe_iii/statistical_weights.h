@@ -15,8 +15,8 @@ namespace astrea_py::element::fe_iii {
 
 inline void statistical_weights(py::module_& m) {
   m.def(
-    "g",
-    &astrea::element::fe_iii::g,
+    "g_K",
+    &astrea::element::fe_iii::g_K,
     "Fe III statistical weights from NIST\n"
     "(https://www.nist.gov/pml/atomic-spectra-database).\n"
     "\n"

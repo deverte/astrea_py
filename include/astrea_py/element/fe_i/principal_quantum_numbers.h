@@ -15,8 +15,8 @@ namespace astrea_py::element::fe_i {
 
 inline void principal_quantum_numbers(py::module_& m) {
   m.def(
-    "n",
-    &astrea::element::fe_i::n,
+    "n_K",
+    &astrea::element::fe_i::n_K,
     "Fe I principal quantum numbers by Mashonkina+2011.\n"
     "\n"
     "- Axis 0: Term.\n"

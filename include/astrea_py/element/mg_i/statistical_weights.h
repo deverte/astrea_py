@@ -15,8 +15,8 @@ namespace astrea_py::element::mg_i {
 
 inline void statistical_weights(py::module_& m) {
   m.def(
-    "g",
-    &astrea::element::mg_i::g,
+    "g_K",
+    &astrea::element::mg_i::g_K,
     "Mg I statistical weights by Alexeeva+2018.\n"
     "\n"
     "- Axis 0: Term.\n"

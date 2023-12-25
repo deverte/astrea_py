@@ -15,8 +15,8 @@ namespace astrea_py::element::c_iii {
 
 inline void statistical_weights(py::module_& m) {
   m.def(
-    "g",
-    &astrea::element::c_iii::g,
+    "g_K",
+    &astrea::element::c_iii::g_K,
     "C III statistical weights by ?.\n"
     "\n"
     "- Axis 0: Term.\n"

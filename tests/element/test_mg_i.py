@@ -28,12 +28,12 @@ def test_f_vs_T():
 def test_E():
     mg_i = aa.element.mg_i
 
-    assert mg_i.E().shape == (70,)
+    assert mg_i.E_K().shape == (70,)
 
     keys = [v.value for v in [
         mg_i.STRUCTURE.LS_Ne_3s_2S_4s_1S,
     ]]
-    E = mg_i.E()[keys]
+    E = mg_i.E_K()[keys]
     assert E == np.array([5.392985082394041])
 
 
@@ -64,13 +64,13 @@ def test_I():
 def test_f():
     mg_i = aa.element.mg_i
 
-    assert mg_i.f().shape == (70, 70)
+    assert mg_i.f_KK().shape == (70, 70)
 
     keys = [v.value for v in [
         mg_i.STRUCTURE.LS_Ne_3s_2S_3p_3Po0,
         mg_i.STRUCTURE.LS_Ne_3p2_3P,
     ]]
-    f = mg_i.f().T[keys].T[keys]
+    f = mg_i.f_KK().T[keys].T[keys]
     assert (f == np.array([[0.0, 0.632], [0.0, 0.0]])).all()
 
 
@@ -91,12 +91,12 @@ def test_sigma_vs_nu():
 def test_g():
     mg_i = aa.element.mg_i
 
-    assert mg_i.g().shape == (70,)
+    assert mg_i.g_K().shape == (70,)
 
     keys = [v.value for v in [
         mg_i.STRUCTURE.LS_Ne_3s_2S_10d_Ne_3s_2S_15f,
     ]]
-    g = mg_i.g()[keys]
+    g = mg_i.g_K()[keys]
     assert g == np.array([211.0])
 
 

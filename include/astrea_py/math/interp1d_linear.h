@@ -15,8 +15,8 @@ namespace astrea_py::math {
 
 inline void interp1d_linear(py::module_& m) {
   m.def(
-    "interp1d_linear",
-    &astrea::math::interp1d_linear,
+    "f",
+    &astrea::math::interp1d_linear::f,
     "Linear 1D interpolation.\n"
     "\n"
     ":param x_Y: x points.\n"
@@ -29,8 +29,8 @@ inline void interp1d_linear(py::module_& m) {
   );
 
   m.def(
-    "interp1d_linear_X",
-    &astrea::math::interp1d_linear_X,
+    "f_X",
+    &astrea::math::interp1d_linear::f_X,
     "Linear 1D interpolation.\n"
     "\n"
     ":param x_Y: x points.\n"

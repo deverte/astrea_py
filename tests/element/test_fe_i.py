@@ -28,12 +28,12 @@ def test_f_vs_T():
 def test_E():
     fe_i = aa.element.fe_i
 
-    assert fe_i.E().shape == (239,)
+    assert fe_i.E_K().shape == (239,)
 
     keys = [v.value for v in [
         fe_i.STRUCTURE.LS_Ar_3d6_4s2_b3F,
     ]]
-    E = fe_i.E()[keys]
+    E = fe_i.E_K()[keys]
     assert E == np.array([2.5306005718242583])
 
 
@@ -64,13 +64,13 @@ def test_I():
 def test_f():
     fe_i = aa.element.fe_i
 
-    assert fe_i.f().shape == (239, 239)
+    assert fe_i.f_KK().shape == (239, 239)
 
     keys = [v.value for v in [
         fe_i.STRUCTURE.LS_Ar_3d7_4P_4s_a5P,
         fe_i.STRUCTURE.LS_Ar_3d6_3D_4s_4p_3Po_t5Po,
     ]]
-    f = fe_i.f().T[keys].T[keys]
+    f = fe_i.f_KK().T[keys].T[keys]
     assert (f == np.array([[0.0, 0.149], [0.0, 0.0]])).all()
 
 
@@ -91,24 +91,24 @@ def test_sigma_vs_nu():
 def test_n():
     fe_i = aa.element.fe_i
 
-    assert fe_i.n().shape == (239,)
+    assert fe_i.n_K().shape == (239,)
 
     keys = [v.value for v in [
         fe_i.STRUCTURE.LS_Ar_3d6_5D_4s_6D_7s_7D,
     ]]
-    n = fe_i.n()[keys]
+    n = fe_i.n_K()[keys]
     assert n == np.array([7.0])
 
 
 def test_g():
     fe_i = aa.element.fe_i
 
-    assert fe_i.g().shape == (239,)
+    assert fe_i.g_K().shape == (239,)
 
     keys = [v.value for v in [
         fe_i.STRUCTURE.LS_Ar_3d6_4s2_a5D,
     ]]
-    g = fe_i.g()[keys]
+    g = fe_i.g_K()[keys]
     assert g == np.array([25.0])
 
 

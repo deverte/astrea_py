@@ -15,8 +15,8 @@ namespace astrea_py::element::o_i {
 
 inline void statistical_weights(py::module_& m) {
   m.def(
-    "g",
-    &astrea::element::o_i::g,
+    "g_K",
+    &astrea::element::o_i::g_K,
     "O I statistical weights by Przybilla2000, Sitnova2012, Sitnova2017.\n"
     "\n"
     "- Axis 0: Term.\n"

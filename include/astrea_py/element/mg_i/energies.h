@@ -15,8 +15,8 @@ namespace astrea_py::element::mg_i {
 
 inline void energies(py::module_& m) {
   m.def(
-    "E",
-    &astrea::element::mg_i::E,
+    "E_K",
+    &astrea::element::mg_i::E_K,
     "Mg I energies by Alexeeva+2018.\n"
     "\n"
     "- Axis 0: Term.\n"

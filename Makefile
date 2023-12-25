@@ -1,8 +1,16 @@
-version = "0.6.2" # pyproject.toml, setup.cfg
+project = astrea
+version = 0.7.0
+
+
+.PHONY: update-version
+update-version:
+	perl -i -pe 's/version\s=\s\".*\"/version = \"${version}\"/g' pyproject.toml
+	perl -i -pe 's/version\s=\s.*/version = ${version}/g' setup.cfg
 
 
 .PHONY: build
 build:
+	$(MAKE) update-version
 	python setup.py bdist_wheel
 
 
@@ -13,7 +21,7 @@ publish:
 
 .PHONY: clear
 clear:
-	rm -rf astrea.egg-info
+	rm -rf ${project}.egg-info
 	rm -rf build
 	rm -rf dist
 	rm -rf wheelhouse
@@ -22,12 +30,12 @@ clear:
 
 .PHONY: install
 install:
-	poetry run pip install dist/astrea-*.whl
+	poetry run pip install dist/${project}-*.whl
 
 
 .PHONY: uninstall
 uninstall:
-	poetry run pip uninstall astrea -y
+	poetry run pip uninstall ${project} -y
 
 
 .PHONY: test

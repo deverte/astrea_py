@@ -15,8 +15,8 @@ namespace astrea_py::element::o_ii {
 
 inline void statistical_weights(py::module_& m) {
   m.def(
-    "g",
-    &astrea::element::o_ii::g,
+    "g_K",
+    &astrea::element::o_ii::g_K,
     "O II statistical weights from NIST\n"
     "(https://www.nist.gov/pml/atomic-spectra-database).\n"
     "\n"

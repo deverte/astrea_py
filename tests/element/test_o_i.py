@@ -28,12 +28,12 @@ def test_Lambda_vs_T():
 def test_E():
     o_i = aa.element.o_i
 
-    assert o_i.E().shape == (51,)
+    assert o_i.E_K().shape == (51,)
 
     keys = [v.value for v in [
         o_i.STRUCTURE.LS_He_2s2_2p3_4So_3s_3So,
     ]]
-    E = o_i.E()[keys]
+    E = o_i.E_K()[keys]
     assert E == np.array([9.511695728174285])
 
 
@@ -64,13 +64,13 @@ def test_I():
 def test_f():
     o_i = aa.element.o_i
 
-    assert o_i.f().shape == (51, 51)
+    assert o_i.f_KK().shape == (51, 51)
 
     keys = [v.value for v in [
         o_i.STRUCTURE.LS_He_2s2_2p4_3P,
         o_i.STRUCTURE.LS_He_2s2_2p3_4So_3s_3So,
     ]]
-    f = o_i.f().T[keys].T[keys]
+    f = o_i.f_KK().T[keys].T[keys]
     assert (f == np.array([[0.0, 0.5111E-1], [0.0, 0.0]])).all()
 
 
@@ -91,24 +91,24 @@ def test_sigma_vs_nu():
 def test_n():
     o_i = aa.element.o_i
 
-    assert o_i.n().shape == (51,)
+    assert o_i.n_K().shape == (51,)
 
     keys = [v.value for v in [
         o_i.STRUCTURE.LS_He_2s2_2p3_4So_3s_3So,
     ]]
-    n = o_i.n()[keys]
+    n = o_i.n_K()[keys]
     assert n == np.array([3.0])
 
 
 def test_g():
     o_i = aa.element.o_i
 
-    assert o_i.g().shape == (51,)
+    assert o_i.g_K().shape == (51,)
 
     keys = [v.value for v in [
         o_i.STRUCTURE.LS_He_2s2_2p3_4So_3s_3So,
     ]]
-    g = o_i.g()[keys]
+    g = o_i.g_K()[keys]
     assert g == np.array([3.0])
 
 

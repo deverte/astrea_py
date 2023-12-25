@@ -15,8 +15,8 @@ namespace astrea_py::element::fe_i {
 
 inline void oscillator_strengths(py::module_& m) {
   m.def(
-    "f",
-    &astrea::element::fe_i::f,
+    "f_KK",
+    &astrea::element::fe_i::f_KK,
     "Fe I oscillator strengths by Mashonkina+2011.\n"
     "\n"
     "- Axis 0: Initial term (i-index).\n"

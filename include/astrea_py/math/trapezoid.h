@@ -15,8 +15,8 @@ namespace astrea_py::math {
 
 inline void trapezoid(py::module_& m) {
   m.def(
-    "trapezoid_dx",
-    &astrea::math::trapezoid_dx,
+    "F_dx",
+    &astrea::math::trapezoid::F_dx,
     "Trapezoidal integration.\n"
     "\n"
     ":param y_X: Input array.\n"
@@ -27,8 +27,8 @@ inline void trapezoid(py::module_& m) {
   );
 
   m.def(
-    "trapezoid",
-    &astrea::math::trapezoid,
+    "F",
+    &astrea::math::trapezoid::F,
     "Trapezoidal integration.\n"
     "\n"
     ":param y_X: Input array.\n"

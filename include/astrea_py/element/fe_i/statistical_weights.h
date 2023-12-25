@@ -15,8 +15,8 @@ namespace astrea_py::element::fe_i {
 
 inline void statistical_weights(py::module_& m) {
   m.def(
-    "g",
-    &astrea::element::fe_i::g,
+    "g_K",
+    &astrea::element::fe_i::g_K,
     "Fe I statistical weights by Mashonkina+2011.\n"
     "\n"
     "- Axis 0: Term.\n"

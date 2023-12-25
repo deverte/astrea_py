@@ -3,20 +3,21 @@ import numpy as np
 import pytest
 
 
-def test_alpha_nu_X():
-    alpha_nu_X = aa.optics.absorption_coefficient.alpha_nu_X
+def test_alpha_nu_XE():
+    alpha_nu_XE = aa.optics.absorption_coefficient.alpha_nu_XE
 
     n_X = np.array([0.4, 0.6])
-    g_K = np.array([9.0, 5.0])
-    E_K = np.array([0.0, 9.15])
-    A_KK = np.array([[0.0, 1.0e3], [1.0e3, 0.0]])
-    nu = 1.957696455240094
+    g_i = 9.0
+    g_j = 5.0
+    A_ji = 1.0e3
+    nu_ij = 1.957696455240094
+    H_E = [0.5, 0.5]
 
     absorption_coefficient = (
-        alpha_nu_X(n_X=n_X, g_K=g_K, E_K=E_K, A_KK=A_KK, nu=nu)
+        alpha_nu_XE(n_X=n_X, g_j=g_j, g_i=g_i, nu_ij=nu_ij, A_ji=A_ji, H_E=H_E)
     )
 
-    assert np.all(
-        absorption_coefficient
-        == np.array([1.2567614843378096e-25, 1.8851422265067139e-25])
-    )
+    assert absorption_coefficient == pytest.approx(np.array([
+        [69301543.56389154, 69301543.56389154],
+        [103952315.34583731, 103952315.34583731],
+    ]))

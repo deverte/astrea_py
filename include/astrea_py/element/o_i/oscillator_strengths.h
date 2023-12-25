@@ -15,8 +15,8 @@ namespace astrea_py::element::o_i {
 
 inline void oscillator_strengths(py::module_& m) {
   m.def(
-    "f",
-    &astrea::element::o_i::f,
+    "f_KK",
+    &astrea::element::o_i::f_KK,
     "O I oscillator strengths by Sitnova2012, Sitnova2017.\n"
     "\n"
     "- Axis 0: Initial term (i-index).\n"

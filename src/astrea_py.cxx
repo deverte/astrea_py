@@ -9,20 +9,6 @@ PYBIND11_MODULE(astrea, m) {
   ;
 
 
-  // Cooling
-  auto cooling = m.def_submodule("cooling");
-
-  auto cooling_rate_approximation =
-    cooling.def_submodule("cooling_rate_approximation");
-  astrea_py::cooling::cooling_rate_approximation(cooling_rate_approximation);
-
-  auto cooling_rate = cooling.def_submodule("cooling_rate");
-  astrea_py::cooling::cooling_rate(cooling_rate);
-
-  auto heating_rate = cooling.def_submodule("heating_rate");
-  astrea_py::cooling::heating_rate(heating_rate);
-
-
   // Element
   auto element = m.def_submodule("element");
 
@@ -60,22 +46,54 @@ PYBIND11_MODULE(astrea, m) {
   astrea_py::element::o_ii_(o_ii);
 
 
+  // Math
+  auto math = m.def_submodule("math");
+
+  auto cauchy_lorentz_distribution =
+    math.def_submodule("cauchy_lorentz_distribution");
+  astrea_py::math::cauchy_lorentz_distribution(cauchy_lorentz_distribution);
+
+  auto interp1d_linear = math.def_submodule("interp1d_linear");
+  astrea_py::math::interp1d_linear(interp1d_linear);
+
+  auto interp1d_nearest = math.def_submodule("interp1d_nearest");
+  astrea_py::math::interp1d_nearest(interp1d_nearest);
+
+  auto maxwell_boltzmann_distribution =
+    math.def_submodule("maxwell_boltzmann_distribution");
+  astrea_py::math::maxwell_boltzmann_distribution(maxwell_boltzmann_distribution);
+
+  auto normal_distribution = math.def_submodule("normal_distribution");
+  astrea_py::math::normal_distribution(normal_distribution);
+
+  auto trapezoid = math.def_submodule("trapezoid");
+  astrea_py::math::trapezoid(trapezoid);
+
+  auto voigt_function_tasitsiomi =
+    math.def_submodule("voigt_function_tasitsiomi");
+  astrea_py::math::voigt_function_tasitsiomi(voigt_function_tasitsiomi);
+
+  auto voigt_function = math.def_submodule("voigt_function");
+  astrea_py::math::voigt_function(voigt_function);
+
+  auto voigt_profile = math.def_submodule("voigt_profile");
+  astrea_py::math::voigt_profile(voigt_profile);
+
+
   // Optics
   auto optics = m.def_submodule("optics");
 
   auto absorption_coefficient = optics.def_submodule("absorption_coefficient");
   astrea_py::optics::absorption_coefficient(absorption_coefficient);
 
+  auto doppler_line_width = optics.def_submodule("doppler_line_width");
+  astrea_py::optics::doppler_line_width(doppler_line_width);
+
+  auto natural_line_width = optics.def_submodule("natural_line_width");
+  astrea_py::optics::natural_line_width(natural_line_width);
+
   auto optical_depth = optics.def_submodule("optical_depth");
   astrea_py::optics::optical_depth(optical_depth);
-
-
-  // Math
-  auto math = m.def_submodule("math");
-
-  astrea_py::math::interp1d_linear(math);
-  astrea_py::math::interp1d_nearest(math);
-  astrea_py::math::trapezoid(math);
 
 
   // Population
@@ -88,6 +106,10 @@ PYBIND11_MODULE(astrea, m) {
     population.def_submodule("boltzmann_distribution");
   astrea_py::population::boltzmann_distribution(boltzmann_distribution);
 
+  auto saha_ionization_equation =
+    population.def_submodule("saha_ionization_equation");
+  astrea_py::population::saha_ionization_equation(saha_ionization_equation);
+
 
   // Spectrum
   auto spectrum = m.def_submodule("spectrum");
@@ -96,24 +118,58 @@ PYBIND11_MODULE(astrea, m) {
   astrea_py::spectrum::kelt_9_fossati(kelt_9_fossati);
 
 
+  // Thermodynamics
+  auto thermodynamics = m.def_submodule("thermodynamics");
+
+  auto cooling_rate_approximation =
+    thermodynamics.def_submodule("cooling_rate_approximation");
+  astrea_py::thermodynamics::cooling_rate_approximation(
+    cooling_rate_approximation
+  );
+
+  auto cooling_rate = thermodynamics.def_submodule("cooling_rate");
+  astrea_py::thermodynamics::cooling_rate(cooling_rate);
+
+  auto heating_rate = thermodynamics.def_submodule("heating_rate");
+  astrea_py::thermodynamics::heating_rate(heating_rate);
+
+
   // Transition
   auto transition = m.def_submodule("transition");
 
-  auto cd = transition.def_submodule("cd");
-  astrea_py::transition::cd(cd);
+  auto collisional_deexcitation =
+    transition.def_submodule("collisional_deexcitation");
+  astrea_py::transition::collisional_deexcitation(collisional_deexcitation);
 
-  auto ce_regemorter = transition.def_submodule("ce_regemorter");
-  astrea_py::transition::ce_regemorter(ce_regemorter);
+  auto collisional_excitation_regemorter =
+    transition.def_submodule("collisional_excitation_regemorter");
+  astrea_py::transition::collisional_excitation_regemorter(
+    collisional_excitation_regemorter
+  );
 
-  auto ce = transition.def_submodule("ce");
-  astrea_py::transition::ce(ce);
+  auto collisional_excitation =
+    transition.def_submodule("collisional_excitation");
+  astrea_py::transition::collisional_excitation(collisional_excitation);
 
-  auto rd = transition.def_submodule("rd");
-  astrea_py::transition::rd(rd);
+  auto collisional_ionization =
+    transition.def_submodule("collisional_ionization");
+  astrea_py::transition::collisional_ionization(collisional_ionization);
 
-  auto re_lorentz = transition.def_submodule("re_lorentz");
-  astrea_py::transition::re_lorentz(re_lorentz);
+  auto photoexcitation_lorentz =
+    transition.def_submodule("photoexcitation_lorentz");
+  astrea_py::transition::photoexcitation_lorentz(photoexcitation_lorentz);
 
-  auto ri = transition.def_submodule("ri");
-  astrea_py::transition::ri(ri);
+  auto photoionization = transition.def_submodule("photoionization");
+  astrea_py::transition::photoionization(photoionization);
+
+  auto radiative_recombination =
+    transition.def_submodule("radiative_recombination");
+  astrea_py::transition::radiative_recombination(radiative_recombination);
+
+  auto spontaneous_emission = transition.def_submodule("spontaneous_emission");
+  astrea_py::transition::spontaneous_emission(spontaneous_emission);
+
+  auto three_body_recombination =
+    transition.def_submodule("three_body_recombination");
+  astrea_py::transition::three_body_recombination(three_body_recombination);
 }

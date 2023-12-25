@@ -15,8 +15,8 @@ namespace astrea_py::element::fe_iii {
 
 inline void principal_quantum_numbers(py::module_& m) {
   m.def(
-    "n",
-    &astrea::element::fe_iii::n,
+    "n_K",
+    &astrea::element::fe_iii::n_K,
     "Fe III principal quantum numbers from NIST\n"
     "(https://www.nist.gov/pml/atomic-spectra-database).\n"
     "\n"

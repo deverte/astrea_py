@@ -15,8 +15,8 @@ namespace astrea_py::element::fe_ii {
 
 inline void energies(py::module_& m) {
   m.def(
-    "E",
-    &astrea::element::fe_ii::E,
+    "E_K",
+    &astrea::element::fe_ii::E_K,
     "Fe II energies by Mashonkina+2011.\n"
     "\n"
     "- Axis 0: Term.\n"

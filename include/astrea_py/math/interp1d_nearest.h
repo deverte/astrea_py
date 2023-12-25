@@ -15,8 +15,8 @@ namespace astrea_py::math {
 
 inline void interp1d_nearest(py::module_& m) {
   m.def(
-    "interp1d_nearest",
-    &astrea::math::interp1d_nearest,
+    "f",
+    &astrea::math::interp1d_nearest::f,
     "Nearest-neighbor 1D interpolation.\n"
     "\n"
     ":param x_Y: x points.\n"
@@ -29,8 +29,8 @@ inline void interp1d_nearest(py::module_& m) {
   );
 
   m.def(
-    "interp1d_nearest_X",
-    &astrea::math::interp1d_nearest_X,
+    "f_X",
+    &astrea::math::interp1d_nearest::f_X,
     "Nearest-neighbor 1D interpolation.\n"
     "\n"
     ":param x_Y: x points.\n"
