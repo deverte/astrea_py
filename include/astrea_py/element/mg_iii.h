@@ -6,8 +6,11 @@
 #include <astrea/astrea.h>
 
 #include "astrea_py/element/mg_iii/cooling_efficiency.h"
+#include "astrea_py/element/mg_iii/effective_collision_strengths.h"
 #include "astrea_py/element/mg_iii/energies.h"
 #include "astrea_py/element/mg_iii/info.h"
+#include "astrea_py/element/mg_iii/oscillator_strengths.h"
+#include "astrea_py/element/mg_iii/photoionization_cross_sections.h"
 #include "astrea_py/element/mg_iii/statistical_weights.h"
 #include "astrea_py/element/mg_iii/structure.h"
 
@@ -25,8 +28,11 @@ inline void mg_iii_(py::module_& m) {
   ;
 
   astrea_py::element::mg_iii::cooling_efficiency(m);
+  astrea_py::element::mg_iii::effective_collision_strengths(m);
   astrea_py::element::mg_iii::energies(m);
   astrea_py::element::mg_iii::info(m);
+  astrea_py::element::mg_iii::oscillator_strengths(m);
+  astrea_py::element::mg_iii::photoionization_cross_sections(m);
   astrea_py::element::mg_iii::statistical_weights(m);
   astrea_py::element::mg_iii::structure(m);
 }

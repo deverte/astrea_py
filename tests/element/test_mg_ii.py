@@ -14,18 +14,18 @@ def test_Lambda_vs_T():
     assert Lambda_vs_T[1][-1] == 6.05e-19
 
 
-def test_f_vs_T():
+def test_f_vs_T_KK():
     mg_ii = aa.element.mg_ii
 
-    assert len(mg_ii.f_vs_T()) == 43
-    f_vs_T_defined = mg_ii.f_vs_T()[mg_ii.STRUCTURE.LS_Ne_3s_2S.value][mg_ii.STRUCTURE.LS_Ne_3p_2Po.value]
-    f_vs_T_undefined = mg_ii.f_vs_T()[mg_ii.STRUCTURE.LS_Ne_3s_2S.value][mg_ii.STRUCTURE.LS_Ne_11g_2G.value]
-    assert (f_vs_T_defined[0] == np.array([1000.0, 3000.0, 5000.0, 10000.0, 20000.0, 30000.0])).all()
-    assert (f_vs_T_defined[1] == np.array([1.51E+1, 1.55E+1, 1.59E+1, 1.69E+1, 1.86E+1, 2.02E+1])).all()
-    assert f_vs_T_undefined.shape == (2, 0)
+    assert len(mg_ii.f_vs_T_KK()) == 43
+    f_vs_T_KK_defined = mg_ii.f_vs_T_KK()[mg_ii.STRUCTURE.LS_Ne_3s_2S.value][mg_ii.STRUCTURE.LS_Ne_3p_2Po.value]
+    f_vs_T_KK_undefined = mg_ii.f_vs_T_KK()[mg_ii.STRUCTURE.LS_Ne_3s_2S.value][mg_ii.STRUCTURE.LS_Ne_11g_2G.value]
+    assert (f_vs_T_KK_defined[0] == np.array([1000.0, 3000.0, 5000.0, 10000.0, 20000.0, 30000.0])).all()
+    assert (f_vs_T_KK_defined[1] == np.array([1.51E+1, 1.55E+1, 1.59E+1, 1.69E+1, 1.86E+1, 2.02E+1])).all()
+    assert f_vs_T_KK_undefined.shape == (2, 0)
 
 
-def test_E():
+def test_E_K():
     mg_ii = aa.element.mg_ii
 
     assert mg_ii.E_K().shape == (43,)
@@ -61,7 +61,7 @@ def test_I():
     assert mg_ii.I() == 15.03327604684507
 
 
-def test_f():
+def test_f_KK():
     mg_ii = aa.element.mg_ii
 
     assert mg_ii.f_KK().shape == (43, 43)
@@ -74,21 +74,21 @@ def test_f():
     assert (f == np.array([[0.0, 1.817E-2], [0.0, 0.0]])).all()
 
 
-def test_sigma_vs_nu():
+def test_sigma_vs_nu_K():
     mg_ii = aa.element.mg_ii
 
-    assert len(mg_ii.sigma_vs_nu()) == 43
+    assert len(mg_ii.sigma_vs_nu_K()) == 43
 
     keys = [v.value for v in [
         mg_ii.STRUCTURE.LS_Ne_3s_2S,
     ]]
-    sigma_vs_nu = [mg_ii.sigma_vs_nu()[key] for key in keys]
-    assert sigma_vs_nu[0].shape == (2, 27)
-    assert sigma_vs_nu[0][0][0] == 9.515160E+15
-    assert sigma_vs_nu[0][1][0] == 1.570E-19
+    sigma_vs_nu_K = [mg_ii.sigma_vs_nu_K()[key] for key in keys]
+    assert sigma_vs_nu_K[0].shape == (2, 27)
+    assert sigma_vs_nu_K[0][0][0] == 9.515160E+15
+    assert sigma_vs_nu_K[0][1][0] == 1.570E-19
 
 
-def test_g():
+def test_g_K():
     mg_ii = aa.element.mg_ii
 
     assert mg_ii.g_K().shape == (43,)

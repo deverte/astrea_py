@@ -16,8 +16,8 @@ namespace astrea_py::element::mg_ii {
 
 inline void photoionization_cross_sections(py::module_& m) {
   m.def(
-    "sigma_vs_nu",
-    &astrea::element::mg_ii::sigma_vs_nu,
+    "sigma_vs_nu_K",
+    &astrea::element::mg_ii::sigma_vs_nu_K,
     "Mg II photoionization cross sections by Alexeeva+2018, TOPBASE\n"
     "(https://cdsweb.u-strasbg.fr/topbase/xsections.html).\n"
     "\n"

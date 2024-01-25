@@ -16,7 +16,7 @@ def test_R_XZK():
     m_i = o_i.M() * 938.2720881629e6 / c**2 # eV s km-1
 
     sigma_vs_nu_ZK = [
-        [o_i.sigma_vs_nu()[key] for key in keys],
+        [o_i.sigma_vs_nu_K()[key] for key in keys],
         [np.array([[0.0], [0.0]])],
     ]
     sigma_vs_v_ZK = sigma_vs_nu_ZK
@@ -27,7 +27,7 @@ def test_R_XZK():
         np.array([0.0, 9.15]), # element=0 terms=[0, 1]
         np.array([0.0]), # element=1 terms=[0]
     ]
-    v_ZK = [np.sqrt(2.0 * E_ZK[z] / m_i) for z in range(len(E_ZK))]
+    v_ZK = [np.sqrt(2.0 * E_K / m_i) for E_K in E_ZK]
 
     T_X = np.array([1.0e3, 1.0e4])
     v_X = np.array([9.17, 9.8])

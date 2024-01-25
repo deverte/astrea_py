@@ -16,8 +16,8 @@ namespace astrea_py::element::c_i {
 
 inline void effective_collision_strengths(py::module_& m) {
   m.def(
-    "f_vs_T",
-    &astrea::element::c_i::f_vs_T,
+    "f_vs_T_KK",
+    &astrea::element::c_i::f_vs_T_KK,
     "C I effective collision strengths by Zatsarinny+2013, Reid1994,\n"
     "Alexeeva+2015.\n"
     "\n"

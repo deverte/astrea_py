@@ -12,7 +12,7 @@ def test_R_XZK():
         o_i.STRUCTURE.LS_He_2s2_2p3_4So_3s_5So,
     ]]
     sigma_vs_nu_ZK = [
-        [o_i.sigma_vs_nu()[key] for key in keys],
+        [o_i.sigma_vs_nu_K()[key] for key in keys],
         [np.array([[0.0], [0.0]])],
     ]
     F_lambda_vs_lambda = aa.spectrum.kelt_9_fossati.F_lambda_vs_lambda()

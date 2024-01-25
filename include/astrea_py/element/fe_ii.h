@@ -10,6 +10,7 @@
 #include "astrea_py/element/fe_ii/energies.h"
 #include "astrea_py/element/fe_ii/info.h"
 #include "astrea_py/element/fe_ii/oscillator_strengths.h"
+#include "astrea_py/element/fe_ii/photoionization_cross_sections.h"
 #include "astrea_py/element/fe_ii/principal_quantum_numbers.h"
 #include "astrea_py/element/fe_ii/statistical_weights.h"
 #include "astrea_py/element/fe_ii/structure.h"
@@ -33,6 +34,7 @@ inline void fe_ii_(py::module_& m) {
   astrea_py::element::fe_ii::energies(m);
   astrea_py::element::fe_ii::info(m);
   astrea_py::element::fe_ii::oscillator_strengths(m);
+  astrea_py::element::fe_ii::photoionization_cross_sections(m);
   astrea_py::element::fe_ii::principal_quantum_numbers(m);
   astrea_py::element::fe_ii::statistical_weights(m);
   astrea_py::element::fe_ii::structure(m);

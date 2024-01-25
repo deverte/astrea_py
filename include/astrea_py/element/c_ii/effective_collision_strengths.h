@@ -16,8 +16,8 @@ namespace astrea_py::element::c_ii {
 
 inline void effective_collision_strengths(py::module_& m) {
   m.def(
-    "f_vs_T",
-    &astrea::element::c_ii::f_vs_T,
+    "f_vs_T_KK",
+    &astrea::element::c_ii::f_vs_T_KK,
     "C II effective collision strengths by Wilson+2005, Alexeeva+2015.\n"
     "\n"
     "- Axis 0: Initial term (i-index).\n"

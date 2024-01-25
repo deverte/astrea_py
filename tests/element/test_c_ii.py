@@ -14,18 +14,18 @@ def test_Lambda_vs_T():
     assert Lambda_vs_T[1][-1] == 1.19e-18
 
 
-def test_f_vs_T():
+def test_f_vs_T_KK():
     c_ii = aa.element.c_ii
 
-    assert len(c_ii.f_vs_T()) == 77
-    f_vs_T_defined = c_ii.f_vs_T()[c_ii.STRUCTURE.LS_He_2s2_2p_2Po.value][c_ii.STRUCTURE.LS_He_2s_2p2_4P2.value]
-    f_vs_T_undefined = c_ii.f_vs_T()[c_ii.STRUCTURE.LS_He_2s2_2p_2Po.value][c_ii.STRUCTURE.LS_He_2s_2p_3Po_3d_4Do8.value]
-    assert (f_vs_T_defined[0] == np.array([1000.0, 1780.0, 3160.0, 5620.0, 10000.0, 17780.0, 31622.0, 56230.0, 100000.0, 177830.0, 316230.0])).all()
-    assert (f_vs_T_defined[1] == np.array([0.229E+00, 0.230E+00, 0.231E+00, 0.229E+00, 0.228E+00, 0.228E+00, 0.221E+00, 0.205E+00, 0.181E+00, 0.154E+00, 0.126E+00])).all()
-    assert f_vs_T_undefined.shape == (2, 0)
+    assert len(c_ii.f_vs_T_KK()) == 77
+    f_vs_T_KK_defined = c_ii.f_vs_T_KK()[c_ii.STRUCTURE.LS_He_2s2_2p_2Po.value][c_ii.STRUCTURE.LS_He_2s_2p2_4P2.value]
+    f_vs_T_KK_undefined = c_ii.f_vs_T_KK()[c_ii.STRUCTURE.LS_He_2s2_2p_2Po.value][c_ii.STRUCTURE.LS_He_2s_2p_3Po_3d_4Do8.value]
+    assert (f_vs_T_KK_defined[0] == np.array([1000.0, 1780.0, 3160.0, 5620.0, 10000.0, 17780.0, 31622.0, 56230.0, 100000.0, 177830.0, 316230.0])).all()
+    assert (f_vs_T_KK_defined[1] == np.array([0.229E+00, 0.230E+00, 0.231E+00, 0.229E+00, 0.228E+00, 0.228E+00, 0.221E+00, 0.205E+00, 0.181E+00, 0.154E+00, 0.126E+00])).all()
+    assert f_vs_T_KK_undefined.shape == (2, 0)
 
 
-def test_E():
+def test_E_K():
     c_ii = aa.element.c_ii
 
     assert c_ii.E_K().shape == (77,)
@@ -61,7 +61,7 @@ def test_I():
     assert c_ii.I() == 24.3793473419881
 
 
-def test_f():
+def test_f_KK():
     c_ii = aa.element.c_ii
 
     assert c_ii.f_KK().shape == (77, 77)
@@ -74,21 +74,21 @@ def test_f():
     assert (f == np.array([[0.0, 1.71E-2], [0.0, 0.0]])).all()
 
 
-def test_sigma_vs_nu():
+def test_sigma_vs_nu_K():
     c_ii = aa.element.c_ii
 
-    assert len(c_ii.sigma_vs_nu()) == 77
+    assert len(c_ii.sigma_vs_nu_K()) == 77
 
     keys = [v.value for v in [
         c_ii.STRUCTURE.LS_He_2s_2p2_4P2,
     ]]
-    sigma_vs_nu = [c_ii.sigma_vs_nu()[key] for key in keys]
-    assert sigma_vs_nu[0].shape == (2, 166)
-    assert sigma_vs_nu[0][0][0] == 5.113240E+16
-    assert sigma_vs_nu[0][1][0] == 2.650E-20
+    sigma_vs_nu_K = [c_ii.sigma_vs_nu_K()[key] for key in keys]
+    assert sigma_vs_nu_K[0].shape == (2, 166)
+    assert sigma_vs_nu_K[0][0][0] == 5.113240E+16
+    assert sigma_vs_nu_K[0][1][0] == 2.650E-20
 
 
-def test_g():
+def test_g_K():
     c_ii = aa.element.c_ii
 
     assert c_ii.g_K().shape == (77,)

@@ -16,8 +16,8 @@ namespace astrea_py::element::mg_ii {
 
 inline void effective_collision_strengths(py::module_& m) {
   m.def(
-    "f_vs_T",
-    &astrea::element::mg_ii::f_vs_T,
+    "f_vs_T_KK",
+    &astrea::element::mg_ii::f_vs_T_KK,
     "Mg II effective collision strengths by Sigutts+1995, Alexeeva+2018.\n"
     "\n"
     "- Axis 0: Initial term (i-index).\n"

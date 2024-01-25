@@ -14,7 +14,18 @@ def test_Lambda_vs_T():
     assert Lambda_vs_T[1][-1] == 2.48e-18
 
 
-def test_E():
+def test_f_vs_T_KK():
+    fe_iii = aa.element.fe_iii
+
+    res = fe_iii.f_vs_T_KK()
+    ans = [[np.zeros((2, 0))]]
+
+    assert len(res) == len(ans)
+    assert len(res[0]) == len(ans[0])
+    assert (res[0][0] == ans[0][0]).all()
+
+
+def test_E_K():
     fe_iii = aa.element.fe_iii
 
     assert fe_iii.E_K().shape == (1,)
@@ -50,6 +61,22 @@ def test_I():
     assert fe_iii.I() == 30.59894486405585
 
 
+def test_f_KK():
+    fe_iii = aa.element.fe_iii
+
+    assert (fe_iii.f_KK() == np.zeros((0, 0))).all()
+
+
+def test_sigma_vs_nu_K():
+    fe_iii = aa.element.fe_iii
+
+    res = fe_iii.sigma_vs_nu_K()
+    ans = [np.zeros((2, 0))]
+
+    assert len(res) == len(ans)
+    assert (res[0] == ans[0]).all()
+
+
 def test_n():
     fe_iii = aa.element.fe_iii
 
@@ -62,7 +89,7 @@ def test_n():
     assert n == np.array([3.0])
 
 
-def test_g():
+def test_g_K():
     fe_iii = aa.element.fe_iii
 
     assert fe_iii.g_K().shape == (1,)

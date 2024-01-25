@@ -16,8 +16,8 @@ namespace astrea_py::element::mg_i {
 
 inline void effective_collision_strengths(py::module_& m) {
   m.def(
-    "f_vs_T",
-    &astrea::element::mg_i::f_vs_T,
+    "f_vs_T_KK",
+    &astrea::element::mg_i::f_vs_T_KK,
     "Mg I effective collision strengths by Merle+2015, Alexeeva+2018.\n"
     "\n"
     "- Axis 0: Initial term (i-index).\n"

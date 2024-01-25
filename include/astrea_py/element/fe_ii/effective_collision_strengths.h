@@ -16,8 +16,8 @@ namespace astrea_py::element::fe_ii {
 
 inline void effective_collision_strengths(py::module_& m) {
   m.def(
-    "f_vs_T",
-    &astrea::element::fe_ii::f_vs_T,
+    "f_vs_T_KK",
+    &astrea::element::fe_ii::f_vs_T_KK,
     "Fe II effective collision strengths by Mashonkina+2011, IRON project,\n"
     "Bautista+1998, Zhang+1995.\n"
     "\n"

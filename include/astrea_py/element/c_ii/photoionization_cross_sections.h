@@ -16,8 +16,8 @@ namespace astrea_py::element::c_ii {
 
 inline void photoionization_cross_sections(py::module_& m) {
   m.def(
-    "sigma_vs_nu",
-    &astrea::element::c_ii::sigma_vs_nu,
+    "sigma_vs_nu_K",
+    &astrea::element::c_ii::sigma_vs_nu_K,
     "C II photoionization cross sections by Alexeeva+2015, TOPBASE\n"
     "(https://cdsweb.u-strasbg.fr/topbase/xsections.html).\n"
     "\n"

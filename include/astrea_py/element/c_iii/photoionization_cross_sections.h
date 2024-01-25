@@ -11,15 +11,14 @@
 namespace py = pybind11;
 
 
-namespace astrea_py::element::fe_i {
+namespace astrea_py::element::c_iii {
 
 
 inline void photoionization_cross_sections(py::module_& m) {
   m.def(
     "sigma_vs_nu_K",
-    &astrea::element::fe_i::sigma_vs_nu_K,
-    "Fe I photoionization cross sections by Mashonkina+2011, IRON Project,\n"
-    "Bautista+1998.\n"
+    &astrea::element::c_iii::sigma_vs_nu_K,
+    "C III photoionization cross sections.\n"
     "\n"
     "- Axis 0: Initial term (i-index).\n"
     "- Axis 1: Bivariate data (row)\n"

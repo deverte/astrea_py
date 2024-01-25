@@ -2,6 +2,17 @@ import astrea as aa
 import numpy as np
 
 
+def test_C_vs_T_KK():
+    o_ii = aa.element.o_ii
+
+    res = o_ii.C_vs_T_KK()
+    ans = [[np.zeros((2, 0))]]
+
+    assert len(res) == len(ans)
+    assert len(res[0]) == len(ans[0])
+    assert (res[0][0] == ans[0][0]).all()
+
+
 def test_Lambda_vs_T():
     o_ii = aa.element.o_ii
 
@@ -38,6 +49,22 @@ def test_I():
     assert o_ii.I() == 35.12112
 
 
+def test_f_KK():
+    o_ii = aa.element.o_ii
+
+    assert (o_ii.f_KK() == np.zeros((0, 0))).all()
+
+
+def test_sigma_vs_nu_K():
+    o_ii = aa.element.o_ii
+
+    res = o_ii.sigma_vs_nu_K()
+    ans = [np.zeros((2, 0))]
+
+    assert len(res) == len(ans)
+    assert (res[0] == ans[0]).all()
+
+
 def test_STRUCTURE():
     o_ii = aa.element.o_ii
 
@@ -45,7 +72,7 @@ def test_STRUCTURE():
     assert o_ii.STRUCTURE.LS_He_2s2_2p3_4S.value == 0
 
 
-def test_E():
+def test_E_K():
     o_ii = aa.element.o_ii
 
     assert o_ii.E_K().shape == (1,)
@@ -69,7 +96,7 @@ def test_n():
     assert n == np.array([2.0])
 
 
-def test_g():
+def test_g_K():
     o_ii = aa.element.o_ii
 
     assert o_ii.g_K().shape == (1,)
