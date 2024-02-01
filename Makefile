@@ -7,7 +7,6 @@ PIP=$(VENV)/bin/pip3
 
 .PHONY: build
 build:
-	$(MAKE) update-version
 	$(PYTHON) -m build --no-isolation --wheel
 
 
