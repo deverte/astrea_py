@@ -1,16 +1,15 @@
-[tool.poetry]
+[project]
 name = "astrea"
-version = "0.7.1" # Managed by Makefile
-description = ""
-authors = ["Artem Shepelin <4.shepelin@gmail.com>"]
-
-[tool.poetry.dependencies]
-python = ">=3.10,<3.13"
-numpy = "^1.26.0"
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^7.4.2"
-twine = "^4.0.2"
+version = "0.7.2" # Managed by Makefile
+description = "Python bindings for astrea C++ library"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+authors = [{name = "Artem Shepelin", email = "4.shepelin@gmail.com"}]
+keywords = ["physics", "astronomy", "astrophysics", "plasma"]
+license = {text = "GPL-3"}
+dependencies = [
+    "numpy>=1.26.0",
+]
 
 [build-system]
 requires = [

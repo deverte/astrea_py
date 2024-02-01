@@ -1,4 +1,4 @@
-import configparser
+import tomllib
 
 from conan import ConanFile
 from conan.tools.cmake import CMake
@@ -6,10 +6,9 @@ from conan.tools.cmake import CMakeToolchain
 from conan.tools.cmake import cmake_layout
 
 
-config = configparser.ConfigParser()
-config.read('setup.cfg')
-
-version = config["metadata"]["version"]
+with open("pyproject.toml", "rb") as f:
+    pyproject = tomllib.load(f)
+    version = pyproject["project"]["version"]
 
 
 class AstreaPy(ConanFile):

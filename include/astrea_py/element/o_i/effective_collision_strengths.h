@@ -14,17 +14,18 @@ namespace py = pybind11;
 namespace astrea_py::element::o_i {
 
 
-inline void collision_rate_coefficients(py::module_& m) {
+inline void effective_collision_strengths(py::module_& m) {
   m.def(
-    "C_vs_T_KK",
-    &astrea::element::o_i::C_vs_T_KK,
-    "O I collision rate coefficients by Barklem2007, Sitnova+2013.\n"
+    "f_vs_T_KK",
+    &astrea::element::o_i::f_vs_T_KK,
+    "O I effective collision strengths by Barklem2007, Sitnova+2013 (transformed\n"
+    "from collision rate coefficients).\n"
     "\n"
     "- Axis 0: Initial term (i-index).\n"
     "- Axis 1: Final term (j-index).\n"
     "- Axis 2: Bivariate data (row).\n"
     "  - Row 0: Temperature in K.\n"
-    "  - Row 1: Collision rate coefficient in cm3 s-1.\n"
+    "  - Row 1: Effective collision strength in 1.\n"
     "- Axis 3: Bivariate pair index (column).\n"
   );
 }

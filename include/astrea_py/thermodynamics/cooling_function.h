@@ -13,15 +13,15 @@ namespace py = pybind11;
 namespace astrea_py::thermodynamics {
 
 
-inline void heating_rate(py::module_& m) {
+inline void cooling_function(py::module_& m) {
   m.doc() =
-    "Heating rate.\n"
+    "Cooling function.\n"
   ;
 
   m.def(
-    "H",
-    &astrea::thermodynamics::heating_rate::H,
-    "Heating rate.\n"
+    "Lambda",
+    &astrea::thermodynamics::cooling_function::Lambda,
+    "Cooling function.\n"
     "\n"
     ":param n_K: Electrons population in 1.\n"
     "Must be sorted over energies!\n"
@@ -29,16 +29,16 @@ inline void heating_rate(py::module_& m) {
     "Must be sorted over energies!\n"
     ":param E_K: Energies of element z in eV.\n"
     "Must be sorted!\n"
-    ":return: Heating rate in erg s-1 cm-3.\n",
+    ":return: Cooling rate in erg s-1 cm-3.\n",
     py::arg("n_K"),
     py::arg("R_KK"),
     py::arg("E_K")
   );
 
   m.def(
-    "H_X",
-    &astrea::thermodynamics::heating_rate::H_X,
-    "Heating rate.\n"
+    "Lambda_X",
+    &astrea::thermodynamics::cooling_function::Lambda_X,
+    "Cooling function.\n"
     "\n"
     ":param x_X: Any array with coordinates shape.\n"
     ":param n_XK: Electrons population in 1.\n"
@@ -47,7 +47,7 @@ inline void heating_rate(py::module_& m) {
     "Must be sorted over energies!\n"
     ":param E_K: Energies of element z in eV.\n"
     "Must be sorted!\n"
-    ":return: Heating rates in erg s-1 cm-3.\n",
+    ":return: Cooling rates in erg s-1 cm-3.\n",
     py::arg("x_X"),
     py::arg("n_XK"),
     py::arg("R_XKK"),
@@ -55,9 +55,9 @@ inline void heating_rate(py::module_& m) {
   );
 
   m.def(
-    "H_ZX",
-    &astrea::thermodynamics::heating_rate::H_ZX,
-    "Heating rate.\n"
+    "Lambda_ZX",
+    &astrea::thermodynamics::cooling_function::Lambda_ZX,
+    "Cooling function.\n"
     "\n"
     ":param x_X: Any array with coordinates shape.\n"
     ":param n_XZK: Electrons population in 1.\n"

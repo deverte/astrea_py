@@ -5,8 +5,8 @@
 
 #include <astrea/astrea.h>
 
-#include "astrea_py/element/o_i/collision_rate_coefficients.h"
 #include "astrea_py/element/o_i/cooling_efficiency.h"
+#include "astrea_py/element/o_i/effective_collision_strengths.h"
 #include "astrea_py/element/o_i/energies.h"
 #include "astrea_py/element/o_i/info.h"
 #include "astrea_py/element/o_i/oscillator_strengths.h"
@@ -31,8 +31,8 @@ inline void o_i_(py::module_& m) {
     "(http://wise-obs.tau.ac.il/~orlyg/ion_by_ion/).\n"
   ;
 
-  astrea_py::element::o_i::collision_rate_coefficients(m);
   astrea_py::element::o_i::cooling_efficiency(m);
+  astrea_py::element::o_i::effective_collision_strengths(m);
   astrea_py::element::o_i::energies(m);
   astrea_py::element::o_i::info(m);
   astrea_py::element::o_i::oscillator_strengths(m);

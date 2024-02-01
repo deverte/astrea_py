@@ -1,0 +1,8 @@
+build
+pytest>=7.4.2
+twine>=4.0.2
+setuptools>=33
+wheel>=0.30
+ninja>=1.7
+cmake>=3
+conan>=2

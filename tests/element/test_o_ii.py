@@ -2,17 +2,6 @@ import astrea as aa
 import numpy as np
 
 
-def test_C_vs_T_KK():
-    o_ii = aa.element.o_ii
-
-    res = o_ii.C_vs_T_KK()
-    ans = [[np.zeros((2, 0))]]
-
-    assert len(res) == len(ans)
-    assert len(res[0]) == len(ans[0])
-    assert (res[0][0] == ans[0][0]).all()
-
-
 def test_Lambda_vs_T():
     o_ii = aa.element.o_ii
 
@@ -23,6 +12,17 @@ def test_Lambda_vs_T():
     assert Lambda_vs_T[0][-1] == 1.00e+08
     assert Lambda_vs_T[1][0] == 3.88e-21
     assert Lambda_vs_T[1][-1] == 1.65e-18
+
+
+def test_f_vs_T_KK():
+    o_ii = aa.element.o_ii
+
+    res = o_ii.f_vs_T_KK()
+    ans = [[np.zeros((2, 0))]]
+
+    assert len(res) == len(ans)
+    assert len(res[0]) == len(ans[0])
+    assert (res[0][0] == ans[0][0]).all()
 
 
 def test_i():

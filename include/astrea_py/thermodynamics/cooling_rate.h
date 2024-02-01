@@ -53,6 +53,25 @@ inline void cooling_rate(py::module_& m) {
     py::arg("R_XKK"),
     py::arg("E_K")
   );
+
+  m.def(
+    "L_ZX",
+    &astrea::thermodynamics::cooling_rate::L_ZX,
+    "Cooling rate.\n"
+    "\n"
+    ":param x_X: Any array with coordinates shape.\n"
+    ":param n_XZK: Electrons population in 1.\n"
+    "Must be sorted over energies!\n"
+    ":param R_XZKK: Transitions rates in s-1.\n"
+    "Must be sorted over energies!\n"
+    ":param E_ZK: Energies of elements in eV.\n"
+    "Must be sorted!\n"
+    ":return: Cooling rates in erg s-1 cm-3.\n",
+    py::arg("x_X"),
+    py::arg("n_XZK"),
+    py::arg("R_XZKK"),
+    py::arg("E_ZK")
+  );
 }
 
 

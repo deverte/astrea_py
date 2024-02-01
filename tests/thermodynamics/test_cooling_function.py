@@ -3,8 +3,8 @@ import numpy as np
 import pytest
 
 
-def test_H_ZX():
-    H_ZX = aa.thermodynamics.heating_rate.H_ZX
+def test_Lambda_ZX():
+    Lambda_ZX = aa.thermodynamics.cooling_function.Lambda_ZX
 
     x_X = np.arange(2)
     n_XZK = [
@@ -25,9 +25,9 @@ def test_H_ZX():
     ]
     E_ZK = [np.array([0.0, 1.957696455240094])]
 
-    res_ZX = H_ZX(x_X=x_X, n_XZK=n_XZK, R_XZKK=R_XZKK, E_ZK=E_ZK)
+    res_ZX = Lambda_ZX(x_X=x_X, n_XZK=n_XZK, R_XZKK=R_XZKK, E_ZK=E_ZK)
 
     assert len(res_ZX) == 1
     assert res_ZX[0].shape[0] == 2
-    assert res_ZX[0][0] == 1.881945310230183e-09
-    assert res_ZX[0][1] == 7.841438792625764e-09
+    assert res_ZX[0][0] == -6.273151034100607e-10
+    assert res_ZX[0][1] == 0.0

@@ -121,6 +121,9 @@ PYBIND11_MODULE(astrea, m) {
   // Thermodynamics
   auto thermodynamics = m.def_submodule("thermodynamics");
 
+  auto cooling_function = thermodynamics.def_submodule("cooling_function");
+  astrea_py::thermodynamics::cooling_function(cooling_function);
+
   auto cooling_rate_approximation =
     thermodynamics.def_submodule("cooling_rate_approximation");
   astrea_py::thermodynamics::cooling_rate_approximation(
@@ -140,12 +143,6 @@ PYBIND11_MODULE(astrea, m) {
   auto collisional_deexcitation =
     transition.def_submodule("collisional_deexcitation");
   astrea_py::transition::collisional_deexcitation(collisional_deexcitation);
-
-  auto collisional_excitation_regemorter =
-    transition.def_submodule("collisional_excitation_regemorter");
-  astrea_py::transition::collisional_excitation_regemorter(
-    collisional_excitation_regemorter
-  );
 
   auto collisional_excitation =
     transition.def_submodule("collisional_excitation");

@@ -1,27 +1,31 @@
-project = astrea
-version = 0.7.1
+PROJECT = astrea
 
-
-.PHONY: update-version
-update-version:
-	perl -i -pe 's/version\s=\s\".*\"/version = \"${version}\"/g' pyproject.toml
-	perl -i -pe 's/version\s=\s.*/version = ${version}/g' setup.cfg
+VENV=.venv
+PYTHON=$(VENV)/bin/python3
+PIP=$(VENV)/bin/pip3
 
 
 .PHONY: build
 build:
 	$(MAKE) update-version
-	python setup.py bdist_wheel
+	$(PYTHON) -m build --no-isolation --wheel
+
+
+.PHONY: env
+env:
+	python3 -m venv $(VENV)
+	$(PIP) install -r requirements.txt
 
 
 .PHONY: publish
 publish:
-	python -m twine upload --repository astro ./dist/*
+	$(PYTHON) -m twine upload --repository astro ./dist/*
 
 
 .PHONY: clear
 clear:
-	rm -rf ${project}.egg-info
+	rm -rf .pytest_cache
+	rm -rf src/*.egg-info
 	rm -rf build
 	rm -rf dist
 	rm -rf wheelhouse
@@ -30,14 +34,14 @@ clear:
 
 .PHONY: install
 install:
-	poetry run pip install dist/${project}-*.whl
+	$(PIP) install dist/${PROJECT}-*.whl
 
 
 .PHONY: uninstall
 uninstall:
-	poetry run pip uninstall ${project} -y
+	$(PIP) uninstall ${PROJECT} -y
 
 
 .PHONY: test
 test:
-	poetry run python -m pytest
+	$(PYTHON) -m pytest
