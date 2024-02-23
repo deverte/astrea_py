@@ -1,9 +1,12 @@
+/.cache
+/.pytest_cache
 /.venv
 /build
 /dist
+/result
 /wheelhouse
 /CMakeUserPresets.json
-/.pytest_cache
-*__pycache__
+/compile_commands.json
 
+*__pycache__
 *.egg-info

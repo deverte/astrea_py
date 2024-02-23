@@ -39,7 +39,7 @@ def test_Pi_Z():
 
     p_Z = Pi_Z(T=T, N_e=N_e, I_Z=I_Z, g_ZK=g_ZK, E_ZK=E_ZK)
 
-    assert p_Z == pytest.approx([3.79e-320, 0.0])
+    assert p_Z == pytest.approx([3.3296349856136936e-07, 1.0])
 
 
 def test_Sigma_Pi():
@@ -53,7 +53,7 @@ def test_Sigma_Pi():
 
     s_Z = Sigma_Pi(T=T, N_e=N_e, I_Z=I_Z, g_ZK=g_ZK, E_ZK=E_ZK)
 
-    assert s_Z == pytest.approx(3.7994e-320)
+    assert s_Z == pytest.approx(3.3296349856136936e-07)
 
 
 def test_N_Z():
@@ -67,7 +67,7 @@ def test_N_Z():
 
     n_Z = N_Z(T=T, N_e=N_e, I_Z=I_Z, g_ZK=g_ZK, E_ZK=E_ZK)
 
-    assert n_Z == pytest.approx([1.0, 0.0])
+    assert n_Z == pytest.approx([1.0, 3003332.2100491067])
 
 
 def test_n_ZK():

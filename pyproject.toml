@@ -1,6 +1,6 @@
 [project]
 name = "astrea"
-version = "0.7.2" # Managed by Makefile
+version = "0.7.3"
 description = "Python bindings for astrea C++ library"
 readme = "README.md"
 requires-python = ">=3.10,<3.13"
@@ -8,15 +8,9 @@ authors = [{name = "Artem Shepelin", email = "4.shepelin@gmail.com"}]
 keywords = ["physics", "astronomy", "astrophysics", "plasma"]
 license = {text = "GPL-3"}
 dependencies = [
-    "numpy>=1.26.0",
+    "numpy>=1.25.0",
 ]
 
 [build-system]
-requires = [
-    "setuptools>=33",
-    "wheel>=0.30",
-    "ninja>=1.7",
-    "cmake>=3",
-    "conan>=2",
-]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"

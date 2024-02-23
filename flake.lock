@@ -1,0 +1,57 @@
+{
+  "nodes": {
+    "astreapkg": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1708589904,
+        "narHash": "sha256-zOOzjIq6UJpSKw2JjW2CeuvjxtQ0JovRvRTdKYPc8wM=",
+        "type": "tarball",
+        "url": "https://gitea.zarux.ru/astro/astrea/archive/e01acc5018803c8f7364b55c2e8949fc8d901992.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://gitea.zarux.ru/astro/astrea/archive/e01acc5018803c8f7364b55c2e8949fc8d901992.tar.gz"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1708440434,
+        "narHash": "sha256-XY+B9mbhL/i+Q6fP6gBQ6P76rv9rWtpjQiUJ+DGtaUg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "526d051b128b82ae045a70e5ff1adf8e6dafa560",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixos-23.11",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1708294118,
+        "narHash": "sha256-evZzmLW7qoHXf76VCepvun1esZDxHfVRFUJtumD7L2M=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "e0da498ad77ac8909a980f07eff060862417ccf7",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixos-23.11",
+        "type": "indirect"
+      }
+    },
+    "root": {
+      "inputs": {
+        "astreapkg": "astreapkg",
+        "nixpkgs": "nixpkgs_2"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

@@ -1,6 +1,5 @@
 import os
 import shutil
-import subprocess
 from pathlib import Path
 
 from setuptools import Extension
@@ -21,32 +20,9 @@ class ConanCMakeBuild(build_ext):
         if not extdir.exists():
             extdir.mkdir(parents=True)
 
-        subprocess.run([
-            "conan",
-            "profile",
-            "detect",
-        ])
-        subprocess.run([
-            "conan",
-            "config",
-            "install",
-            "./remotes.json",
-        ])
-        subprocess.run([
-            "conan",
-            "install",
-            ".",
-            "--build=missing",
-        ])
-        subprocess.run([
-            "conan",
-            "build",
-            ".",
-        ])
-
         build_paths = [
-            *(Path.cwd() / 'build/Release/').glob("*.so"),
-            *(Path.cwd() / 'build/Release/').glob("*.pyd"),
+            *(Path.cwd() / 'build/').glob("*.so"),
+            *(Path.cwd() / 'build/').glob("*.pyd"),
         ]
         for build_path in build_paths:
             shutil.move(str(build_path.resolve()), ext_fullpath)

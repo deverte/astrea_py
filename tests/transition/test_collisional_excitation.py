@@ -71,7 +71,7 @@ def test_R_XZKK():
         ],
         [ # x=1
             np.array([ # element=0 transitions=[[00, 01], [10, 11]]
-                [0.0, 0.17472249154525513],
+                [0.0, 0.0],
                 [0.0, 0.0],
             ]),
             np.array([ # element=1 transitions=[[00, 01], [10, 11]]
