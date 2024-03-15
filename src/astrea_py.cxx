@@ -30,6 +30,12 @@ PYBIND11_MODULE(astrea, m) {
   auto fe_iii = element.def_submodule("fe_iii");
   astrea_py::element::fe_iii_(fe_iii);
 
+  auto h_i = element.def_submodule("h_i");
+  astrea_py::element::h_i_(h_i);
+
+  auto h_ii = element.def_submodule("h_ii");
+  astrea_py::element::h_ii_(h_ii);
+
   auto mg_i = element.def_submodule("mg_i");
   astrea_py::element::mg_i_(mg_i);
 
@@ -114,8 +120,44 @@ PYBIND11_MODULE(astrea, m) {
   // Spectrum
   auto spectrum = m.def_submodule("spectrum");
 
+  auto gj_436_fossati_2 = spectrum.def_submodule("gj_436_fossati_2");
+  astrea_py::spectrum::gj_436_fossati_2(gj_436_fossati_2);
+
+  auto gj_436_fossati = spectrum.def_submodule("gj_436_fossati");
+  astrea_py::spectrum::gj_436_fossati(gj_436_fossati);
+
+  auto gj_3470_bourrier = spectrum.def_submodule("gj_3470_bourrier");
+  astrea_py::spectrum::gj_3470_bourrier(gj_3470_bourrier);
+
+  auto hat_p_11_ben_jaffel = spectrum.def_submodule("hat_p_11_ben_jaffel");
+  astrea_py::spectrum::hat_p_11_ben_jaffel(hat_p_11_ben_jaffel);
+
+  auto hd_73583_zhang = spectrum.def_submodule("hd_73583_zhang");
+  astrea_py::spectrum::hd_73583_zhang(hd_73583_zhang);
+
+  auto hd_85512_muscles = spectrum.def_submodule("hd_85512_muscles");
+  astrea_py::spectrum::hd_85512_muscles(hd_85512_muscles);
+
+  auto hd_189733_fossati = spectrum.def_submodule("hd_189733_fossati");
+  astrea_py::spectrum::hd_189733_fossati(hd_189733_fossati);
+
+  auto hd_209458_fossati = spectrum.def_submodule("hd_209458_fossati");
+  astrea_py::spectrum::hd_209458_fossati(hd_209458_fossati);
+
+  auto hd_209458_salz = spectrum.def_submodule("hd_209458_salz");
+  astrea_py::spectrum::hd_209458_salz(hd_209458_salz);
+
   auto kelt_9_fossati = spectrum.def_submodule("kelt_9_fossati");
   astrea_py::spectrum::kelt_9_fossati(kelt_9_fossati);
+
+  auto sun_linsky = spectrum.def_submodule("sun_linsky");
+  astrea_py::spectrum::sun_linsky(sun_linsky);
+
+  auto sun_tobiska = spectrum.def_submodule("sun_tobiska");
+  astrea_py::spectrum::sun_tobiska(sun_tobiska);
+
+  auto wasp_80_salz_fossati = spectrum.def_submodule("wasp_80_salz_fossati");
+  astrea_py::spectrum::wasp_80_salz_fossati(wasp_80_salz_fossati);
 
 
   // Thermodynamics

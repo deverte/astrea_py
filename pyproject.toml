@@ -1,6 +1,6 @@
 [project]
 name = "astrea"
-version = "0.7.3"
+version = "0.7.4" # managed
 description = "Python bindings for astrea C++ library"
 readme = "README.md"
 requires-python = ">=3.10,<3.13"

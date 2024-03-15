@@ -1,18 +1,18 @@
 {
   "nodes": {
-    "astreapkg": {
+    "astreaPkg": {
       "inputs": {
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1708589904,
-        "narHash": "sha256-zOOzjIq6UJpSKw2JjW2CeuvjxtQ0JovRvRTdKYPc8wM=",
+        "lastModified": 1710427481,
+        "narHash": "sha256-ThiXT0AbtKB2QMKhpILhJ9464vpgqXrGlsqQUB0UA1A=",
         "type": "tarball",
-        "url": "https://gitea.zarux.ru/astro/astrea/archive/e01acc5018803c8f7364b55c2e8949fc8d901992.tar.gz"
+        "url": "http://gitea.nul/astro/astrea/archive/v0.7.4.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://gitea.zarux.ru/astro/astrea/archive/e01acc5018803c8f7364b55c2e8949fc8d901992.tar.gz"
+        "url": "http://gitea.nul/astro/astrea/archive/v0.7.4.tar.gz"
       }
     },
     "nixpkgs": {
@@ -47,7 +47,7 @@
     },
     "root": {
       "inputs": {
-        "astreapkg": "astreapkg",
+        "astreaPkg": "astreaPkg",
         "nixpkgs": "nixpkgs_2"
       }
     }

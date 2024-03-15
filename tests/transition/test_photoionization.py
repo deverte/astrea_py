@@ -25,8 +25,5 @@ def test_R_XZK():
         F_lambda_vs_lambda=F_lambda_vs_lambda,
         tau_X=tau_X,
     )
-    assert (
-        R[0][0] ==
-            pytest.approx(np.array([362.1178317114999]), np.array([0.0]))
-    )
+    assert (R[0][0] == pytest.approx(np.array([362.1178317114999])))
     assert (R[0][1] == np.array([0.0])).all()

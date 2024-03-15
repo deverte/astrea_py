@@ -1,5 +1,5 @@
 project := "astrea"
-ver := "0.7.3"
+ver := "0.7.4"
 
 default: configure build
 
@@ -7,6 +7,11 @@ update-version:
   #!/usr/bin/env python3
   import pathlib
   import re
+
+  flake_in = pathlib.Path('flake.nix')
+  pattern = '\/archive\/.*\.tar\.gz"; # managed'
+  repl = '/archive/v{{ver}}.tar.gz"; # managed'
+  flake_in.write_text(re.sub(pattern, repl, flake_in.read_text()))
 
   flake = pathlib.Path('flake.nix')
   pattern = 'version = ".*"; # managed'
@@ -17,6 +22,11 @@ update-version:
   pattern = 'version = ".*"'
   repl = 'version = "{{ver}}"'
   pyproject.write_text(re.sub(pattern, repl, pyproject.read_text()))
+
+  readme = pathlib.Path('README.md')
+  pattern = '\/archive\/.*\.tar\.gz'
+  repl = '/archive/v{{ver}}.tar.gz'
+  readme.write_text(re.sub(pattern, repl, readme.read_text()))
 
 build:
   cd build; \
@@ -51,6 +61,10 @@ clear:
   rm -rf wheelhouse
   rm -f CMakeUserPresets.json
   rm -f compile_commands.json
+
+purge: clear
+  rm -rf .cache
+  rm -rf .venv
 
 env:
   python3 -m venv .venv

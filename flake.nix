@@ -3,25 +3,37 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-23.11";
-    astreapkg.url = "https://gitea.zarux.ru/astro/astrea/archive/e01acc5018803c8f7364b55c2e8949fc8d901992.tar.gz";
+    astreaPkg.url = "http://gitea.nul/astro/astrea/archive/v0.7.4.tar.gz"; # managed
   };
 
-  outputs = inputs@{ self, nixpkgs, astreapkg, ... }:
+  outputs = inputs@{ self, nixpkgs, astreaPkg, ... }:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs { inherit system; };
-    astrea = astreapkg.defaultPackage.${system}.overrideAttrs (prev: rec {
+    astrea = astreaPkg.packages.${system}.default.overrideAttrs (prev: rec {
       patches = [
-        ./patches/astrea/fe_ii_effective_collision_strength.patch
-        ./patches/astrea/interp1d_linear.patch
-        ./patches/astrea/saha_ionization_equation.patch
+        ./patches/astrea/gj_436_fossati_2.patch
+        ./patches/astrea/gj_436_fossati.patch
+        ./patches/astrea/gj_3470_bourrier.patch
+        ./patches/astrea/hat_p_11_ben_jaffel.patch
+        ./patches/astrea/hd_73583_zhang.patch
+        ./patches/astrea/hd_85512_muscles.patch
+        ./patches/astrea/hd_189733_fossati.patch
+        ./patches/astrea/hd_209458_fossati.patch
+        ./patches/astrea/hd_209458_salz.patch
+        ./patches/astrea/kelt_9_fossati.patch
+        ./patches/astrea/oscillator_strengths_doppler.patch
+        ./patches/astrea/oscillator_strengths_stark.patch
+        ./patches/astrea/sun_linsky.patch
+        ./patches/astrea/sun_tobiska.patch
+        ./patches/astrea/wasp_80_salz_fossati.patch
       ];
     });
     stdenv = pkgs.llvmPackages.stdenv;
     python = pkgs.python311;
     pythonPackages = pkgs.python311Packages;
   in {
-    devShell.${system} = stdenv.mkDerivation {
+    devShells.${system}.default = stdenv.mkDerivation {
       name = "astrea_py";
       venvDir = ".venv";
       nativeBuildInputs = [
@@ -48,9 +60,9 @@
       '';
     };
 
-    defaultPackage.${system} = pythonPackages.buildPythonPackage {
+    packages.${system}.default = pythonPackages.buildPythonPackage {
       name = "astrea_py";
-      version = "0.7.3"; # managed by justfile
+      version = "0.7.4"; # managed
       src = ./.;
       nativeBuildInputs = [
         stdenv
@@ -75,7 +87,7 @@
         just build
       '';
       meta = {
-        homepage = "https://gitea.zarux.ru/astro/astrea_py";
+        homepage = "https://gitea.nul/astro/astrea_py";
         licencse = pkgs.lib.licenses.gpl3;
         platforms = pkgs.lib.platforms.linux ++ pkgs.lib.platforms.darwin;
         maintainers = [ pkgs.lib.maintainers.deverte ];

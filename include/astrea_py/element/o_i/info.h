@@ -36,6 +36,12 @@ inline void info(py::module_& m) {
     &astrea::element::o_i::I,
     "Ionization energy in eV."
   );
+
+  m.def(
+    "A_H_sun",
+    &astrea::element::o_i::A_H_sun,
+    "Element solar abundance relative to H."
+  );
 }
 
 
