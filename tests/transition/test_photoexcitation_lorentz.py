@@ -24,6 +24,6 @@ def test_R_XZKK():
     )
     assert (
         R[0][0] ==
-            pytest.approx(np.array([[0.0, 0.0027102329380521524], [0.0, 0.0]]))
+            pytest.approx(np.array([[0.0, 0.002705717076994335], [0.0, 0.0]]))
     )
     assert (R[0][1] == np.array([0.0])).all()

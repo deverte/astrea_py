@@ -3,32 +3,14 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-23.11";
-    astreaPkg.url = "http://gitea.nul/astro/astrea/archive/v0.7.4.tar.gz"; # managed
+    astreaPkg.url = "http://gitea.nul/astro/astrea/archive/v0.7.5.tar.gz"; # managed by justfile
   };
 
   outputs = inputs@{ self, nixpkgs, astreaPkg, ... }:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs { inherit system; };
-    astrea = astreaPkg.packages.${system}.default.overrideAttrs (prev: rec {
-      patches = [
-        ./patches/astrea/gj_436_fossati_2.patch
-        ./patches/astrea/gj_436_fossati.patch
-        ./patches/astrea/gj_3470_bourrier.patch
-        ./patches/astrea/hat_p_11_ben_jaffel.patch
-        ./patches/astrea/hd_73583_zhang.patch
-        ./patches/astrea/hd_85512_muscles.patch
-        ./patches/astrea/hd_189733_fossati.patch
-        ./patches/astrea/hd_209458_fossati.patch
-        ./patches/astrea/hd_209458_salz.patch
-        ./patches/astrea/kelt_9_fossati.patch
-        ./patches/astrea/oscillator_strengths_doppler.patch
-        ./patches/astrea/oscillator_strengths_stark.patch
-        ./patches/astrea/sun_linsky.patch
-        ./patches/astrea/sun_tobiska.patch
-        ./patches/astrea/wasp_80_salz_fossati.patch
-      ];
-    });
+    astrea = astreaPkg.packages.${system}.default;
     stdenv = pkgs.llvmPackages.stdenv;
     python = pkgs.python311;
     pythonPackages = pkgs.python311Packages;
@@ -62,7 +44,7 @@
 
     packages.${system}.default = pythonPackages.buildPythonPackage {
       name = "astrea_py";
-      version = "0.7.4"; # managed
+      version = "0.7.5"; # managed by justfile
       src = ./.;
       nativeBuildInputs = [
         stdenv

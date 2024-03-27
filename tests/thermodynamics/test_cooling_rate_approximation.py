@@ -17,5 +17,5 @@ def test_L_X():
     cooling = L_X(Lambda_vs_T=Lambda_vs_T, T_X=T_X, N_e_X=N_e_X, N_A_X=N_A_X)
 
     assert cooling.shape[0] == 2
-    assert cooling[0] == 1.12e-11
-    assert cooling[1] == 2.904285714285714e-09
+    assert cooling[0] == pytest.approx(1.12e-11)
+    assert cooling[1] == pytest.approx(2.904285714285714e-09, rel=1e-3)

@@ -41,8 +41,5 @@ def test_R_XZK():
         v_ZK=v_ZK,
         N_e_X=N_e_X,
     )
-    assert (
-        R[0][0] ==
-            pytest.approx(np.array([0.0]), np.array([0.0]))
-    )
+    assert R[0][0] == pytest.approx(np.array([2.39380246e-60]))
     assert (R[0][1] == np.array([0.0])).all()

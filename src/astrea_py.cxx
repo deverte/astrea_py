@@ -62,6 +62,15 @@ PYBIND11_MODULE(astrea, m) {
   auto interp1d_linear = math.def_submodule("interp1d_linear");
   astrea_py::math::interp1d_linear(interp1d_linear);
 
+  auto interp1d_log10x = math.def_submodule("interp1d_log10x");
+  astrea_py::math::interp1d_log10x(interp1d_log10x);
+
+  auto interp1d_log10xy = math.def_submodule("interp1d_log10xy");
+  astrea_py::math::interp1d_log10xy(interp1d_log10xy);
+
+  auto interp1d_log10y = math.def_submodule("interp1d_log10y");
+  astrea_py::math::interp1d_log10y(interp1d_log10y);
+
   auto interp1d_nearest = math.def_submodule("interp1d_nearest");
   astrea_py::math::interp1d_nearest(interp1d_nearest);
 
