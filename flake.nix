@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-23.11";
-    astreaPkg.url = "http://gitea.nul/astro/astrea/archive/v0.7.5.tar.gz"; # managed by justfile
+    astreaPkg.url = "http://gitea.nul/astro/astrea/archive/v0.7.6.tar.gz"; # managed by justfile
   };
 
   outputs = inputs@{ self, nixpkgs, astreaPkg, ... }:
@@ -44,7 +44,7 @@
 
     packages.${system}.default = pythonPackages.buildPythonPackage {
       name = "astrea_py";
-      version = "0.7.5"; # managed by justfile
+      version = "0.7.6"; # managed by justfile
       src = ./.;
       nativeBuildInputs = [
         stdenv

@@ -5,14 +5,14 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1711522595,
-        "narHash": "sha256-Z6zcbMLKZRf6bvdOkALhO8LsQy4yDuHjYWFqhZ172xs=",
+        "lastModified": 1711527397,
+        "narHash": "sha256-naJvTbwRQwYe8NUmdUNHiwDzJSDvn7GaQ3zRm3g8Bgk=",
         "type": "tarball",
-        "url": "http://gitea.nul/astro/astrea/archive/v0.7.5.tar.gz"
+        "url": "http://gitea.nul/astro/astrea/archive/v0.7.6.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "http://gitea.nul/astro/astrea/archive/v0.7.5.tar.gz"
+        "url": "http://gitea.nul/astro/astrea/archive/v0.7.6.tar.gz"
       }
     },
     "nixpkgs": {
