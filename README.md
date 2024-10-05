@@ -26,7 +26,7 @@ Method 2 - Nix package (`flake.nix`) (since v0.7.3):
 ```
 {
   inputs = {
-    astreaPyPkg.url = "http://gitea.nul/astro/astrea_py/archive/v0.7.6.tar.gz";
+    astreaPyPkg.url = "http://gitea.nul/astro/astrea_py/archive/v0.7.7.tar.gz";
   };
 
   outputs = inputs@{ self, astreaPyPkg, ... }:

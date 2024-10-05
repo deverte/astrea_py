@@ -6,8 +6,10 @@
 #include <astrea/astrea.h>
 
 #include "astrea_py/element/h_ii/cooling_efficiency.h"
+#include "astrea_py/element/h_ii/effective_collision_strengths.h"
 #include "astrea_py/element/h_ii/energies.h"
 #include "astrea_py/element/h_ii/info.h"
+#include "astrea_py/element/h_ii/oscillator_strengths.h"
 #include "astrea_py/element/h_ii/principal_quantum_numbers.h"
 #include "astrea_py/element/h_ii/statistical_weights.h"
 #include "astrea_py/element/h_ii/structure.h"
@@ -26,8 +28,10 @@ inline void h_ii_(py::module_& m) {
   ;
 
   astrea_py::element::h_ii::cooling_efficiency(m);
+  astrea_py::element::h_ii::effective_collision_strengths(m);
   astrea_py::element::h_ii::energies(m);
   astrea_py::element::h_ii::info(m);
+  astrea_py::element::h_ii::oscillator_strengths(m);
   astrea_py::element::h_ii::principal_quantum_numbers(m);
   astrea_py::element::h_ii::statistical_weights(m);
   astrea_py::element::h_ii::structure(m);

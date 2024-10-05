@@ -14,6 +14,17 @@ def test_Lambda_vs_T():
     assert Lambda_vs_T[1][-1] == 1.37e-23
 
 
+def test_f_vs_T_KK():
+    h_ii = aa.element.h_ii
+
+    res = h_ii.f_vs_T_KK()
+    ans = [[np.zeros((2, 0))]]
+
+    assert len(res) == len(ans)
+    assert len(res[0]) == len(ans[0])
+    assert (res[0][0] == ans[0][0]).all()
+
+
 def test_E_K():
     h_ii = aa.element.h_ii
 
@@ -48,6 +59,12 @@ def test_I():
     h_ii = aa.element.h_ii
 
     assert h_ii.I() == 0.0
+
+
+def test_f_KK():
+    h_ii = aa.element.h_ii
+
+    assert (h_ii.f_KK() == np.zeros((0, 0))).all()
 
 
 def test_A_H_sun():

@@ -45,6 +45,12 @@ PYBIND11_MODULE(astrea, m) {
   auto mg_iii = element.def_submodule("mg_iii");
   astrea_py::element::mg_iii_(mg_iii);
 
+  auto n_i = element.def_submodule("n_i");
+  astrea_py::element::n_i_(n_i);
+
+  auto n_ii = element.def_submodule("n_ii");
+  astrea_py::element::n_ii_(n_ii);
+
   auto o_i = element.def_submodule("o_i");
   astrea_py::element::o_i_(o_i);
 
