@@ -69,7 +69,7 @@ jobs:
         shell: bash
         env:
           CIBW_BEFORE_BUILD: |
-            pip install pybind11
+            pip3 install pybind11
 
             ASTREA_PATH=/github/workspace/astrea/install
             if [[ "$RUNNER_OS" == "Windows" ]]; then
