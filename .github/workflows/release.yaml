@@ -54,6 +54,7 @@ jobs:
       - name: Install Eigen
         shell: bash
         run: |
+          EIGEN_PATH="/usr/local/include/eigen3"
           if [[ "$RUNNER_OS" == "Linux" ]]; then
             sudo apt-get update
             sudo apt-get install -y libeigen3-dev
@@ -64,12 +65,26 @@ jobs:
           fi
 
       - name: Build wheel
+        shell: bash
         run: |
           # configure
+          if [[ "$RUNNER_OS" == "Windows" ]]; then
+            EIGEN_PATH="C:/Program Files/eigen3"
+            PYTHON_PATH=$(python3 -c "import sys; print(sys.prefix.replace('\\', '/'))"
+          else
+            EIGEN_PATH="/usr/local/include/eigen3"
+            PYTHON_PATH=$(python3 -c "import sys; print(sys.prefix)")
+          fi
+          PYBIND11_PATH=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
+
           mkdir -p build
           cd build; \
-            cmake .. -G Ninja -DCMAKE_PREFIX_PATH=$GITHUB_WORKSPACE/astrea/install; \
+            cmake .. \
+              -G Ninja \
+              -DCMAKE_PREFIX_PATH="$GITHUB_WORKSPACE/astrea/install;$EIGEN_PATH;$PYTHON_PATH" \
+              -DPYBIND11_DIR=$PYBIND11_PATH; \
             cd ..
+
           just build
 
       - name: Upload artifact
