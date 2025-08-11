@@ -9,8 +9,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ["3.10", "3.11", "3.12", "3.13"]
+        # os: [ubuntu-latest, macos-latest, windows-latest]
+        # python-version: ["3.10", "3.11", "3.12", "3.13"]
+        os: [macos-latest]
+        python-version: ["3.12"]
     steps:
       - uses: actions/checkout@v4
 
@@ -69,26 +71,21 @@ jobs:
 
       - name: Build wheel
         shell: bash
+        env:
+          CIBW_ENVIRONMENT: |
+            ASTREA_PATH=$GITHUB_WORKSPACE/astrea/install
+            EIGEN_PATH=${{"$RUNNER_OS" == "Windows" && "C:/Program Files/eigen3" || "/usr/local/include/eigen3"}}
+            PYBIND11_PATH=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
+            PYTHON_PATH=$(python3 -c "import sys; print(sys.prefix.replace('\\\\', '/'))")
+          CIBW_BEFORE_BUILD: |
+            mkdir -p build
+            cd build; \
+              cmake .. \
+                -G Ninja \
+                -DCMAKE_PREFIX_PATH="$ASTREA_PATH;$EIGEN_PATH;$PYTHON_PATH;$PYBIND11_PATH"; \
+              cmake --build .
         run: |
-          # configure
-          ASTREA_PATH=$GITHUB_WORKSPACE/astrea/install
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
-            EIGEN_PATH="C:/Program Files/eigen3"
-          else
-            EIGEN_PATH="/usr/local/include/eigen3"
-          fi
-          PYBIND11_PATH=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
-          PYTHON_PATH=$(python3 -c "import sys; print(sys.prefix.replace('\\\\', '/'))")
-
-          mkdir -p build
-          cd build; \
-            cmake .. \
-              -G Ninja \
-              -DCMAKE_PREFIX_PATH="$ASTREA_PATH;$EIGEN_PATH;$PYTHON_PATH;$PYBIND11_PATH"; \
-            cmake --build .; \
-            cd ..
-
-          python -m cibuildwheel --output-dir wheelhouse
+          python3 -m cibuildwheel --output-dir wheelhouse
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
