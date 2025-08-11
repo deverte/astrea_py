@@ -48,8 +48,7 @@ jobs:
           git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
           mkdir astrea/build
           cd astrea/build; \
-            cmake -G Ninja ..; \
-            ninja; \
+            cmake -G Ninja -DCMAKE_INSTALL_PREFIX=../install ..; \
             ninja install
 
       - name: Install Eigen
@@ -66,7 +65,11 @@ jobs:
 
       - name: Build wheel
         run: |
-          just configure
+          # configure
+          mkdir -p build
+          cd build; \
+            cmake .. -G -DCMAKE_PREFIX_PATH=$GITHUB_WORKSPACE/astrea/install; \
+            cd ..
           just build
 
       - name: Upload artifact
