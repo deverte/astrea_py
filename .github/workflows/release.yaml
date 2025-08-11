@@ -68,7 +68,7 @@ jobs:
           # configure
           mkdir -p build
           cd build; \
-            cmake .. -G -DCMAKE_PREFIX_PATH=$GITHUB_WORKSPACE/astrea/install; \
+            cmake .. -G Ninja -DCMAKE_PREFIX_PATH=$GITHUB_WORKSPACE/astrea/install; \
             cd ..
           just build
 
