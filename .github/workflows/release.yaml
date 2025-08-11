@@ -72,18 +72,22 @@ jobs:
       - name: Build wheel
         shell: bash
         env:
-          CIBW_ENVIRONMENT: |
+          CIBW_BEFORE_BUILD: |
             ASTREA_PATH=$GITHUB_WORKSPACE/astrea/install
-            EIGEN_PATH=${{ runner.os == 'Windows' && 'C:/Program Files/eigen3' || '/usr/local/include/eigen3' }}
+            if [[ "$RUNNER_OS" == "Windows" ]]; then
+              EIGEN_PATH="C:/Program Files/eigen3"
+            else
+              EIGEN_PATH="/usr/local/include/eigen3"
+            fi
             PYBIND11_PATH=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
             PYTHON_PATH=$(python3 -c "import sys; print(sys.prefix.replace('\\\\', '/'))")
-          CIBW_BEFORE_BUILD: |
-            mkdir -p build &&
-            cd build &&
+
+            mkdir -p build
+            cd build && \
               cmake .. \
                 -G Ninja \
                 -DCMAKE_PREFIX_PATH="$ASTREA_PATH;$EIGEN_PATH;$PYTHON_PATH" \
-                -Dpybind11_DIR="$PYBIND11_PATH" &&
+                -Dpybind11_DIR="$PYBIND11_PATH" && \
               cmake --build .
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
