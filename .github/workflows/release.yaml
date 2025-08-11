@@ -74,7 +74,7 @@ jobs:
         env:
           CIBW_ENVIRONMENT: |
             ASTREA_PATH=$GITHUB_WORKSPACE/astrea/install
-            EIGEN_PATH=${{"$RUNNER_OS" == "Windows" && "C:/Program Files/eigen3" || "/usr/local/include/eigen3"}}
+            EIGEN_PATH=${{ runner.os == "Windows" && "C:/Program Files/eigen3" || "/usr/local/include/eigen3" }}
             PYBIND11_PATH=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
             PYTHON_PATH=$(python3 -c "import sys; print(sys.prefix.replace('\\\\', '/'))")
           CIBW_BEFORE_BUILD: |
