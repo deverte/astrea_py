@@ -47,6 +47,7 @@ jobs:
             wheel
 
       - name: Install Astrea
+        shell: bash
         run: |
           git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
           mkdir astrea/build
