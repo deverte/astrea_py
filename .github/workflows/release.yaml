@@ -11,7 +11,7 @@ jobs:
       matrix:
         # os: [ubuntu-latest, macos-latest, windows-latest]
         # python-version: ["3.10", "3.11", "3.12", "3.13"]
-        os: [ubuntu-latest]
+        os: [macos-latest]
         python-version: ["3.10"]
     steps:
       - uses: actions/checkout@v4
@@ -93,10 +93,10 @@ jobs:
         with:
           path: dist/*.whl
 
-      - name: Publish to PyPI
-        if: success()
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        run: |
-          python -m twine upload --skip-existing dist/*
+      # - name: Publish to PyPI
+      #   if: success()
+      #   env:
+      #     TWINE_USERNAME: __token__
+      #     TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+      #   run: |
+      #     python -m twine upload --skip-existing dist/*
