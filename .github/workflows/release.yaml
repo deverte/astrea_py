@@ -74,7 +74,7 @@ jobs:
           # configure
           if [[ "$RUNNER_OS" == "Windows" ]]; then
             EIGEN_PATH="C:/Program Files/eigen3"
-            PYTHON_PATH=$(python3 -c "import sys; print(sys.prefix.replace('\\', '/'))")
+            PYTHON_PATH=$(python3 -c "import sys; print(sys.prefix.replace('\\\\', '/'))")
           else
             EIGEN_PATH="/usr/local/include/eigen3"
             PYTHON_PATH=$(python3 -c "import sys; print(sys.prefix)")
