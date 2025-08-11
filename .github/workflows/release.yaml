@@ -56,7 +56,7 @@ jobs:
           git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
           mkdir astrea/build
           cd astrea/build; \
-            cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/github/workspace/astrea/install ..; \
+            cmake -G Ninja -DCMAKE_INSTALL_PREFIX=../install ..; \
             ninja install
 
       - name: Install Eigen
@@ -77,7 +77,7 @@ jobs:
           CIBW_BEFORE_BUILD: |
             pip3 install pybind11
 
-            ASTREA_PATH=/github/workspace/astrea/install
+            ASTREA_PATH=astrea/install
             if [[ "$RUNNER_OS" == "Windows" ]]; then
               EIGEN_PATH="C:/Program Files/eigen3"
             else
