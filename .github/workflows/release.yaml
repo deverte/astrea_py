@@ -17,6 +17,7 @@ jobs:
       - uses: extractions/setup-just@v3
 
       - name: Install CMake
+        shell: bash
         run: |
           if [[ "$RUNNER_OS" == "Linux" ]]; then
             sudo apt-get update
@@ -24,7 +25,7 @@ jobs:
           elif [[ "$RUNNER_OS" == "macOS" ]]; then
             brew install cmake
           elif [[ "$RUNNER_OS" == "Windows" ]]; then
-            choco install cmake
+            choco install cmake -y
           fi
 
       - name: Set up Python
@@ -52,6 +53,7 @@ jobs:
             ninja install
 
       - name: Install Eigen
+        shell: bash
         run: |
           if [[ "$RUNNER_OS" == "Linux" ]]; then
             sudo apt-get update
@@ -59,7 +61,7 @@ jobs:
           elif [[ "$RUNNER_OS" == "macOS" ]]; then
             brew install eigen
           elif [[ "$RUNNER_OS" == "Windows" ]]; then
-            choco install eigen --version 3.4.0
+            choco install eigen --version 3.4.0 -y
           fi
 
       - name: Build wheel
