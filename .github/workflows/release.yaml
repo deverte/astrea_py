@@ -71,7 +71,7 @@ jobs:
           CIBW_BEFORE_BUILD: |
             pip install pybind11
 
-            ASTREA_PATH=$GITHUB_WORKSPACE/astrea/install
+            ASTREA_PATH=/github/workspace/astrea/install
             if [[ "$RUNNER_OS" == "Windows" ]]; then
               EIGEN_PATH="C:/Program Files/eigen3"
             else
