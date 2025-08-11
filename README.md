@@ -2,37 +2,33 @@
 
 ![logo](assets/logo.svg)
 
-Python bindings for [astrea](http://gitea.nul/astro/astrea), library for
+Python bindings for [astrea](https://github.com/deverte/astrea), library for
 statistical equilibrium calculations in cosmic plasma.
 
 ## Installation
 
-Method 1 - precompiled binaries (Linux):
+### Using pip
 
 ```sh
-# Using pip
-pip3 install --index-url http://gitea.nul/api/packages/astro/pypi/simple astrea
-
-# Using poetry
-# Add source
-poetry source add --priority=explicit \
-  astro http://gitea.nul/api/packages/astro/pypi/simple
-# Install
-poetry add --source=astro astrea
+pip3 install astrea_py
 ```
 
-Method 2 - Nix package (`flake.nix`) (since v0.7.3):
+### Using Nix Flake
 
-```
+`flake.nix`:
+
+```nix
 {
   inputs = {
-    astreaPyPkg.url = "http://gitea.nul/astro/astrea_py/archive/v0.7.7.tar.gz";
+    astreapypkgs.url =
+      "http://github.com/deverte/astrea_py/archive/refs/tags/v0.8.0.tar.gz";
   };
 
-  outputs = inputs@{ self, astreaPyPkg, ... }:
+  outputs = inputs@{ self, astreapypkgs, ... }:
   let
     system = "x86_64-linux";
-    astreaPy = astreaPyPkg.packages.${system}.default;
+    astreaPy = astreapypkgs.packages.${system}.default; // default Python
+    // astreaPy = astreapypkgs.packages.${system}.python310; // specific Python
   in {
     devShells.${system}.default = pkgs.mkShell {
       buildInputs = [
@@ -43,34 +39,9 @@ Method 2 - Nix package (`flake.nix`) (since v0.7.3):
 }
 ```
 
-Method 3 - compile from sources using Conan:
+## Usage
 
-```sh
-git clone http://gitea.nul/astro/astrea_py
-cd astrea_py; \
-  conan profile detect; \
-  conan config install ./remotes.json; \
-  conan install . --build=missing; \
-  conan build .; \
-  python3 -m build --no-isolation --wheel
-```
-
-Method 4 - compile from sources:
-
-Manually install dependencies (must be visible in `CMAKE_PREFIX_PATH`):
-
-- Astrea
-- Eigen
-- pybind11
-
-Continue with the following commands:
-
-```sh
-git clone http://gitea.nul/astro/astrea_py
-cd astrea_py; \
-  just configure; \
-  just build;
-```
+See [tests](./tests) for usage examples.
 
 ## License
 

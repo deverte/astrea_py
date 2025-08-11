@@ -1,9 +1,9 @@
 [project]
 name = "astrea"
-version = "0.7.7" # managed
+version = "0.8.0" # managed
 description = "Python bindings for astrea C++ library"
 readme = "README.md"
-requires-python = ">=3.10,<3.13"
+requires-python = ">=3.10,<3.15"
 authors = [{name = "Artem Shepelin", email = "4.shepelin@gmail.com"}]
 keywords = ["physics", "astronomy", "astrophysics", "plasma"]
 license = {text = "GPL-3"}

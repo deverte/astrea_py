@@ -1,53 +1,53 @@
 {
   "nodes": {
-    "astreaPkg": {
+    "astreapkgs": {
       "inputs": {
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1728116159,
-        "narHash": "sha256-ThyRkiJgTCcVHnf/XiUaB+pTzdpQHz0QgLLWn7T5B/c=",
+        "lastModified": 1754641322,
+        "narHash": "sha256-7JuB9mPuXA/45V03KLyevfm65mWWquJ/eXAEBaKdqgQ=",
         "type": "tarball",
-        "url": "http://gitea.nul/astro/astrea/archive/v0.7.7.tar.gz"
+        "url": "https://github.com/deverte/astrea/archive/refs/tags/v0.8.0.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "http://gitea.nul/astro/astrea/archive/v0.7.7.tar.gz"
+        "url": "https://github.com/deverte/astrea/archive/refs/tags/v0.8.0.tar.gz"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1727907660,
-        "narHash": "sha256-QftbyPoieM5M50WKUMzQmWtBWib/ZJbHo7mhj5riQec=",
+        "lastModified": 1754292888,
+        "narHash": "sha256-1ziydHSiDuSnaiPzCQh1mRFBsM2d2yRX9I+5OPGEmIE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5966581aa04be7eff830b9e1457d56dc70a0b798",
+        "rev": "ce01daebf8489ba97bd1609d185ea276efdeb121",
         "type": "github"
       },
       "original": {
         "id": "nixpkgs",
-        "ref": "nixos-24.05",
+        "ref": "nixos-25.05",
         "type": "indirect"
       }
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1727907660,
-        "narHash": "sha256-QftbyPoieM5M50WKUMzQmWtBWib/ZJbHo7mhj5riQec=",
+        "lastModified": 1754292888,
+        "narHash": "sha256-1ziydHSiDuSnaiPzCQh1mRFBsM2d2yRX9I+5OPGEmIE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5966581aa04be7eff830b9e1457d56dc70a0b798",
+        "rev": "ce01daebf8489ba97bd1609d185ea276efdeb121",
         "type": "github"
       },
       "original": {
         "id": "nixpkgs",
-        "ref": "nixos-24.05",
+        "ref": "nixos-25.05",
         "type": "indirect"
       }
     },
     "root": {
       "inputs": {
-        "astreaPkg": "astreaPkg",
+        "astreapkgs": "astreapkgs",
         "nixpkgs": "nixpkgs_2"
       }
     }

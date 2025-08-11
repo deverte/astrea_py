@@ -3,7 +3,7 @@
 /.venv
 /build
 /dist
-/result
+/result*
 /wheelhouse
 /CMakeUserPresets.json
 /compile_commands.json

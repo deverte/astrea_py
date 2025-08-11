@@ -7,14 +7,14 @@ from setuptools import setup
 from setuptools.command.build_ext import build_ext
 
 
-class ConanCMakeExtension(Extension):
+class CMakeExtension(Extension):
     def __init__(self, name: str, sourcedir: str = "") -> None:
         super().__init__(name, sources=[])
         self.sourcedir = os.fspath(Path(sourcedir).resolve())
 
 
-class ConanCMakeBuild(build_ext):
-    def build_extension(self, ext: ConanCMakeExtension) -> None:
+class CMakeBuild(build_ext):
+    def build_extension(self, ext: CMakeExtension) -> None:
         ext_fullpath = Path.cwd() / self.get_ext_fullpath(ext.name)
         extdir = ext_fullpath.parent
         if not extdir.exists():
@@ -29,6 +29,6 @@ class ConanCMakeBuild(build_ext):
 
 
 setup(
-    ext_modules=[ConanCMakeExtension("astrea")],
-    cmdclass={"build_ext": ConanCMakeBuild},
+    ext_modules=[CMakeExtension("astrea")],
+    cmdclass={"build_ext": CMakeBuild},
 )
