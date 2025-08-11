@@ -59,7 +59,6 @@ jobs:
       - name: Install Eigen
         shell: bash
         run: |
-          EIGEN_PATH="/usr/local/include/eigen3"
           if [[ "$RUNNER_OS" == "Linux" ]]; then
             sudo apt-get update
             sudo apt-get install -y libeigen3-dev
@@ -86,8 +85,7 @@ jobs:
             cd build && \
               cmake .. \
                 -G Ninja \
-                -DCMAKE_PREFIX_PATH="$ASTREA_PATH;$EIGEN_PATH;$PYTHON_PATH" \
-                -Dpybind11_DIR="$PYBIND11_PATH" && \
+                -DCMAKE_PREFIX_PATH="$ASTREA_PATH;$EIGEN_PATH;$PYBIND11_PATH;$PYTHON_PATH" && \
               cmake --build .
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
