@@ -81,8 +81,7 @@ jobs:
           cd build; \
             cmake .. \
               -G Ninja \
-              -DCMAKE_PREFIX_PATH="$GITHUB_WORKSPACE/astrea/install;$EIGEN_PATH;$PYTHON_PATH" \
-              -DPYBIND11_DIR=$PYBIND11_PATH; \
+              -DCMAKE_PREFIX_PATH="$GITHUB_WORKSPACE/astrea/install;$EIGEN_PATH;$PYTHON_PATH;$PYBIND11_PATH"; \
             cd ..
 
           just build
