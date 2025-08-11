@@ -9,10 +9,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # os: [ubuntu-latest, macos-latest, windows-latest]
-        # python-version: ["3.10", "3.11", "3.12", "3.13"]
-        os: [windows-latest]
-        python-version: ["3.10"]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
 
@@ -31,7 +29,7 @@ jobs:
           fi
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -40,6 +38,7 @@ jobs:
         run: |
           python3 -m pip install --upgrade \
             build \
+            cibuildwheel==3.1.3 \
             ninja \
             pip \
             pybind11 \
@@ -72,33 +71,35 @@ jobs:
         shell: bash
         run: |
           # configure
+          ASTREA_PATH=$GITHUB_WORKSPACE/astrea/install
           if [[ "$RUNNER_OS" == "Windows" ]]; then
             EIGEN_PATH="C:/Program Files/eigen3"
-            PYTHON_PATH=$(python3 -c "import sys; print(sys.prefix.replace('\\\\', '/'))")
           else
             EIGEN_PATH="/usr/local/include/eigen3"
-            PYTHON_PATH=$(python3 -c "import sys; print(sys.prefix)")
           fi
           PYBIND11_PATH=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
+          PYTHON_PATH=$(python3 -c "import sys; print(sys.prefix.replace('\\\\', '/'))")
 
           mkdir -p build
           cd build; \
             cmake .. \
               -G Ninja \
-              -DCMAKE_PREFIX_PATH="$GITHUB_WORKSPACE/astrea/install;$EIGEN_PATH;$PYTHON_PATH;$PYBIND11_PATH"; \
+              -DCMAKE_PREFIX_PATH="$ASTREA_PATH;$EIGEN_PATH;$PYTHON_PATH;$PYBIND11_PATH"; \
+            cmake --build .; \
             cd ..
 
-          just build
+          python -m cibuildwheel --output-dir wheelhouse
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          path: dist/*.whl
+          name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
+          path: ./wheelhouse/*.whl
 
-      # - name: Publish to PyPI
-      #   if: success()
-      #   env:
-      #     TWINE_USERNAME: __token__
-      #     TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-      #   run: |
-      #     python -m twine upload --skip-existing dist/*
+      - name: Publish to PyPI
+        if: success()
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: |
+          python -m twine upload --skip-existing wheelhouse/*.whl
