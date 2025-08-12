@@ -38,12 +38,17 @@ jobs:
         env:
           CIBW_BEFORE_ALL_LINUX: |
             yum install -y \
-              eigen3-devel \
               ninja-build
 
             git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
             mkdir astrea/build
             cd astrea/build && \
+              cmake .. -G Ninja && \
+              ninja install
+
+            git clone --branch 3.4.0 https://gitlab.com/libeigen/eigen
+            mkdir eigen3/build
+            cd eigen3/build && \
               cmake .. -G Ninja && \
               ninja install
           CIBW_BEFORE_ALL_MACOS: |
@@ -65,8 +70,6 @@ jobs:
             cd astrea/build && `
               cmake .. -G Ninja && `
               ninja install
-          CIBW_ENVIRONMENT_LINUX: |
-            Eigen3_INCLUDE_DIRS="/usr/include/eigen3"
           CIBW_ENVIRONMENT_MACOS: |
             EIGEN_PATH="/usr/local/include/eigen3"
           CIBW_ENVIRONMENT_WINDOWS: |
