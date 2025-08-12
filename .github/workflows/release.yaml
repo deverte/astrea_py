@@ -70,7 +70,7 @@ jobs:
             git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
             mkdir astrea/build
             cd astrea/build && \
-              cmake -G Ninja -DCMAKE_INSTALL_PREFIX=../install .. && \
+              cmake -G Ninja .. && \
               sudo ninja install
           CIBW_BEFORE_BUILD: |
             pip3 install pybind11
