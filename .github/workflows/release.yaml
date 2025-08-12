@@ -76,8 +76,6 @@ jobs:
               cd ..
           CIBW_ENVIRONMENT_LINUX: |
             Eigen3_INCLUDE_DIRS="/usr/local/include/eigen3"
-          CIBW_ENVIRONMENT_MACOS: |
-            ASTREA_PATH="/usr/local/share/astrea/cmake"
           CIBW_ENVIRONMENT_WINDOWS: |
             EIGEN_PATH="C:/Program Files/eigen3"
           CIBW_BEFORE_BUILD_LINUX: |
@@ -101,7 +99,8 @@ jobs:
             cd build && \
               cmake .. \
                 -G Ninja \
-                -DCMAKE_PREFIX_PATH="$ASTREA_PATH;$PYBIND11_PATH" && \
+                -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" \
+                -DCMAKE_INCLUDE_PATH="/usr/local/include" && \
               cmake --build . && \
               cd ..
           CIBW_BEFORE_BUILD_WINDOWS: |
