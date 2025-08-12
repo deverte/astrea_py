@@ -12,7 +12,7 @@ jobs:
       matrix:
         # os: [ubuntu-latest, macos-latest, windows-latest]
         # python-version: ["3.10", "3.11", "3.12", "3.13"]
-        os: [macos-latest]
+        os: [ubuntu-latest]
         python-version: ["3.13"]
 
     steps:
@@ -43,7 +43,7 @@ jobs:
             git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
             mkdir astrea/build
             cd astrea/build && \
-              cmake -G Ninja .. && \
+              cmake .. -G Ninja && \
               ninja install
           CIBW_BEFORE_ALL_MACOS: |
             brew install eigen
@@ -51,7 +51,7 @@ jobs:
             git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
             mkdir astrea/build
             cd astrea/build && \
-              cmake -G Ninja .. && \
+              cmake .. -G Ninja && \
               sudo ninja install
           CIBW_BEFORE_ALL_WINDOWS: |
             choco install eigen --version 3.4.0 -y
@@ -59,7 +59,7 @@ jobs:
             git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
             mkdir astrea/build
             cd astrea/build && \
-              cmake -G Ninja .. && \
+              cmake .. -G Ninja && \
               ninja install
           CIBW_ENVIRONMENT: |
             EIGEN_PATH="/usr/local/include/eigen3"
