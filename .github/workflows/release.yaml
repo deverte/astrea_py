@@ -18,8 +18,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: extractions/setup-just@v3
-
       - name: Install build tools
         shell: bash
         run: |
