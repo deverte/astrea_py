@@ -20,24 +20,6 @@ jobs:
 
       - uses: extractions/setup-just@v3
 
-      - name: Install system packages
-        shell: bash
-        run: |
-          if [[ "$RUNNER_OS" == "Linux" ]]; then
-            sudo apt-get update
-            sudo apt-get install -y \
-              cmake \
-              ninja
-          elif [[ "$RUNNER_OS" == "macOS" ]]; then
-            brew install \
-              cmake \
-              ninja
-          elif [[ "$RUNNER_OS" == "Windows" ]]; then
-            choco install -y \
-              cmake \
-              ninja
-          fi
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -51,34 +33,29 @@ jobs:
             pip \
             twine
 
-      - name: Install Eigen
-        shell: bash
-        run: |
-          if [[ "$RUNNER_OS" == "Linux" ]]; then
-            sudo apt-get update
-            sudo apt-get install -y libeigen3-dev
-          elif [[ "$RUNNER_OS" == "macOS" ]]; then
-            brew install eigen
-          elif [[ "$RUNNER_OS" == "Windows" ]]; then
-            choco install eigen --version 3.4.0 -y
-          fi
-
       - name: Build wheel
         shell: bash
         env:
           CIBW_BEFORE_ALL_LINUX: |
+            sudo apt-get update
+            sudo apt-get install -y libeigen3-dev
+
             git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
             mkdir astrea/build
             cd astrea/build && \
               cmake -G Ninja .. && \
               ninja install
           CIBW_BEFORE_ALL_MACOS: |
+            brew install eigen
+
             git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
             mkdir astrea/build
             cd astrea/build && \
               cmake -G Ninja .. && \
               sudo ninja install
           CIBW_BEFORE_ALL_WINDOWS: |
+            choco install eigen --version 3.4.0 -y
+
             git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
             mkdir astrea/build
             cd astrea/build && \
