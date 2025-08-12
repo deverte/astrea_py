@@ -68,9 +68,15 @@ jobs:
         run: |
           git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
           mkdir -p astrea/build
-          cd astrea/build && \
-            cmake .. -G Ninja && \
-            ninja install && \
+          cd astrea/build
+            cmake .. -G Ninja
+            if [[ "$RUNNER_OS" == "Linux" ]]; then
+              ninja install
+            elif [[ "$RUNNER_OS" == "macOS" ]]; then
+              sudo ninja install
+            elif [[ "$RUNNER_OS" == "Windows" ]]; then
+              ninja install
+            fi
             cd ..
 
       - name: Build wheel
