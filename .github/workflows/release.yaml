@@ -37,8 +37,9 @@ jobs:
         shell: bash
         env:
           CIBW_BEFORE_ALL_LINUX: |
-            yum install -y eigen3-devel
-            pip install ninja
+            yum install -y \
+              eigen3-devel \
+              ninja-build
 
             git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
             mkdir astrea/build
