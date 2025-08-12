@@ -56,7 +56,6 @@
         pkgs.cmake
         pkgs.just
         pkgs.ninja
-        defaultPythonPackages.cibuildwheel
         defaultPythonPackages.python-lsp-server
         defaultPythonPackages.pytest
         defaultPythonPackages.twine
