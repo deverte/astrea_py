@@ -54,7 +54,7 @@ jobs:
               ninja install && \
               cd ..
           CIBW_BEFORE_ALL_MACOS: |
-            brew install eigen@3.4.0
+            brew install eigen
 
             git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
             mkdir astrea/build
