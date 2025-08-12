@@ -83,7 +83,7 @@ jobs:
       - name: Build wheel
         shell: bash
         run: |
-          Eigen3_INCLUDE_DIRS="/usr/local/include/eigen3"
+          Eigen3_INCLUDE_DIRS="/usr/include/eigen3"
           PYBIND11_PATH=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
 
           mkdir -p build
