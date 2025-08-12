@@ -71,11 +71,10 @@ jobs:
             mkdir astrea/build
             cd astrea/build && \
               cmake -G Ninja -DCMAKE_INSTALL_PREFIX=../install .. && \
-              ninja install
+              sudo ninja install
           CIBW_BEFORE_BUILD: |
             pip3 install pybind11
 
-            ASTREA_PATH="$PWD/astrea/install"
             if [[ "$RUNNER_OS" == "Windows" ]]; then
               EIGEN_PATH="C:/Program Files/eigen3"
             else
@@ -88,7 +87,7 @@ jobs:
             cd build && \
               cmake .. \
                 -G Ninja \
-                -DCMAKE_PREFIX_PATH="$ASTREA_PATH;$EIGEN_PATH;$PYBIND11_PATH;$PYTHON_PATH" && \
+                -DCMAKE_PREFIX_PATH="$EIGEN_PATH;$PYBIND11_PATH;$PYTHON_PATH" && \
               cmake --build .
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
