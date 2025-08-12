@@ -63,7 +63,8 @@ jobs:
               sudo ninja install && \
               cd ..
           CIBW_BEFORE_ALL_WINDOWS: |
-            choco install -y cmake eigen --version 3.4.0 ninja
+            choco install -y cmake ninja
+            choco install -y eigen --version 3.4.0
 
             git clone --branch v0.8.0 https://github.com/deverte/astrea
             mkdir astrea/build
