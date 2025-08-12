@@ -65,7 +65,9 @@ jobs:
             cd astrea/build && `
               cmake .. -G Ninja && `
               ninja install
-          CIBW_ENVIRONMENT: |
+          CIBW_ENVIRONMENT_LINUX: |
+            EIGEN_PATH="/usr/include/eigen3"
+          CIBW_ENVIRONMENT_MACOS: |
             EIGEN_PATH="/usr/local/include/eigen3"
           CIBW_ENVIRONMENT_WINDOWS: |
             EIGEN_PATH="C:/Program Files/eigen3"
