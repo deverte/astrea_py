@@ -102,9 +102,9 @@ jobs:
           CIBW_BEFORE_BUILD_WINDOWS: |
             pip3 install pybind11
 
-            PYBIND11_PATH=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
+            $PYBIND11_PATH = python3 -c "import pybind11; print(pybind11.get_cmake_dir())"
 
-            mkdir -p build
+            mkdir -Force build
             cd build
             cmake .. -G Ninja -DCMAKE_PREFIX_PATH="$PYBIND11_PATH"
             cmake --build .

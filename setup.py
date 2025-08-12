@@ -23,6 +23,7 @@ class CMakeBuild(build_ext):
         build_paths = [
             *(Path.cwd() / 'build/').glob("*.so"),
             *(Path.cwd() / 'build/').glob("*.pyd"),
+            *(Path.cwd() / 'build/').glob("*.dll"),
         ]
         for build_path in build_paths:
             shutil.move(str(build_path.resolve()), ext_fullpath)
