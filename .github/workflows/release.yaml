@@ -60,7 +60,7 @@ jobs:
             mkdir astrea/build
             cd astrea/build && \
               cmake .. -G Ninja && \
-              ninja install && \
+              sudo ninja install && \
               cd ..
           CIBW_BEFORE_ALL_WINDOWS: |
             choco install -y `
