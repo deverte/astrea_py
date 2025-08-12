@@ -93,8 +93,13 @@ jobs:
           fi
           PYBIND11_PATH=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
 
+          ls -al "C:/"
+          ls -al "C:/Program Files"
           ls -al "C:/Program Files (x86)"
-          ls -al "C:/Program Files (x86)/eigen"
+          ls -al "C:/ProgramData"
+          ls -al "C:/ProgramData/chocolatey"
+          ls -al "C:/ProgramData/chocolatey/lib"
+          ls -al "C:/ProgramData/chocolatey/lib/eigen"
 
           mkdir -p build
           cd build && \
