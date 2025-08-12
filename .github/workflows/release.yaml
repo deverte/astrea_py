@@ -37,7 +37,7 @@ jobs:
         shell: bash
         env:
           CIBW_BEFORE_ALL_LINUX: |
-            yum install -y \
+            sudo yum install -y \
               eigen3-devel \
               ninja-build
 
@@ -45,7 +45,7 @@ jobs:
             mkdir astrea/build
             cd astrea/build && \
               cmake .. -G Ninja && \
-              ninja install
+              sudo ninja install
           CIBW_BEFORE_ALL_MACOS: |
             brew install eigen
 
