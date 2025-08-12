@@ -66,28 +66,41 @@ jobs:
       - name: Build wheel
         shell: bash
         env:
-          CIBW_BEFORE_ALL: |
+          CIBW_BEFORE_ALL_LINUX: |
+            pip3 install pybind11
+
+            git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
+            mkdir astrea/build
+            cd astrea/build && \
+              cmake -G Ninja .. && \
+              ninja install
+          CIBW_BEFORE_ALL_MACOS: |
+            pip3 install pybind11
+
             git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
             mkdir astrea/build
             cd astrea/build && \
               cmake -G Ninja .. && \
               sudo ninja install
-          CIBW_BEFORE_BUILD: |
+          CIBW_BEFORE_ALL_WINDOWS: |
             pip3 install pybind11
 
-            if [[ "$RUNNER_OS" == "Windows" ]]; then
-              EIGEN_PATH="C:/Program Files/eigen3"
-            else
-              EIGEN_PATH="/usr/local/include/eigen3"
-            fi
+            git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
+            mkdir astrea/build
+            cd astrea/build && \
+              cmake -G Ninja .. && \
+              ninja install
+          CIBW_ENVIRONMENT: |
+            EIGEN_PATH="/usr/local/include/eigen3"
+          CIBW_ENVIRONMENT_WINDOWS: |
+            EIGEN_PATH="C:/Program Files/eigen3"
+          CIBW_BEFORE_BUILD: |
             PYBIND11_PATH=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
             PYTHON_PATH=$(python3 -c "import sys; print(sys.prefix.replace('\\\\', '/'))")
 
             mkdir -p build
             cd build && \
-              cmake .. \
-                -G Ninja \
-                -DCMAKE_PREFIX_PATH="$EIGEN_PATH;$PYBIND11_PATH;$PYTHON_PATH" && \
+              cmake .. -G Ninja && \
               cmake --build .
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
