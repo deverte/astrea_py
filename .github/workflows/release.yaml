@@ -67,24 +67,18 @@ jobs:
         shell: bash
         env:
           CIBW_BEFORE_ALL_LINUX: |
-            pip3 install pybind11
-
             git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
             mkdir astrea/build
             cd astrea/build && \
               cmake -G Ninja .. && \
               ninja install
           CIBW_BEFORE_ALL_MACOS: |
-            pip3 install pybind11
-
             git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
             mkdir astrea/build
             cd astrea/build && \
               cmake -G Ninja .. && \
               sudo ninja install
           CIBW_BEFORE_ALL_WINDOWS: |
-            pip3 install pybind11
-
             git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
             mkdir astrea/build
             cd astrea/build && \
@@ -95,14 +89,15 @@ jobs:
           CIBW_ENVIRONMENT_WINDOWS: |
             EIGEN_PATH="C:/Program Files/eigen3"
           CIBW_BEFORE_BUILD: |
+            pip3 install pybind11
+
             PYBIND11_PATH=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
             PYTHON_PATH=$(python3 -c "import sys; print(sys.prefix.replace('\\\\', '/'))")
 
             mkdir -p build
             cd build && \
               cmake .. \
-                -G Ninja \
-                -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" && \
+                -G Ninja && \
               cmake --build .
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
