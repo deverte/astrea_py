@@ -77,21 +77,45 @@ jobs:
           CIBW_ENVIRONMENT_LINUX: |
             Eigen3_INCLUDE_DIRS="/usr/local/include/eigen3"
           CIBW_ENVIRONMENT_MACOS: |
-            astrea_INCLUDE_DIRS="/usr/local/include/astrea"
+            ASTREA_PATH="/usr/local/share/astrea"
           CIBW_ENVIRONMENT_WINDOWS: |
             EIGEN_PATH="C:/Program Files/eigen3"
-          CIBW_BEFORE_BUILD: |
+          CIBW_BEFORE_BUILD_LINUX: |
             pip3 install pybind11
 
             PYBIND11_PATH=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
-            PYTHON_PATH=$(python3 -c "import sys; print(sys.prefix.replace('\\\\', '/'))")
 
             mkdir -p build
             cd build && \
               cmake .. \
                 -G Ninja \
                 -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" && \
-              cmake --build .
+              cmake --build . && \
+              cd ..
+          CIBW_BEFORE_BUILD_MACOS: |
+            pip3 install pybind11
+
+            PYBIND11_PATH=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
+
+            mkdir -p build
+            cd build && \
+              cmake .. \
+                -G Ninja \
+                -DCMAKE_PREFIX_PATH="/usr/local;$PYBIND11_PATH" && \
+              cmake --build . && \
+              cd ..
+          CIBW_BEFORE_BUILD_WINDOWS: |
+            pip3 install pybind11
+
+            PYBIND11_PATH=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
+
+            mkdir -p build
+            cd build && \
+              cmake .. \
+                -G Ninja \
+                -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" && \
+              cmake --build . && \
+              cd ..
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
 
