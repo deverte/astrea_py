@@ -57,7 +57,7 @@ jobs:
         run: |
           if [[ "$RUNNER_OS" == "Linux" ]]; then
             sudo apt-get update
-            sudo apt-get install -y libeigen3-dev=3.4.0-4build1
+            sudo apt-get install -y libeigen3-dev
           elif [[ "$RUNNER_OS" == "macOS" ]]; then
             brew install eigen
           elif [[ "$RUNNER_OS" == "Windows" ]]; then
