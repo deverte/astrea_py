@@ -38,7 +38,9 @@ jobs:
         env:
           CIBW_BEFORE_ALL_LINUX: |
             sudo apt-get update
-            sudo apt-get install -y libeigen3-dev
+            sudo apt-get install -y \
+              libeigen3-dev \
+              ninja
 
             git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
             mkdir astrea/build
