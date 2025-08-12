@@ -66,7 +66,8 @@ jobs:
               cmake .. -G Ninja && `
               ninja install
           CIBW_ENVIRONMENT_LINUX: |
-            EIGEN_PATH="/usr/include/eigen3"
+            EIGEN_PATH="/usr/local/include/eigen3"
+            Eigen3_INCLUDE_DIRS="$EIGEN_PATH/include/eigen3"
           CIBW_ENVIRONMENT_MACOS: |
             EIGEN_PATH="/usr/local/include/eigen3"
           CIBW_ENVIRONMENT_WINDOWS: |
@@ -81,7 +82,7 @@ jobs:
             cd build && \
               cmake .. \
                 -G Ninja \
-                -DCMAKE_PREFIX_PATH="$EIGEN_PATH;$PYBIND11_PATH" && \
+                -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" && \
               cmake --build .
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
