@@ -62,15 +62,15 @@ jobs:
               cmake .. -G Ninja && \
               sudo ninja install && \
               cd ..
-          CIBW_BEFORE_ALL_WINDOWS: |
-            choco install -y cmake ninja
-            choco install -y eigen --version 3.4.0
+          CIBW_BEFORE_ALL_WINDOWS: >
+            choco install -y cmake ninja &&
+            choco install -y eigen --version 3.4.0 &&
 
-            git clone --branch v0.8.0 https://github.com/deverte/astrea
-            mkdir astrea/build
-            cd astrea/build
-            cmake .. -G Ninja
-            ninja install
+            git clone --branch v0.8.0 https://github.com/deverte/astrea &&
+            mkdir astrea/build &&
+            cd astrea/build &&
+            cmake .. -G Ninja &&
+            ninja install &&
             cd ..
           CIBW_ENVIRONMENT_LINUX: |
             Eigen3_INCLUDE_DIRS="/usr/local/include/eigen3"
@@ -99,15 +99,15 @@ jobs:
                 -DCMAKE_INCLUDE_PATH="/usr/local/include" && \
               cmake --build . && \
               cd ..
-          CIBW_BEFORE_BUILD_WINDOWS: |
-            pip3 install pybind11
+          CIBW_BEFORE_BUILD_WINDOWS: >
+            pip3 install pybind11 &&
 
-            $PYBIND11_PATH = python3 -c "import pybind11; print(pybind11.get_cmake_dir())"
+            $PYBIND11_PATH = python3 -c "import pybind11; print(pybind11.get_cmake_dir())" &&
 
-            mkdir -Force build
-            cd build
-            cmake .. -G Ninja -DCMAKE_PREFIX_PATH="$PYBIND11_PATH"
-            cmake --build .
+            mkdir -Force build &&
+            cd build &&
+            cmake .. -G Ninja -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" &&
+            cmake --build . &&
             cd ..
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
