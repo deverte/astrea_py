@@ -44,13 +44,15 @@ jobs:
             mkdir astrea/build
             cd astrea/build && \
               cmake .. -G Ninja && \
-              ninja install
+              ninja install && \
+              cd ..
 
             git clone --branch 3.4.0 https://gitlab.com/libeigen/eigen
             mkdir eigen3/build
             cd eigen3/build && \
               cmake .. -G Ninja && \
-              ninja install
+              ninja install && \
+              cd ..
           CIBW_BEFORE_ALL_MACOS: |
             brew install eigen
 
