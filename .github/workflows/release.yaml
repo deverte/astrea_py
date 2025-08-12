@@ -76,6 +76,8 @@ jobs:
               cd ..
           CIBW_ENVIRONMENT_LINUX: |
             Eigen3_INCLUDE_DIRS="/usr/local/include/eigen3"
+          CIBW_ENVIRONMENT_MACOS: |
+            astrea_INCLUDE_DIRS="/usr/local/include/astrea"
           CIBW_ENVIRONMENT_WINDOWS: |
             EIGEN_PATH="C:/Program Files/eigen3"
           CIBW_BEFORE_BUILD: |
