@@ -12,7 +12,7 @@ jobs:
       matrix:
         # os: [ubuntu-latest, macos-latest, windows-latest]
         # python-version: ["3.10", "3.11", "3.12", "3.13"]
-        os: [ubuntu-latest]
+        os: [windows-latest]
         python-version: ["3.13"]
 
     steps:
@@ -56,7 +56,10 @@ jobs:
               cmake .. -G Ninja && \
               sudo ninja install
           CIBW_BEFORE_ALL_WINDOWS: |
-            choco install eigen --version 3.4.0 -y
+            choco install -y \
+              cmake \
+              eigen --version 3.4.0 \
+              ninja
 
             git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
             mkdir astrea/build
