@@ -100,7 +100,9 @@ jobs:
 
             mkdir -p build
             cd build && \
-              cmake .. -G Ninja && \
+              cmake .. \
+                -G Ninja \
+                -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" && \
               cmake --build .
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
