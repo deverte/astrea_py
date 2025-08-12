@@ -12,7 +12,7 @@ jobs:
       matrix:
         # os: [ubuntu-latest, macos-latest, windows-latest]
         # python-version: ["3.10", "3.11", "3.12", "3.13"]
-        os: [macos-latest]
+        os: [ubuntu-latest]
         python-version: ["3.13"]
 
     steps:
@@ -83,7 +83,13 @@ jobs:
       - name: Build wheel
         shell: bash
         run: |
-          export Eigen3_INCLUDE_DIRS="/opt/homebrew/Cellar/eigen/3.4.0_1/include/eigen3"
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            # export Eigen3_INCLUDE_DIRS="/opt/homebrew/Cellar/eigen/3.4.0_1/include/eigen3"
+          elif [[ "$RUNNER_OS" == "macOS" ]]; then
+            export Eigen3_INCLUDE_DIRS="/opt/homebrew/Cellar/eigen/3.4.0_1/include/eigen3"
+          elif [[ "$RUNNER_OS" == "Windows" ]]; then
+            # export Eigen3_INCLUDE_DIRS="/opt/homebrew/Cellar/eigen/3.4.0_1/include/eigen3"
+          fi
           PYBIND11_PATH=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
 
           ls -al $Eigen3_INCLUDE_DIRS
