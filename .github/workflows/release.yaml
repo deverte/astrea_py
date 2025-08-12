@@ -66,8 +66,7 @@ jobs:
               cmake .. -G Ninja && `
               ninja install
           CIBW_ENVIRONMENT_LINUX: |
-            EIGEN_PATH="/usr/local/include/eigen3"
-            Eigen3_INCLUDE_DIRS="$EIGEN_PATH/include/eigen3"
+            Eigen3_INCLUDE_DIRS="/usr/local/include/eigen3"
           CIBW_ENVIRONMENT_MACOS: |
             EIGEN_PATH="/usr/local/include/eigen3"
           CIBW_ENVIRONMENT_WINDOWS: |
