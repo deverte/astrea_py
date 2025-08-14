@@ -103,8 +103,6 @@ jobs:
         shell: bash
         env:
           PYTHON_VERSION: ${{ matrix.python-version }}
-          astrea_INCLUDE_DIRS: "/usr/local/include/astrea"
-          Eigen3_INCLUDE_DIRS: "/usr/include/eigen3"
         run: |
           docker run \
             --rm \
@@ -113,14 +111,15 @@ jobs:
             quay.io/pypa/${{ matrix.manylinux-image }} \
               bash -c "
                 export CP=cp${PYTHON_VERSION//./}
-                alias python3="/opt/python/${CP}-${CP}/bin/python"
+                export Eigen3_INCLUDE_DIRS="/usr/local/include/eigen3"
+                alias py3="/opt/python/${CP}-${CP}/bin/python"
 
-                python3 -m pip install \
+                py3 -m pip install \
                   build \
                   pybind11 \
                   setuptools
 
-                PYBIND11_PATH=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
+                export PYBIND11_PATH=$(py3 -c "import pybind11; print(pybind11.get_cmake_dir())")
 
                 yum install -y \
                   ninja-build
@@ -136,7 +135,7 @@ jobs:
                 mkdir -p astrea/build && \
                 cd astrea/build && \
                   cmake .. -G Ninja && \
-                  ninja install &&
+                  ninja install && \
                   cd ..
 
                 cd /io && \
@@ -148,7 +147,7 @@ jobs:
                     cmake --build . && \
                     cd ..
 
-                  python3 -m build --no-isolation --wheel
+                  py3 -m build --no-isolation --wheel
               "
 
       - name: Build wheel (macOS)
