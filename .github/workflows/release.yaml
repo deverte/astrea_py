@@ -112,33 +112,33 @@ jobs:
             -e Eigen3_INCLUDE_DIRS=${Eigen3_INCLUDE_DIRS} \
             quay.io/pypa/${{ matrix.manylinux-image }} \
               bash -c "
-                export CP=cp${PYTHON_VERSION//./}
-                export PYTHON=/opt/python/${CP}-${CP}/bin/python
-
+                export CP=cp${PYTHON_VERSION//./} && \
+                export PYTHON=/opt/python/${CP}-${CP}/bin/python && \
+                \
                 ${PYTHON} -m pip install \
                   build \
                   pybind11 \
-                  setuptools
-
-                PYBIND11_PATH=$(${PYTHON} -c "import pybind11; print(pybind11.get_cmake_dir())")
-
+                  setuptools && \
+                \
+                PYBIND11_PATH=$(${PYTHON} -c "import pybind11; print(pybind11.get_cmake_dir())") && \
+                \
                 yum install -y \
-                  ninja-build
-
-                git clone --branch 3.4.0 https://gitlab.com/libeigen/eigen
-                mkdir eigen3/build
-                cd eigen3/build && \
+                  ninja-build && \
+                \
+                git clone --branch 3.4.0 https://gitlab.com/libeigen/eigen && \
+                mkdir eigen/build && \
+                cd eigen/build && \
                   cmake .. -G Ninja && \
-                  sudo ninja install && \
-                  cd ..
-
-                git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
-                mkdir -p astrea/build
+                  ninja install && \
+                  cd .. && \
+                \
+                git clone --branch v0.8.0 https://github.com/deverte/astrea && \
+                mkdir -p astrea/build && \
                 cd astrea/build && \
                   cmake .. -G Ninja && \
-                  sudo ninja install &&
-                  cd ..
-
+                  ninja install &&
+                  cd .. && \
+                \
                 cd /io && \
                   mkdir -p build && \
                   cd build && \
@@ -146,8 +146,8 @@ jobs:
                       -G Ninja \
                       -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" && \
                     cmake --build . && \
-                    cd ..
-
+                    cd .. && \
+                  \
                   ${PYTHON} -m build --no-isolation --wheel
               "
 
