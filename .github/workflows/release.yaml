@@ -43,12 +43,7 @@ jobs:
       - name: Install build tools
         shell: bash
         run: |
-          if [[ "$RUNNER_OS" == "Linux" ]]; then
-            sudo apt-get update
-            sudo apt-get install -y \
-              cmake \
-              ninja-build
-          elif [[ "$RUNNER_OS" == "macOS" ]]; then
+          if [[ "$RUNNER_OS" == "macOS" ]]; then
             brew install \
               cmake \
               ninja
@@ -74,6 +69,7 @@ jobs:
             twine
 
       - name: Install Eigen
+        if: matrix.os != 'ubuntu-latest'
         shell: bash
         run: |
           if [[ "$RUNNER_OS" == "Linux" ]]; then
@@ -86,6 +82,7 @@ jobs:
           fi
 
       - name: Install Astrea
+        if: matrix.os != 'ubuntu-latest'
         shell: bash
         run: |
           git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
@@ -112,16 +109,11 @@ jobs:
           docker run \
             --rm \
             -v $(pwd):/io \
-            -v ${astrea_INCLUDE_DIRS}:${astrea_INCLUDE_DIRS} \
-            -v ${Eigen3_INCLUDE_DIRS}:${Eigen3_INCLUDE_DIRS} \
             -e Eigen3_INCLUDE_DIRS=${Eigen3_INCLUDE_DIRS} \
             quay.io/pypa/${{ matrix.manylinux-image }} \
               bash -c "
                 export CP=cp${PYTHON_VERSION//./}
                 export PYTHON=/opt/python/${CP}-${CP}/bin/python
-
-                yum install -y \
-                  ninja-build
 
                 ${PYTHON} -m pip install \
                   build \
@@ -129,6 +121,23 @@ jobs:
                   setuptools
 
                 PYBIND11_PATH=$(${PYTHON} -c "import pybind11; print(pybind11.get_cmake_dir())")
+
+                yum install -y \
+                  ninja-build
+
+                git clone --branch 3.4.0 https://gitlab.com/libeigen/eigen
+                mkdir eigen3/build
+                cd eigen3/build && \
+                  cmake .. -G Ninja && \
+                  sudo ninja install && \
+                  cd ..
+
+                git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
+                mkdir -p astrea/build
+                cd astrea/build && \
+                  cmake .. -G Ninja && \
+                  sudo ninja install &&
+                  cd ..
 
                 cd /io && \
                   mkdir -p build && \
