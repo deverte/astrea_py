@@ -292,7 +292,7 @@ jobs:
               -DCMAKE_CXX_STANDARD=17 \
               -DCMAKE_CXX_FLAGS="-I$astrea_INCLUDE_DIRS" \
               -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" && \
-            cmake --build . --config Release && \
+            cmake --build . && \
             cd ..
 
           python3 -m build --no-isolation --wheel --outdir ./wheelhouse
