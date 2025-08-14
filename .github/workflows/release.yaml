@@ -144,8 +144,6 @@ jobs:
                 export CP=cp\${PYTHON_VERSION//./}
                 export Eigen3_INCLUDE_DIRS=\"/usr/local/include/eigen3\"
                 export PYTHON=\"/opt/python/\${CP}-\${CP}/bin/python\"
-                export NINJA=\"/opt/python/\${CP}-\${CP}/bin/ninja\"
-                export CMAKE_MAKE_PROGRAM=\${NINJA}
 
                 \${PYTHON} -m pip install \
                   auditwheel \
@@ -154,6 +152,7 @@ jobs:
                   pybind11 \
                   setuptools
 
+                export PATH="\${PATH}:/opt/python/\${CP}-\${CP}/bin"
                 export PYBIND11_PATH=\$(
                   \${PYTHON} -c \
                     \"import pybind11; print(pybind11.get_cmake_dir())\"
