@@ -116,6 +116,7 @@ jobs:
                 export PYTHON=\"/opt/python/\${CP}-\${CP}/bin/python\"
 
                 \${PYTHON} -m pip install \
+                  auditwheel \
                   build \
                   pybind11 \
                   setuptools
@@ -151,7 +152,8 @@ jobs:
                     cmake --build . && \
                     cd ..
 
-                  \${PYTHON} -m build --no-isolation --wheel
+                  \${PYTHON} -m build --no-isolation --wheel --output /dist
+                  \${PYTHON} -m auditwheel repair /dist/*.whl -w ./wheelhouse
               "
 
       - name: Build wheel (macOS)
@@ -193,7 +195,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          path: ./dist/*.whl
+          path: ./wheelhouse/*.whl
 
       # - name: Publish to PyPI
       #   if: success()
@@ -201,4 +203,4 @@ jobs:
       #     TWINE_USERNAME: __token__
       #     TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       #   run: |
-      #     python -m twine upload --skip-existing dist/*.whl
+      #     python -m twine upload --skip-existing wheelhouse/*.whl
