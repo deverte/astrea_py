@@ -114,6 +114,7 @@ jobs:
               bash -c "
                 export CP=cp${PYTHON_VERSION//./}
                 export PYTHON=/opt/python/${CP}-${CP}/bin/python
+                export CMAKE_MAKE_PROGRAM=/opt/python/${CP}-${CP}/bin/ninja
 
                 ${PYTHON} -m pip install \
                   build \
