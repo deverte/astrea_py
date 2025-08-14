@@ -35,6 +35,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
       - name: Install build tools
         shell: bash
         run: |
@@ -47,25 +52,25 @@ jobs:
             brew install \
               cmake \
               ninja
+            python3 -m pip install --upgrade \
+              build \
+              pybind11 \
+              setuptools
           elif [[ "$RUNNER_OS" == "Windows" ]]; then
             choco install -y \
               cmake \
               ninja
+            python3 -m pip install --upgrade \
+              build \
+              pybind11 \
+              setuptools
           fi
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
 
       - name: Install Python packages
         shell: bash
         run: |
           python3 -m pip install --upgrade \
-            build \
             pip \
-            pybind11 \
-            setuptools \
             twine
 
       - name: Install Eigen
@@ -114,11 +119,12 @@ jobs:
               bash -c "
                 export CP=cp${PYTHON_VERSION//./}
                 export PYTHON=/opt/python/${CP}-${CP}/bin/python
-                export CMAKE_MAKE_PROGRAM=/opt/python/${CP}-${CP}/bin/ninja
+
+                yum install -y \
+                  ninja-build
 
                 ${PYTHON} -m pip install \
                   build \
-                  ninja \
                   pybind11 \
                   setuptools
 
