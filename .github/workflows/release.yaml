@@ -117,6 +117,7 @@ jobs:
 
                 ${PYTHON} -m pip install \
                   build \
+                  ninja \
                   pybind11 \
                   setuptools
 
