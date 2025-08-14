@@ -290,7 +290,7 @@ jobs:
           mkdir -p build && \
           cd build && \
             cmake .. \
-              -G Ninja \
+              -G "Visual Studio 17 2022" \
               -DCMAKE_CXX_FLAGS="-I$astrea_INCLUDE_DIRS" \
               -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" && \
             cmake --build . && \
