@@ -281,7 +281,6 @@ jobs:
       - name: Build wheel
         shell: bash
         run: |
-          export astrea_PATH="C:/PROGRA~2/astrea/share/astrea/cmake"
           export astrea_INCLUDE_DIRS="C:/PROGRA~2/astrea/include"
           export Eigen3_INCLUDE_DIRS="C:/ProgramData/chocolatey/lib/eigen/include/eigen3"
           export PYBIND11_PATH=$(
@@ -292,8 +291,8 @@ jobs:
           cd build && \
             cmake .. \
               -G Ninja \
-              -DCMAKE_INCLUDE_PATH="$astrea_INCLUDE_DIRS" \
-              -DCMAKE_PREFIX_PATH="$astrea_PATH;$PYBIND11_PATH" && \
+              -DCMAKE_CXX_FLAGS="-I$astrea_INCLUDE_DIRS" \
+              -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" && \
             cmake --build . && \
             cd ..
 
