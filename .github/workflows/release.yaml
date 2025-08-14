@@ -262,16 +262,12 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install build tools
-        shell: bash
-        run: |
-          choco install -y cmake
-
       - name: Install Python packages
         shell: bash
         run: |
           python3 -m pip install --upgrade \
             build \
+            cmake \
             pip \
             pybind11 \
             setuptools \
