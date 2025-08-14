@@ -135,106 +135,17 @@ jobs:
   #       run: |
   #         python -m twine upload --skip-existing wheelhouse/*.whl
 
-  # build-macos:
-  #   strategy:
-  #     matrix:
-  #       os:
-  #         - macos-latest # arm64
-  #         - macos-13 # x86-64
-  #       python-version:
-  #         - "3.13"
-  #         - "3.12"
-  #         - "3.11"
-  #         - "3.10"
-
-  #   runs-on: ${{ matrix.os }}
-
-  #   steps:
-  #     - uses: actions/checkout@v4
-
-  #     - name: Set up Python
-  #       uses: actions/setup-python@v5
-  #       with:
-  #         python-version: ${{ matrix.python-version }}
-
-  #     - name: Install build tools
-  #       shell: bash
-  #       run: |
-  #         brew install \
-  #           cmake \
-  #           ninja
-
-  #     - name: Install Python packages
-  #       shell: bash
-  #       run: |
-  #         python3 -m pip install --upgrade \
-  #           build \
-  #           pip \
-  #           pybind11 \
-  #           setuptools \
-  #           twine
-
-  #     - name: Install Eigen
-  #       shell: bash
-  #       run: |
-  #         brew install eigen
-
-  #     - name: Install Astrea
-  #       shell: bash
-  #       run: |
-  #         git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
-  #         mkdir -p astrea/build && \
-  #         cd astrea/build && \
-  #           cmake .. -G Ninja && \
-  #           sudo ninja install && \
-  #           cd ..
-
-  #     - name: Build wheel
-  #       shell: bash
-  #       env:
-  #         Eigen3_INCLUDE_DIRS: >
-  #           "/opt/homebrew/Cellar/eigen/3.4.0_1/include/eigen3"
-  #         PYBIND11_PATH: >
-  #           $(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
-  #       run: |
-  #         mkdir -p build && \
-  #         cd build && \
-  #           cmake .. \
-  #             -G Ninja \
-  #             -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" && \
-  #           cmake --build . && \
-  #           cd ..
-
-  #         python3 -m build --no-isolation --wheel --outdir ./wheelhouse
-
-  #     - name: Upload artifact
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: wheels-${{ matrix.os }}-${{ matrix.python-version }}
-  #         path: ./wheelhouse/*.whl
-
-  #     - name: Publish to PyPI
-  #       if: success()
-  #       env:
-  #         TWINE_USERNAME: __token__
-  #         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-  #       run: |
-  #         python -m twine upload --skip-existing wheelhouse/*.whl
-
-  build-windows:
+  build-macos:
     strategy:
       matrix:
         os:
-          - windows-latest
-          # - windows-11-arm
+          - macos-latest # arm64
+          # - macos-13 # x86-64
         python-version:
           - "3.13"
           # - "3.12"
           # - "3.11"
           # - "3.10"
-        exclude:
-          - os: windows-11-arm
-            python-version: "3.10"
 
     runs-on: ${{ matrix.os }}
 
@@ -249,7 +160,9 @@ jobs:
       - name: Install build tools
         shell: bash
         run: |
-          choco install -y cmake
+          brew install \
+            cmake \
+            ninja
 
       - name: Install Python packages
         shell: bash
@@ -264,7 +177,7 @@ jobs:
       - name: Install Eigen
         shell: bash
         run: |
-          choco install -y eigen --version 3.4.0
+          brew install eigen
 
       - name: Install Astrea
         shell: bash
@@ -272,25 +185,20 @@ jobs:
           git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
           mkdir -p astrea/build && \
           cd astrea/build && \
-            cmake .. -G "Visual Studio 17 2022" && \
-            cmake --install . && \
+            cmake .. -G Ninja && \
+            sudo ninja install && \
             cd ..
 
       - name: Build wheel
         shell: bash
         run: |
-          export astrea_INCLUDE_DIRS="C:/PROGRA~2/astrea/include"
-          export Eigen3_INCLUDE_DIRS="C:/ProgramData/chocolatey/lib/eigen/include/eigen3"
-          export PYBIND11_PATH=$(
-            python3 -c "import pybind11; print(pybind11.get_cmake_dir())"
-          )
+          export Eigen3_INCLUDE_DIRS="/opt/homebrew/Cellar/eigen/3.4.0_1/include/eigen3"
+          export PYBIND11_PATH=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
 
           mkdir -p build && \
           cd build && \
             cmake .. \
-              -G "Visual Studio 17 2022" \
-              -DCMAKE_CXX_STANDARD=17 \
-              -DCMAKE_CXX_FLAGS="-I$astrea_INCLUDE_DIRS" \
+              -G Ninja \
               -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" && \
             cmake --build . && \
             cd ..
@@ -310,3 +218,93 @@ jobs:
       #     TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       #   run: |
       #     python -m twine upload --skip-existing wheelhouse/*.whl
+
+  # build-windows:
+  #   strategy:
+  #     matrix:
+  #       os:
+  #         - windows-latest
+  #         - windows-11-arm
+  #       python-version:
+  #         - "3.13"
+  #         - "3.12"
+  #         - "3.11"
+  #         - "3.10"
+  #       exclude:
+  #         - os: windows-11-arm
+  #           python-version: "3.10"
+
+  #   runs-on: ${{ matrix.os }}
+
+  #   steps:
+  #     - uses: actions/checkout@v4
+
+  #     - name: Set up Python
+  #       uses: actions/setup-python@v5
+  #       with:
+  #         python-version: ${{ matrix.python-version }}
+
+  #     - name: Install build tools
+  #       shell: bash
+  #       run: |
+  #         choco install -y cmake
+
+  #     - name: Install Python packages
+  #       shell: bash
+  #       run: |
+  #         python3 -m pip install --upgrade \
+  #           build \
+  #           pip \
+  #           pybind11 \
+  #           setuptools \
+  #           twine
+
+  #     - name: Install Eigen
+  #       shell: bash
+  #       run: |
+  #         choco install -y eigen --version 3.4.0
+
+  #     - name: Install Astrea
+  #       shell: bash
+  #       run: |
+  #         git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
+  #         mkdir -p astrea/build && \
+  #         cd astrea/build && \
+  #           cmake .. -G "Visual Studio 17 2022" && \
+  #           cmake --install . && \
+  #           cd ..
+
+  #     - name: Build wheel
+  #       shell: bash
+  #       run: |
+  #         export astrea_INCLUDE_DIRS="C:/PROGRA~2/astrea/include"
+  #         export Eigen3_INCLUDE_DIRS="C:/ProgramData/chocolatey/lib/eigen/include/eigen3"
+  #         export PYBIND11_PATH=$(
+  #           python3 -c "import pybind11; print(pybind11.get_cmake_dir())"
+  #         )
+
+  #         mkdir -p build && \
+  #         cd build && \
+  #           cmake .. \
+  #             -G "Visual Studio 17 2022" \
+  #             -DCMAKE_CXX_STANDARD=17 \
+  #             -DCMAKE_CXX_FLAGS="-I$astrea_INCLUDE_DIRS" \
+  #             -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" && \
+  #           cmake --build . && \
+  #           cd ..
+
+  #         python3 -m build --no-isolation --wheel --outdir ./wheelhouse
+
+  #     - name: Upload artifact
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: wheels-${{ matrix.os }}-${{ matrix.python-version }}
+  #         path: ./wheelhouse/*.whl
+
+  #     - name: Publish to PyPI
+  #       if: success()
+  #       env:
+  #         TWINE_USERNAME: __token__
+  #         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+  #       run: |
+  #         python -m twine upload --skip-existing wheelhouse/*.whl
