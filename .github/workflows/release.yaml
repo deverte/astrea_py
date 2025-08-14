@@ -280,10 +280,10 @@ jobs:
 
       - name: Build wheel
         shell: bash
-        env:
-          astrea_INCLUDE_DIRS: "C:/Program Files (x86)/astrea/include"
-          Eigen3_INCLUDE_DIRS: "C:/ProgramData/chocolatey/lib/eigen/include/eigen3"
         run: |
+          export ASTREA_PATH="C:/Program Files (x86)/astrea/share/astrea/cmake"
+          export astrea_INCLUDE_DIRS="C:/Program Files (x86)/astrea/include"
+          export Eigen3_INCLUDE_DIRS="C:/ProgramData/chocolatey/lib/eigen/include/eigen3"
           export PYBIND11_PATH=$(
             python3 -c "import pybind11; print(pybind11.get_cmake_dir())"
           )
@@ -292,7 +292,7 @@ jobs:
           cd build && \
             cmake .. \
               -G Ninja \
-              -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" && \
+              -DCMAKE_PREFIX_PATH="$ASTREA_PATH;$PYBIND11_PATH" && \
             cmake --build . && \
             cd ..
 
