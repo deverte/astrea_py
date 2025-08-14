@@ -144,6 +144,8 @@ jobs:
                 export CP=cp\${PYTHON_VERSION//./}
                 export Eigen3_INCLUDE_DIRS=\"/usr/local/include/eigen3\"
                 export PYTHON=\"/opt/python/\${CP}-\${CP}/bin/python\"
+                export NINJA=\"/opt/python/\${CP}-\${CP}/bin/ninja\"
+                export CMAKE_MAKE_PROGRAM=\${NINJA}
 
                 \${PYTHON} -m pip install \
                   auditwheel \
