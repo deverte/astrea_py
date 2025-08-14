@@ -36,7 +36,7 @@ manually):
 - `macosx_14_0_universal2`
 - `macosx_13_0_universal2`
 - `win_amd64`
-- `win_arm64`
+- `win_arm`
 
 ### Using Nix Flake
 
