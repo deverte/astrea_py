@@ -292,6 +292,7 @@ jobs:
           cd build && \
             cmake .. \
               -G Ninja \
+              -DCMAKE_INCLUDE_PATH="$astrea_INCLUDE_DIRS" \
               -DCMAKE_PREFIX_PATH="$astrea_PATH;$PYBIND11_PATH" && \
             cmake --build . && \
             cd ..
