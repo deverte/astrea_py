@@ -26,13 +26,10 @@ manually):
 
 - `manylinux_2_34_x86_64` (glibc 2.34)
 - `manylinux_2_34_i686` (glibc 2.34)
-- `manylinux_2_34_aarch64` (glibc 2.34)
 - `manylinux_2_28_x86_64` (glibc 2.28)
 - `manylinux_2_28_i686` (glibc 2.28)
-- `manylinux_2_28_aarch64` (glibc 2.28)
 - `manylinux2014_x86_64` (glibc 2.17)
 - `manylinux2014_i686` (glibc 2.17)
-- `manylinux2014_aarch64` (glibc 2.17)
 
 ### Using Nix Flake
 
