@@ -10,7 +10,7 @@ statistical equilibrium calculations in cosmic plasma.
 ### Using pip
 
 ```sh
-pip3 install astrea_py
+pip3 install astrea
 ```
 
 Officially supported Python versions (for other versions, the library can be
