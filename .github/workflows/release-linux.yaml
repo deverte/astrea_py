@@ -1,0 +1,136 @@
+name: "release-linux"
+
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  release-linux:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+        python-version:
+          - "3.13"
+          - "3.12"
+          - "3.11"
+          - "3.10"
+        manylinux:
+          - image: "manylinux_2_34_x86_64"
+            docker: "linux/amd64"
+          - image: "manylinux_2_34_i686"
+            docker: "linux/386"
+            qemu: "i386"
+          - image: "manylinux_2_34_aarch64"
+            docker: "linux/arm64"
+            qemu: "arm64"
+          - image: "manylinux_2_28_x86_64"
+            docker: "linux/amd64"
+          - image: "manylinux_2_28_i686"
+            docker: "linux/386"
+            qemu: "i386"
+          - image: "manylinux_2_28_aarch64"
+            docker: "linux/arm64"
+            qemu: "arm64"
+          - image: "manylinux2014_x86_64"
+            docker: "linux/amd64"
+          - image: "manylinux2014_i686"
+            docker: "linux/386"
+            qemu: "i386"
+          - image: "manylinux2014_aarch64"
+            docker: "linux/arm64"
+            qemu: "arm64"
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-qemu-action@v3
+        if: matrix.manylinux.qemu
+        with:
+          platforms: ${{ matrix.manylinux.qemu }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Python packages
+        shell: bash
+        run: |
+          python3 -m pip install --upgrade \
+            pip \
+            twine
+
+      - name: Build wheel (Linux)
+        shell: bash
+        env:
+          PYTHON_VERSION: ${{ matrix.python-version }}
+        run: |
+          docker run \
+            --platform ${{ matrix.manylinux.docker }} \
+            --rm \
+            -v $(pwd):/io \
+            -e PYTHON_VERSION=${PYTHON_VERSION} \
+            -e Eigen3_INCLUDE_DIRS=${Eigen3_INCLUDE_DIRS} \
+            quay.io/pypa/${{ matrix.manylinux.image }} \
+              bash -c "
+                export CP=cp\${PYTHON_VERSION//./}
+                export Eigen3_INCLUDE_DIRS=\"/usr/local/include/eigen3\"
+                export PYTHON=\"/opt/python/\${CP}-\${CP}/bin/python\"
+
+                \${PYTHON} -m pip install \
+                  auditwheel \
+                  build \
+                  ninja \
+                  pybind11 \
+                  setuptools
+
+                export PATH="\${PATH}:/opt/python/\${CP}-\${CP}/bin"
+                export PYBIND11_PATH=\$(
+                  \${PYTHON} -c \
+                    \"import pybind11; print(pybind11.get_cmake_dir())\"
+                )
+
+                git clone --branch 3.4.0 https://gitlab.com/libeigen/eigen && \
+                mkdir eigen/build && \
+                cd eigen/build && \
+                  cmake .. -G Ninja && \
+                  ninja install && \
+                  cd ..
+
+                git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
+                mkdir -p astrea/build && \
+                cd astrea/build && \
+                  cmake .. -G Ninja && \
+                  ninja install && \
+                  cd ..
+
+                cd /io && \
+                  mkdir -p build && \
+                  cd build && \
+                    cmake .. \
+                      -G Ninja \
+                      -DCMAKE_PREFIX_PATH=\"\${PYBIND11_PATH}\" && \
+                    cmake --build . && \
+                    cd ..; \
+                  \
+                  mkdir -p /dist && \
+                  \${PYTHON} -m build --no-isolation --wheel --outdir /dist && \
+                  \${PYTHON} -m auditwheel repair /dist/*.whl -w ./wheelhouse
+              "
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheels-${{ matrix.os }}-${{ matrix.python-version }}-${{ matrix.manylinux.image }}
+          path: ./wheelhouse/*.whl
+
+      - name: Publish to PyPI
+        if: success()
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: |
+          python -m twine upload --skip-existing wheelhouse/*.whl

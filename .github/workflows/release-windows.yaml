@@ -1,0 +1,92 @@
+name: "release-windows"
+
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  release-windows:
+    strategy:
+      matrix:
+        os:
+          - windows-latest
+          - windows-11-arm
+        python-version:
+          - "3.13"
+          - "3.12"
+          - "3.11"
+          - "3.10"
+        exclude:
+          - os: windows-11-arm
+            python-version: "3.10"
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Python packages
+        shell: bash
+        run: |
+          python3 -m pip install --upgrade \
+            build \
+            cmake \
+            pip \
+            pybind11 \
+            setuptools \
+            twine
+
+      - name: Install Eigen
+        shell: bash
+        run: |
+          choco install -y eigen --version 3.4.0
+
+      - name: Install Astrea
+        shell: bash
+        run: |
+          git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
+          mkdir -p astrea/build && \
+          cd astrea/build && \
+            cmake .. -G "Visual Studio 17 2022" && \
+            cmake --install . && \
+            cd ..
+
+      - name: Build wheel
+        shell: bash
+        run: |
+          export astrea_INCLUDE_DIRS="C:/PROGRA~2/astrea/include"
+          export Eigen3_INCLUDE_DIRS="C:/ProgramData/chocolatey/lib/eigen/include/eigen3"
+          export PYBIND11_PATH=$(
+            python3 -c "import pybind11; print(pybind11.get_cmake_dir())"
+          )
+
+          mkdir -p build && \
+          cd build && \
+            cmake .. \
+              -G "Visual Studio 17 2022" \
+              -DCMAKE_CXX_STANDARD=17 \
+              -DCMAKE_CXX_FLAGS="-I$astrea_INCLUDE_DIRS" \
+              -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" && \
+            cmake --build . && \
+            cd ..
+
+          python3 -m build --no-isolation --wheel --outdir ./wheelhouse
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheels-${{ matrix.os }}-${{ matrix.python-version }}
+          path: ./wheelhouse/*.whl
+
+      - name: Publish to PyPI
+        if: success()
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: |
+          python -m twine upload --skip-existing wheelhouse/*.whl
