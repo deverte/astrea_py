@@ -33,6 +33,10 @@ manually):
 - `manylinux2014_x86_64` (glibc 2.17)
 - `manylinux2014_i686` (glibc 2.17)
 - `manylinux2014_aarch64` (glibc 2.17)
+- `macosx_10_9_universal2` (not tested)
+- `macosx_10_9_x86_64` (not tested)
+- `windows2022_x86_64` (not tested)
+- `windows2022_arm64` (not tested)
 
 ### Using Nix Flake
 
