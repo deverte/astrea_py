@@ -249,9 +249,7 @@ jobs:
       - name: Install build tools
         shell: bash
         run: |
-          choco install -y \
-            cmake \
-            ninja
+          choco install -y cmake
 
       - name: Install Python packages
         shell: bash
@@ -274,8 +272,8 @@ jobs:
           git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
           mkdir -p astrea/build && \
           cd astrea/build && \
-            cmake .. -G Ninja && \
-            ninja install && \
+            cmake .. -G "Visual Studio 17 2022" && \
+            cmake --install . && \
             cd ..
 
       - name: Build wheel
@@ -291,6 +289,7 @@ jobs:
           cd build && \
             cmake .. \
               -G "Visual Studio 17 2022" \
+              -DCMAKE_CXX_STANDARD=17 \
               -DCMAKE_CXX_FLAGS="-I$astrea_INCLUDE_DIRS" \
               -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" && \
             cmake --build . && \
