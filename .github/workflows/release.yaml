@@ -128,12 +128,7 @@ jobs:
                   pybind11 \
                   setuptools
 
-                export PYBIND11_PATH=$(
-                  ${PYTHON} -c "
-                    import pybind11;
-                    print(pybind11.get_cmake_dir())
-                  "
-                )
+                PYBIND11_PATH=$(${PYTHON} -c "import pybind11; print(pybind11.get_cmake_dir())")
 
                 cd /io && \
                   mkdir -p build && \
