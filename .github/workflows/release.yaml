@@ -112,14 +112,16 @@ jobs:
               bash -c "
                 export CP=cp${PYTHON_VERSION//./}
                 export Eigen3_INCLUDE_DIRS="/usr/local/include/eigen3"
-                alias py3="/opt/python/${CP}-${CP}/bin/python"
 
-                py3 -m pip install \
+                /opt/python/${CP}-${CP}/bin/python -m pip install \
                   build \
                   pybind11 \
                   setuptools
 
-                export PYBIND11_PATH=$(py3 -c "import pybind11; print(pybind11.get_cmake_dir())")
+                export PYBIND11_PATH=$(
+                  /opt/python/${CP}-${CP}/bin/python -c \
+                    "import pybind11; print(pybind11.get_cmake_dir())"
+                )
 
                 yum install -y \
                   ninja-build
@@ -147,7 +149,10 @@ jobs:
                     cmake --build . && \
                     cd ..
 
-                  py3 -m build --no-isolation --wheel
+                  /opt/python/${CP}-${CP}/bin/python \
+                    -m build \
+                    --no-isolation \
+                    --wheel
               "
 
       - name: Build wheel (macOS)
