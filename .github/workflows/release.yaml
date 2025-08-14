@@ -122,7 +122,10 @@ jobs:
                   setuptools
 
                 export PYBIND11_PATH=$(
-                  python3 -c "import pybind11; print(pybind11.get_cmake_dir())"
+                  ${PYTHON} -c "
+                    import pybind11;
+                    print(pybind11.get_cmake_dir())
+                  "
                 )
 
                 cd /io && \
