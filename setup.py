@@ -21,9 +21,8 @@ class CMakeBuild(build_ext):
             extdir.mkdir(parents=True)
 
         build_paths = [
-            *(Path.cwd() / 'build/').glob("*.so"),
-            *(Path.cwd() / 'build/').glob("*.pyd"),
-            *(Path.cwd() / 'build/').glob("*.dll"),
+            *(Path.cwd() / 'build/').glob("**/*.so"),
+            *(Path.cwd() / 'build/').glob("**/*.pyd"),
         ]
         for build_path in build_paths:
             shutil.move(str(build_path.resolve()), ext_fullpath)
