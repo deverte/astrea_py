@@ -107,20 +107,22 @@ jobs:
           docker run \
             --rm \
             -v $(pwd):/io \
+            -e PYTHON_VERSION=${PYTHON_VERSION} \
             -e Eigen3_INCLUDE_DIRS=${Eigen3_INCLUDE_DIRS} \
             quay.io/pypa/${{ matrix.manylinux-image }} \
               bash -c "
-                export CP=cp${PYTHON_VERSION//./}
-                export Eigen3_INCLUDE_DIRS="/usr/local/include/eigen3"
+                export CP=cp\${PYTHON_VERSION//./}
+                export Eigen3_INCLUDE_DIRS=\"/usr/local/include/eigen3\"
+                export PYTHON=\"/opt/python/\${CP}-\${CP}/bin/python\"
 
-                /opt/python/${CP}-${CP}/bin/python -m pip install \
+                \${PYTHON} -m pip install \
                   build \
                   pybind11 \
                   setuptools
 
-                export PYBIND11_PATH=$(
-                  /opt/python/${CP}-${CP}/bin/python -c \
-                    "import pybind11; print(pybind11.get_cmake_dir())"
+                export PYBIND11_PATH=\$(
+                  \${PYTHON} -c \
+                    \"import pybind11; print(pybind11.get_cmake_dir())\"
                 )
 
                 yum install -y \
@@ -145,14 +147,11 @@ jobs:
                   cd build && \
                     cmake .. \
                       -G Ninja \
-                      -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" && \
+                      -DCMAKE_PREFIX_PATH=\"\${PYBIND11_PATH}\" && \
                     cmake --build . && \
                     cd ..
 
-                  /opt/python/${CP}-${CP}/bin/python \
-                    -m build \
-                    --no-isolation \
-                    --wheel
+                  \${PYTHON} -m build --no-isolation --wheel
               "
 
       - name: Build wheel (macOS)
