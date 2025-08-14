@@ -13,6 +13,27 @@ statistical equilibrium calculations in cosmic plasma.
 pip3 install astrea_py
 ```
 
+Officially supported Python versions (for other versions, the library can be
+built manually):
+
+- CPython 3.13
+- CPython 3.12
+- CPython 3.11
+- CPython 3.10
+
+Officially supported platforms (for other platforms, the library can be built
+manually):
+
+- `manylinux_2_34_x86_64` (glibc 2.34)
+- `manylinux_2_34_i686` (glibc 2.34)
+- `manylinux_2_34_aarch64` (glibc 2.34)
+- `manylinux_2_28_x86_64` (glibc 2.28)
+- `manylinux_2_28_i686` (glibc 2.28)
+- `manylinux_2_28_aarch64` (glibc 2.28)
+- `manylinux2014_x86_64` (glibc 2.17)
+- `manylinux2014_i686` (glibc 2.17)
+- `manylinux2014_aarch64` (glibc 2.17)
+
 ### Using Nix Flake
 
 `flake.nix`:
