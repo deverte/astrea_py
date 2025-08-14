@@ -92,15 +92,14 @@ jobs:
           fi
           PYBIND11_PATH=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
 
-          mkdir -p build
+          mkdir -p build && \
           cd build && \
             cmake .. \
               -G Ninja \
-              -DCMAKE_PREFIX_PATH="$PYBIND11_PATH"
-              -DCMAKE_INCLUDE_PATH="$astrea_INCLUDE_DIRS" && \
+              -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" && \
             cmake --build . && \
-            cd ..
-
+            cd .. && \
+          \
           python3 -m build --no-isolation --wheel
 
       - name: Upload artifact
