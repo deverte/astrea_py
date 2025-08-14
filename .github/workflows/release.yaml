@@ -150,9 +150,10 @@ jobs:
                       -G Ninja \
                       -DCMAKE_PREFIX_PATH=\"\${PYBIND11_PATH}\" && \
                     cmake --build . && \
-                    cd ..
-
-                  \${PYTHON} -m build --no-isolation --wheel --output /dist
+                    cd ..; \
+                  \
+                  mkdir -p /dist && \
+                  \${PYTHON} -m build --no-isolation --wheel --outdir /dist && \
                   \${PYTHON} -m auditwheel repair /dist/*.whl -w ./wheelhouse
               "
 
