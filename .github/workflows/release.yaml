@@ -5,167 +5,56 @@ on:
     tags: ["v*"]
 
 jobs:
-  build-linux:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        python-version: [
-          "3.13",
-          "3.12",
-          "3.11",
-          "3.10",
-        ]
-        manylinux:
-          - image: "manylinux_2_34_x86_64"
-            docker: "linux/amd64"
-          - image: "manylinux_2_34_i686"
-            docker: "linux/386"
-            qemu: "i386"
-          - image: "manylinux_2_34_aarch64"
-            docker: "linux/arm64"
-            qemu: "arm64"
-          - image: "manylinux_2_28_x86_64"
-            docker: "linux/amd64"
-          - image: "manylinux_2_28_i686"
-            docker: "linux/386"
-            qemu: "i386"
-          - image: "manylinux_2_28_aarch64"
-            docker: "linux/arm64"
-            qemu: "arm64"
-          - image: "manylinux2014_x86_64"
-            docker: "linux/amd64"
-          - image: "manylinux2014_i686"
-            docker: "linux/386"
-            qemu: "i386"
-          - image: "manylinux2014_aarch64"
-            docker: "linux/arm64"
-            qemu: "arm64"
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: docker/setup-qemu-action@v3
-        if: matrix.manylinux.qemu
-        with:
-          platforms: ${{ matrix.manylinux.qemu }}
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Install Python packages
-        shell: bash
-        run: |
-          python3 -m pip install --upgrade \
-            pip \
-            twine
-
-      - name: Build wheel (Linux)
-        shell: bash
-        env:
-          PYTHON_VERSION: ${{ matrix.python-version }}
-        run: |
-          docker run \
-            --platform ${{ matrix.manylinux.docker }} \
-            --rm \
-            -v $(pwd):/io \
-            -e PYTHON_VERSION=${PYTHON_VERSION} \
-            -e Eigen3_INCLUDE_DIRS=${Eigen3_INCLUDE_DIRS} \
-            quay.io/pypa/${{ matrix.manylinux.image }} \
-              bash -c "
-                export CP=cp\${PYTHON_VERSION//./}
-                export Eigen3_INCLUDE_DIRS=\"/usr/local/include/eigen3\"
-                export PYTHON=\"/opt/python/\${CP}-\${CP}/bin/python\"
-
-                \${PYTHON} -m pip install \
-                  auditwheel \
-                  build \
-                  ninja \
-                  pybind11 \
-                  setuptools
-
-                export PATH="\${PATH}:/opt/python/\${CP}-\${CP}/bin"
-                export PYBIND11_PATH=\$(
-                  \${PYTHON} -c \
-                    \"import pybind11; print(pybind11.get_cmake_dir())\"
-                )
-
-                git clone --branch 3.4.0 https://gitlab.com/libeigen/eigen && \
-                mkdir eigen/build && \
-                cd eigen/build && \
-                  cmake .. -G Ninja && \
-                  ninja install && \
-                  cd ..
-
-                git clone --branch v0.8.0 https://github.com/deverte/astrea && \
-                mkdir -p astrea/build && \
-                cd astrea/build && \
-                  cmake .. -G Ninja && \
-                  ninja install && \
-                  cd ..
-
-                cd /io && \
-                  mkdir -p build && \
-                  cd build && \
-                    cmake .. \
-                      -G Ninja \
-                      -DCMAKE_PREFIX_PATH=\"\${PYBIND11_PATH}\" && \
-                    cmake --build . && \
-                    cd ..; \
-                  \
-                  mkdir -p /dist && \
-                  \${PYTHON} -m build --no-isolation --wheel --outdir /dist && \
-                  \${PYTHON} -m auditwheel repair /dist/*.whl -w ./wheelhouse
-              "
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: wheels-${{ matrix.os }}-${{ matrix.python-version }}-${{ matrix.manylinux.image }}
-          path: ./wheelhouse/*.whl
-
-      - name: Publish to PyPI
-        if: success()
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        run: |
-          python -m twine upload --skip-existing wheelhouse/*.whl
-
-  # build-macos:
+  # build-linux:
   #   runs-on: ${{ matrix.os }}
 
   #   strategy:
   #     matrix:
-  #       os: [macos-latest]
-  #       python-version: [
-  #         "3.13",
-  #         "3.12",
-  #         "3.11",
-  #         "3.10",
-  #       ]
+  #       os:
+  #         - ubuntu-latest
+  #       python-version:
+  #         - "3.13"
+  #         - "3.12"
+  #         - "3.11"
+  #         - "3.10"
+  #       manylinux:
+  #         - image: "manylinux_2_34_x86_64"
+  #           docker: "linux/amd64"
+  #         - image: "manylinux_2_34_i686"
+  #           docker: "linux/386"
+  #           qemu: "i386"
+  #         - image: "manylinux_2_34_aarch64"
+  #           docker: "linux/arm64"
+  #           qemu: "arm64"
+  #         - image: "manylinux_2_28_x86_64"
+  #           docker: "linux/amd64"
+  #         - image: "manylinux_2_28_i686"
+  #           docker: "linux/386"
+  #           qemu: "i386"
+  #         - image: "manylinux_2_28_aarch64"
+  #           docker: "linux/arm64"
+  #           qemu: "arm64"
+  #         - image: "manylinux2014_x86_64"
+  #           docker: "linux/amd64"
+  #         - image: "manylinux2014_i686"
+  #           docker: "linux/386"
+  #           qemu: "i386"
+  #         - image: "manylinux2014_aarch64"
+  #           docker: "linux/arm64"
+  #           qemu: "arm64"
 
   #   steps:
   #     - uses: actions/checkout@v4
+
+  #     - uses: docker/setup-qemu-action@v3
+  #       if: matrix.manylinux.qemu
+  #       with:
+  #         platforms: ${{ matrix.manylinux.qemu }}
 
   #     - name: Set up Python
   #       uses: actions/setup-python@v5
   #       with:
   #         python-version: ${{ matrix.python-version }}
-
-  #     - name: Install build tools
-  #       shell: bash
-  #       run: |
-  #         brew install \
-  #           cmake \
-  #           ninja
-  #         python3 -m pip install --upgrade \
-  #           build \
-  #           pybind11 \
-  #           setuptools
 
   #     - name: Install Python packages
   #       shell: bash
@@ -174,54 +63,68 @@ jobs:
   #           pip \
   #           twine
 
-  #     - name: Install Eigen
-  #       shell: bash
-  #       run: |
-  #         if [[ "$RUNNER_OS" == "Linux" ]]; then
-  #           sudo apt-get update
-  #           sudo apt-get install -y libeigen3-dev
-  #         elif [[ "$RUNNER_OS" == "macOS" ]]; then
-  #           brew install eigen
-  #         elif [[ "$RUNNER_OS" == "Windows" ]]; then
-  #           choco install -y eigen --version 3.4.0
-  #         fi
-
-  #     - name: Install Astrea
-  #       shell: bash
-  #       run: |
-  #         git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
-  #         mkdir -p astrea/build
-  #         cd astrea/build
-  #           cmake .. -G Ninja
-  #           if [[ "$RUNNER_OS" == "Linux" ]]; then
-  #             sudo ninja install
-  #           elif [[ "$RUNNER_OS" == "macOS" ]]; then
-  #             sudo ninja install
-  #           elif [[ "$RUNNER_OS" == "Windows" ]]; then
-  #             ninja install
-  #           fi
-  #           cd ..
-
-  #     - name: Build wheel
+  #     - name: Build wheel (Linux)
   #       shell: bash
   #       env:
-  #         Eigen3_INCLUDE_DIRS: "/opt/homebrew/Cellar/eigen/3.4.0_1/include/eigen3"
-  #         PYBIND11_PATH: $(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
+  #         PYTHON_VERSION: ${{ matrix.python-version }}
   #       run: |
-  #         mkdir -p build && \
-  #         cd build && \
-  #           cmake .. \
-  #             -G Ninja \
-  #             -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" && \
-  #           cmake --build . && \
-  #           cd ..
+  #         docker run \
+  #           --platform ${{ matrix.manylinux.docker }} \
+  #           --rm \
+  #           -v $(pwd):/io \
+  #           -e PYTHON_VERSION=${PYTHON_VERSION} \
+  #           -e Eigen3_INCLUDE_DIRS=${Eigen3_INCLUDE_DIRS} \
+  #           quay.io/pypa/${{ matrix.manylinux.image }} \
+  #             bash -c "
+  #               export CP=cp\${PYTHON_VERSION//./}
+  #               export Eigen3_INCLUDE_DIRS=\"/usr/local/include/eigen3\"
+  #               export PYTHON=\"/opt/python/\${CP}-\${CP}/bin/python\"
 
-  #         python3 -m build --no-isolation --wheel
+  #               \${PYTHON} -m pip install \
+  #                 auditwheel \
+  #                 build \
+  #                 ninja \
+  #                 pybind11 \
+  #                 setuptools
+
+  #               export PATH="\${PATH}:/opt/python/\${CP}-\${CP}/bin"
+  #               export PYBIND11_PATH=\$(
+  #                 \${PYTHON} -c \
+  #                   \"import pybind11; print(pybind11.get_cmake_dir())\"
+  #               )
+
+  #               git clone --branch 3.4.0 https://gitlab.com/libeigen/eigen && \
+  #               mkdir eigen/build && \
+  #               cd eigen/build && \
+  #                 cmake .. -G Ninja && \
+  #                 ninja install && \
+  #                 cd ..
+
+  #               git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
+  #               mkdir -p astrea/build && \
+  #               cd astrea/build && \
+  #                 cmake .. -G Ninja && \
+  #                 ninja install && \
+  #                 cd ..
+
+  #               cd /io && \
+  #                 mkdir -p build && \
+  #                 cd build && \
+  #                   cmake .. \
+  #                     -G Ninja \
+  #                     -DCMAKE_PREFIX_PATH=\"\${PYBIND11_PATH}\" && \
+  #                   cmake --build . && \
+  #                   cd ..; \
+  #                 \
+  #                 mkdir -p /dist && \
+  #                 \${PYTHON} -m build --no-isolation --wheel --outdir /dist && \
+  #                 \${PYTHON} -m auditwheel repair /dist/*.whl -w ./wheelhouse
+  #             "
 
   #     - name: Upload artifact
   #       uses: actions/upload-artifact@v4
   #       with:
-  #         name: wheels-${{ matrix.os }}-${{ matrix.python-version }}-${{ matrix.manylinux-image }}
+  #         name: wheels-${{ matrix.os }}-${{ matrix.python-version }}-${{ matrix.manylinux.image }}
   #         path: ./wheelhouse/*.whl
 
   #     - name: Publish to PyPI
@@ -231,6 +134,92 @@ jobs:
   #         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
   #       run: |
   #         python -m twine upload --skip-existing wheelhouse/*.whl
+
+  build-macos:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os:
+          - macos-latest # arm64
+          - macos-latest-large # x86-64
+        python-version:
+          - "3.13"
+          - "3.12"
+          - "3.11"
+          - "3.10"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install build tools
+        shell: bash
+        run: |
+          brew install \
+            cmake \
+            ninja
+
+      - name: Install Python packages
+        shell: bash
+        run: |
+          python3 -m pip install --upgrade \
+            build \
+            pip \
+            pybind11 \
+            setuptools \
+            twine
+
+      - name: Install Eigen
+        shell: bash
+        run: |
+          brew install eigen
+
+      - name: Install Astrea
+        shell: bash
+        run: |
+          git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
+          mkdir -p astrea/build && \
+          cd astrea/build && \
+            cmake .. -G Ninja && \
+            sudo ninja install && \
+            cd ..
+
+      - name: Build wheel
+        shell: bash
+        env:
+          Eigen3_INCLUDE_DIRS: >
+            "/opt/homebrew/Cellar/eigen/3.4.0_1/include/eigen3"
+          PYBIND11_PATH: >
+            $(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
+        run: |
+          mkdir -p build && \
+          cd build && \
+            cmake .. \
+              -G Ninja \
+              -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" && \
+            cmake --build . && \
+            cd ..
+
+          python3 -m build --no-isolation --wheel --outdir ./wheelhouse
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheels-${{ matrix.os }}-${{ matrix.python-version }}
+          path: ./wheelhouse/*.whl
+
+      # - name: Publish to PyPI
+      #   if: success()
+      #   env:
+      #     TWINE_USERNAME: __token__
+      #     TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+      #   run: |
+      #     python -m twine upload --skip-existing wheelhouse/*.whl
 
   # build-windows:
   #   runs-on: ${{ matrix.os }}

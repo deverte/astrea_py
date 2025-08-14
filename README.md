@@ -48,8 +48,8 @@ manually):
   outputs = inputs@{ self, astreapypkgs, ... }:
   let
     system = "x86_64-linux";
-    astreaPy = astreapypkgs.packages.${system}.default; // default Python
-    // astreaPy = astreapypkgs.packages.${system}.python310; // specific Python
+    astreaPy = astreapypkgs.packages.${system}.default; # default Python
+    # astreaPy = astreapypkgs.packages.${system}.python310; # specific Python
   in {
     devShells.${system}.default = pkgs.mkShell {
       buildInputs = [

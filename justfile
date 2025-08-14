@@ -13,7 +13,7 @@ update-version:
   flake_in.write_text(re.sub(pattern, repl, flake_in.read_text()))
 
   flake_in = pathlib.Path('flake.nix')
-  pattern = '\/archive\/refs\/tags\/.*\.tar\.gz"; # managed'
+  pattern = '\\/archive\\/refs\\/tags\\/.*\\.tar\\.gz"; # managed'
   repl = '/archive/refs/tags/v{{version}}.tar.gz"; # managed'
   flake_in.write_text(re.sub(pattern, repl, flake_in.read_text()))
 
@@ -28,7 +28,7 @@ update-version:
   pyproject.write_text(re.sub(pattern, repl, pyproject.read_text()))
 
   readme = pathlib.Path('README.md')
-  pattern = '\/archive\/refs\/tags\/.*\.tar\.gz'
+  pattern = '\\/archive\\/refs\\/tags\\/.*\\.tar\\.gz'
   repl = '/archive/refs/tags/v{{version}}.tar.gz'
   readme.write_text(re.sub(pattern, repl, readme.read_text()))
 
