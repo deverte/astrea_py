@@ -34,7 +34,7 @@ manually):
 - `manylinux2014_i686` (glibc 2.17)
 - `manylinux2014_aarch64` (glibc 2.17)
 - `macosx_14_0_universal2`
-- `macosx_10_9_x86_64`
+- `macosx_13_0_universal2`
 - `win_amd64`
 - `win_arm64`
 
