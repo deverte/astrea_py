@@ -1,5 +1,5 @@
 project := "astrea"
-version := "0.8.0"
+version := "0.8.1"
 
 
 update-version:
@@ -7,17 +7,20 @@ update-version:
   import pathlib
   import re
 
-  flake_in = pathlib.Path('.github/workflows/release.yaml')
+  releases = [
+      pathlib.Path('.github/workflows/release-linux.yaml'),
+      pathlib.Path('.github/workflows/release-macos.yaml'),
+      pathlib.Path('.github/workflows/release-windows.yaml'),
+  ]
   pattern = '--branch .* https://github.com/deverte/astrea # managed'
   repl = '--branch v{{version}} https://github.com/deverte/astrea # managed'
-  flake_in.write_text(re.sub(pattern, repl, flake_in.read_text()))
-
-  flake_in = pathlib.Path('flake.nix')
-  pattern = '\\/archive\\/refs\\/tags\\/.*\\.tar\\.gz"; # managed'
-  repl = '/archive/refs/tags/v{{version}}.tar.gz"; # managed'
-  flake_in.write_text(re.sub(pattern, repl, flake_in.read_text()))
+  for release in releases:
+      release.write_text(re.sub(pattern, repl, release.read_text()))
 
   flake = pathlib.Path('flake.nix')
+  pattern = '\\/archive\\/refs\\/tags\\/.*\\.tar\\.gz"; # managed'
+  repl = '/archive/refs/tags/v{{version}}.tar.gz"; # managed'
+  flake.write_text(re.sub(pattern, repl, flake.read_text()))
   pattern = 'version = ".*"; # managed'
   repl = 'version = "{{version}}"; # managed'
   flake.write_text(re.sub(pattern, repl, flake.read_text()))
@@ -63,7 +66,9 @@ dist: \
   (dist_version "3.10") \
   (dist_version "3.11") \
   (dist_version "3.12") \
-  (dist_version "3.13")
+  (dist_version "3.13") \
+  (dist_version "3.14") \
+  (dist_version "3.15")
 
 
 dist_version python_version:

@@ -2,9 +2,9 @@
   description = "astrea_py";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-25.05";
+    nixpkgs.url = "nixpkgs/nixos-26.05";
     astreapkgs.url =
-      "https://github.com/deverte/astrea/archive/refs/tags/v0.8.0.tar.gz"; # managed by justfile
+      "https://github.com/deverte/astrea/archive/refs/tags/v0.8.1.tar.gz"; # managed by justfile
   };
 
   outputs = inputs@{ self, nixpkgs, astreapkgs, ... }:
@@ -17,7 +17,7 @@
 
     buildAstreaPyPackage = pythonPackages: pythonPackages.buildPythonPackage {
       name = "astrea_py";
-      version = "0.8.0"; # managed by justfile
+      version = "0.8.1"; # managed by justfile
       src = ./.;
       nativeBuildInputs = [
         pkgs.cmake
@@ -82,6 +82,8 @@
       "python311" = buildAstreaPyPackage pkgs.python311Packages;
       "python312" = buildAstreaPyPackage pkgs.python312Packages;
       "python313" = buildAstreaPyPackage pkgs.python313Packages;
+      "python314" = buildAstreaPyPackage pkgs.python313Packages;
+      "python315" = buildAstreaPyPackage pkgs.python313Packages;
     };
   };
 }

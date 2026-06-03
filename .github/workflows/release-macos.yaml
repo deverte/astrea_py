@@ -12,6 +12,8 @@ jobs:
           - macos-latest # arm64
           - macos-13 # x86-64
         python-version:
+          - "3.15"
+          - "3.14"
           - "3.13"
           - "3.12"
           - "3.11"
@@ -52,7 +54,7 @@ jobs:
       - name: Install Astrea
         shell: bash
         run: |
-          git clone --branch v0.8.0 https://github.com/deverte/astrea # managed by justfile
+          git clone --branch v0.8.1 https://github.com/deverte/astrea # managed by justfile
           mkdir -p astrea/build && \
           cd astrea/build && \
             cmake .. -G Ninja && \
@@ -87,7 +89,8 @@ jobs:
           cd build && \
             cmake .. \
               -G Ninja \
-              -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" && \
+              -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" \
+              -DCMAKE_BUILD_TYPE=Release && \
             cmake --build . && \
             cd ..
 

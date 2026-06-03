@@ -16,6 +16,8 @@ pip3 install astrea
 Officially supported Python versions (for other versions, the library can be
 built manually):
 
+- CPython 3.15
+- CPython 3.14
 - CPython 3.13
 - CPython 3.12
 - CPython 3.11
@@ -46,7 +48,7 @@ manually):
 {
   inputs = {
     astreapypkgs.url =
-      "http://github.com/deverte/astrea_py/archive/refs/tags/v0.8.0.tar.gz";
+      "http://github.com/deverte/astrea_py/archive/refs/tags/v0.8.1.tar.gz";
   };
 
   outputs = inputs@{ self, astreapypkgs, ... }:
