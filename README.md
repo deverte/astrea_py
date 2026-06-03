@@ -27,18 +27,8 @@ Officially supported platforms (for other platforms, the library can be built
 manually):
 
 - `manylinux_2_34_x86_64` (glibc 2.34)
-- `manylinux_2_34_i686` (glibc 2.34)
-- `manylinux_2_34_aarch64` (glibc 2.34)
-- `manylinux_2_28_x86_64` (glibc 2.28)
-- `manylinux_2_28_i686` (glibc 2.28)
-- `manylinux_2_28_aarch64` (glibc 2.28)
-- `manylinux2014_x86_64` (glibc 2.17)
-- `manylinux2014_i686` (glibc 2.17)
-- `manylinux2014_aarch64` (glibc 2.17)
 - `macosx_14_0_universal2`
-- `macosx_13_0_universal2`
 - `win_amd64`
-- `win_arm`
 
 ### Using Nix Flake
 

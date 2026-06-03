@@ -14,43 +14,14 @@ jobs:
           - "3.14"
           - "3.13"
           - "3.12"
-          - "3.11"
-          - "3.10"
         manylinux:
           - image: "manylinux_2_34_x86_64"
             docker: "linux/amd64"
-          - image: "manylinux_2_34_i686"
-            docker: "linux/386"
-            qemu: "i386"
-          - image: "manylinux_2_34_aarch64"
-            docker: "linux/arm64"
-            qemu: "arm64"
-          - image: "manylinux_2_28_x86_64"
-            docker: "linux/amd64"
-          - image: "manylinux_2_28_i686"
-            docker: "linux/386"
-            qemu: "i386"
-          - image: "manylinux_2_28_aarch64"
-            docker: "linux/arm64"
-            qemu: "arm64"
-          - image: "manylinux2014_x86_64"
-            docker: "linux/amd64"
-          - image: "manylinux2014_i686"
-            docker: "linux/386"
-            qemu: "i386"
-          - image: "manylinux2014_aarch64"
-            docker: "linux/arm64"
-            qemu: "arm64"
 
     runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v4
-
-      - uses: docker/setup-qemu-action@v3
-        if: matrix.manylinux.qemu
-        with:
-          platforms: ${{ matrix.manylinux.qemu }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -62,66 +33,54 @@ jobs:
         run: |
           python3 -m pip install --upgrade \
             pip \
-            twine
+            twine \
+            \
+            auditwheel \
+            build \
+            ninja \
+            pybind11 \
+            setuptools
+
+      - name: Install Eigen
+        shell: bash
+        run: |
+          git clone --branch 3.4.0 https://gitlab.com/libeigen/eigen && \
+          mkdir eigen/build && \
+          cd eigen/build && \
+            cmake .. -G Ninja && \
+            sudo ninja install && \
+            cd ..
+
+      - name: Install Astrea
+        shell: bash
+        run: |
+          git clone --branch v0.8.1 https://github.com/deverte/astrea # managed by justfile
+          mkdir -p astrea/build && \
+          cd astrea/build && \
+            cmake .. -G Ninja && \
+            sudo ninja install && \
+            cd ..
 
       - name: Build wheel (Linux)
         shell: bash
         env:
           PYTHON_VERSION: ${{ matrix.python-version }}
         run: |
-          docker run \
-            --platform ${{ matrix.manylinux.docker }} \
-            --rm \
-            -v $(pwd):/io \
-            -e PYTHON_VERSION=${PYTHON_VERSION} \
-            -e Eigen3_INCLUDE_DIRS=${Eigen3_INCLUDE_DIRS} \
-            quay.io/pypa/${{ matrix.manylinux.image }} \
-              bash -c "
-                export CP=cp\${PYTHON_VERSION//./}
-                export Eigen3_INCLUDE_DIRS=\"/usr/local/include/eigen3\"
-                export PYTHON=\"/opt/python/\${CP}-\${CP}/bin/python\"
+          export Eigen3_INCLUDE_DIRS="/usr/local/include/eigen3"
+          export PYBIND11_PATH=$(python3 -c "import pybind11; print(pybind11.get_cmake_dir())")
 
-                \${PYTHON} -m pip install \
-                  auditwheel \
-                  build \
-                  ninja \
-                  pybind11 \
-                  setuptools
+          mkdir -p build && \
+          cd build && \
+            cmake .. \
+              -G Ninja \
+              -DCMAKE_PREFIX_PATH="$PYBIND11_PATH" \
+              -DCMAKE_BUILD_TYPE=Release && \
+            cmake --build . && \
+            cd ..
 
-                export PATH="\${PATH}:/opt/python/\${CP}-\${CP}/bin"
-                export PYBIND11_PATH=\$(
-                  \${PYTHON} -c \
-                    \"import pybind11; print(pybind11.get_cmake_dir())\"
-                )
-
-                git clone --branch 3.4.0 https://gitlab.com/libeigen/eigen && \
-                mkdir eigen/build && \
-                cd eigen/build && \
-                  cmake .. -G Ninja && \
-                  ninja install && \
-                  cd ..
-
-                git clone --branch v0.8.1 https://github.com/deverte/astrea # managed by justfile
-                mkdir -p astrea/build && \
-                cd astrea/build && \
-                  cmake .. -G Ninja && \
-                  ninja install && \
-                  cd ..
-
-                cd /io && \
-                  mkdir -p build && \
-                  cd build && \
-                    cmake .. \
-                      -G Ninja \
-                      -DCMAKE_PREFIX_PATH=\"\${PYBIND11_PATH}\" \
-                      -DCMAKE_BUILD_TYPE=Release && \
-                    cmake --build . && \
-                    cd ..; \
-                  \
-                  mkdir -p /dist && \
-                  \${PYTHON} -m build --no-isolation --wheel --outdir /dist && \
-                  \${PYTHON} -m auditwheel repair /dist/*.whl -w ./wheelhouse
-              "
+          mkdir -p /dist
+          python3 -m build --no-isolation --wheel --outdir /dist
+          python3 -m auditwheel repair /dist/*.whl -w ./wheelhouse
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
