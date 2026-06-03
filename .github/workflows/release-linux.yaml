@@ -78,9 +78,9 @@ jobs:
             cmake --build . && \
             cd ..
 
-          mkdir -p /dist
-          python3 -m build --no-isolation --wheel --outdir /dist
-          python3 -m auditwheel repair /dist/*.whl -w ./wheelhouse
+          mkdir -p ./dist
+          python3 -m build --no-isolation --wheel --outdir ./dist
+          python3 -m auditwheel repair ./dist/*.whl -w ./wheelhouse
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
