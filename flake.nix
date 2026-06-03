@@ -19,6 +19,8 @@
       name = "astrea_py";
       version = "0.8.1"; # managed by justfile
       src = ./.;
+      pyproject = true;
+      build-system = [ pythonPackages.setuptools ];
       nativeBuildInputs = [
         pkgs.cmake
         pkgs.just
