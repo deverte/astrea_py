@@ -12,7 +12,6 @@ jobs:
           - windows-latest
           - windows-11-arm
         python-version:
-          - "3.15"
           - "3.14"
           - "3.13"
           - "3.12"
